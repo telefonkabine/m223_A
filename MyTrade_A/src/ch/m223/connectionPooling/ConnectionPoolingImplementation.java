@@ -72,7 +72,11 @@ public class ConnectionPoolingImplementation implements ConnectionPooling {
 		if(null == theInstance) {
 			try {
 				theInstance = new ConnectionPoolingImplementation(min, max);
-			} catch (ClassNotFoundException|SQLException e) {
+			} catch (ClassNotFoundException e) {
+				System.out.println("Exception in getInstance: " + e);
+				e.printStackTrace();
+				return null;
+			} catch (SQLException e){
 				System.out.println("Exception in getInstance: " + e);
 				e.printStackTrace();
 				return null;
