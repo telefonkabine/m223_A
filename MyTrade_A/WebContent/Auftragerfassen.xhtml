@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+	Autor:	Christina Nordmann
+	Date:	28.05.2015 
+ -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<link rel="stylesheet" type="text/css" href="../css/style.css"
+	title="Standard" />
+<title>Admin</title>
+</head>
+<body>
+	<div id="mutterBox">
+		<f:view>Aufrtag erfassen</f:view>
+	</div>
+	<div id="meldungBox">
+		<f:view>Meldungen</f:view>
+	</div>
+	<div id="inhaltBox">
+		<f:view>Auftrag erfassen</f:view>
+		<h:form>
+			<h:panelGrid>
+				<h:outputLabel for="fieldAktien" value="Aktie" />
+				<h:selectOneMenu>
+					<f:selectItem itemValue="#{rolle}" itemLabel="#{rolle}" />
+				</h:selectOneMenu>
+				
+				<h:outputLabel for="fieldPreis" value="Preis (CHF)" />
+				<h:inputText id="fieldPreis" value="#{preis}" />
+				<h:message for="fieldPreis" />
+	
+				<h:outputLabel for="fieldAnzahl" value="Stückzahl (1-n)" />
+				<h:inputText id="fieldAnzahl" value="#{anzahl}" />
+				<h:message for="Anzahl" />
+			</h:panelGrid>
+
+			<h:commandButton value="Zurück" action="#{zurueck}" ajax="false" />
+			<h:commandButton value="OK" action="#{saveAuftrag}" ajax="false" />
+
+		</h:form>
+	
+	</div>
+</body>
+</html>

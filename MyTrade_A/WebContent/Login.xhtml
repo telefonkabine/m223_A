@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+	Autor:	Christina Nordmann
+	Date:	28.05.2015 
+ -->
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
@@ -21,19 +25,17 @@
 	<div id = "inhaltBox">
 		<f:view>Inhalt</f:view>
 		<h:form>
-		<table>
-			<tr>
-				<td>Benutzername</td>
-				<td><h:inputText value="#{loginFormBean.username}" /></td>
-			</tr>
-			<tr>
-				<td>Passwort</td>
-				<td><h:inputSecret value="#{loginFormBean.password}" /></td>
-			</tr>
-			<tr>
-				<td><h:commandButton value="OK" action="#{loginFormBean.anmelden}" /></td>
-			</tr>
-		</table>
+		<h:panelGrid>
+				<h:outputLabel for="fieldBenutzername" value="Benutzername" />
+				<h:inputText id="fieldBenutzername" value="#{benutzername}" />
+				<h:message for="fieldBenutzername" />
+				
+				<h:outputLabel for="fieldPasswort" value="Passwort" />
+				<h:inputText id="fieldPasswort" value="#{eingabe.passwort}" />
+				<h:message for="Passwort" />
+				</h:panelGrid>
+				
+				<h:commandButton value="OK" action="#{eingabe.ok}" />
 		</h:form>
 	</div>
 
