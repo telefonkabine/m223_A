@@ -11,11 +11,11 @@
 <head>
 <link rel="stylesheet" type="text/css" href="../css/style.css"
 	title="Standard" />
-<title>Offene Aufträge</title>
+<title>Mein Portfolio</title>
 </head>
 <body>
 	<div id="mutterBox">
-		<f:view>Aufrtag erfassen</f:view>
+		<f:view>Mein Portfolio</f:view>
 	</div>
 	<div id="meldungBox">
 		<f:view>Meldungen</f:view>
@@ -33,16 +33,21 @@
     			</h:column>
 
 				<h:column>
-					<f:facet name="header">Aktie</f:facet>
-    				#{o.aktie}
+					<f:facet name="header">Offene Aufträge</f:facet>
+    				#{o.aufträge}
     			</h:column>
 
 				<h:column>
-					<f:facet name="header">Preis</f:facet>
-    				#{o.preis}
+					<f:facet name="header">Anzahl</f:facet>
+    				#{o.anzahl}
     			</h:column>
 
 				<h:column>
+					<f:facet name="header">Letzte Dividende (CHF)</f:facet>
+    				#{o.dividende}
+    			</h:column>
+    			
+    			<h:column>
 					<f:facet name="header">Aktionen</f:facet>
     				#{o.aktionen}
     			</h:column>

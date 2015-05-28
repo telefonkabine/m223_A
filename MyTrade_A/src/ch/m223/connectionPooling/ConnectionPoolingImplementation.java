@@ -76,9 +76,9 @@ public class ConnectionPoolingImplementation implements ConnectionPooling {
 				System.out.println("Exception in getInstance: " + e);
 				e.printStackTrace();
 				return null;
-			} catch (SQLException e){
-				System.out.println("Exception in getInstance: " + e);
-				e.printStackTrace();
+			} catch (SQLException sqex) {
+				System.out.println("Exception in getInstance: " + sqex);
+				sqex.printStackTrace();
 				return null;
 			}
 		}
