@@ -18,20 +18,20 @@
 		<f:view>Meldungen</f:view>
 	</div>
 	<br />
-	<div id="inhaltBox">
+	<div id = "inhaltBox">
 		<f:view>Inhalt</f:view>
 		<h:form>
 		<table>
 			<tr>
 				<td>Benutzername</td>
-				<td><h:inputText value="#{eingabe.benutzername}" /></td>
+				<td><h:inputText value="#{loginFormBean.username}" /></td>
 			</tr>
 			<tr>
 				<td>Passwort</td>
-				<td><h:inputText value="#{eingabe.passwort}" /></td>
+				<td><h:inputSecret value="#{loginFormBean.password}" /></td>
 			</tr>
 			<tr>
-				<td><h:commandButton value="OK" action="#{eingabe.ok}" /></td>
+				<td><h:commandButton value="OK" action="#{loginFormBean.anmelden}" /></td>
 			</tr>
 		</table>
 		</h:form>
