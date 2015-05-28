@@ -10,6 +10,7 @@ public class UserDAO {
 
 	public boolean accountExistiert(String user, String password) {
 		
+		
 		return login(user, password);
 	}
 	
@@ -23,7 +24,7 @@ public class UserDAO {
 
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT login, passwort FROM benutzer WHERE login = '" + user + "' AND passwort = MD5('" + password + "')");
-
+			 
 			int count = 0;
 			
 			while (rs.next()) {
@@ -32,15 +33,17 @@ public class UserDAO {
 				
 				if (count > 1) {
 					System.out.println("Es gibt mehr als einen Benutzer: " + user);
-					return false;
-				}
+					return false;	
+				} else if (count == 1){
+				return true;
+				}	
+				
 			}
+		
+				rs.close();
+				stmt.close();
+				con.close();
 			
-			rs.close();
-			stmt.close();
-			con.close();
-			
-			return true;
 
 		} catch (SQLException e) {
 			System.out.println("Es trat ein Fehler mit SQL auf");
