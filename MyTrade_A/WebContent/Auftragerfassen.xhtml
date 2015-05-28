@@ -11,7 +11,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="../css/style.css"
 	title="Standard" />
-<title>Admin</title>
+<title>Aufrtag erfassen</title>
 </head>
 <body>
 	<div id="mutterBox">
@@ -28,11 +28,11 @@
 				<h:selectOneMenu>
 					<f:selectItem itemValue="#{rolle}" itemLabel="#{rolle}" />
 				</h:selectOneMenu>
-				
+
 				<h:outputLabel for="fieldPreis" value="Preis (CHF)" />
 				<h:inputText id="fieldPreis" value="#{preis}" />
 				<h:message for="fieldPreis" />
-	
+
 				<h:outputLabel for="fieldAnzahl" value="Stückzahl (1-n)" />
 				<h:inputText id="fieldAnzahl" value="#{anzahl}" />
 				<h:message for="Anzahl" />
@@ -42,7 +42,7 @@
 			<h:commandButton value="OK" action="#{saveAuftrag}" ajax="false" />
 
 		</h:form>
-	
+
 	</div>
 </body>
 </html>
