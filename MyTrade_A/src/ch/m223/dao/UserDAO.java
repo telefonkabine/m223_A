@@ -1,25 +1,24 @@
-package ch.m223.jdbc;
+package ch.m223.dao;
 
 import java.sql.*;
 
-public class MyTradeJDBC {
+import ch.m223.connectionPooling.ConnectionPooling;
+import ch.m223.connectionPooling.ConnectionPoolingImplementation;
 
-		
-		private String treiberName = "com.mysql.jdbc.Driver";
-		private String connectionURL = "jdbc:mysql://192.168.1.62/mytrade";
+public class UserDAO {
 
 
 	public boolean accountExistiert(String user, String password) {
 		
-		return top(user, password);
+		return login(user, password);
 	}
 
-	public boolean top(String user, String password) {
+	public boolean login(String user, String password) {
 		try {
-			Class.forName(treiberName);
-
-			Connection con;
-			con = DriverManager.getConnection(connectionURL, "MyTradeUser", "123456");
+			ConnectionPooling connectionPooling;
+			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+			
+			Connection con = connectionPooling.getConnection();
 
 
 			Statement stmt = con.createStatement();
@@ -43,9 +42,6 @@ public class MyTradeJDBC {
 			
 			return true;
 
-		} catch (ClassNotFoundException e) {
-			System.out.println("Fehler beim Verbindungsaufbau");
-			e.printStackTrace();
 		} catch (SQLException e) {
 			System.out.println("Es trat ein Fehler mit SQL auf");
 			e.printStackTrace();

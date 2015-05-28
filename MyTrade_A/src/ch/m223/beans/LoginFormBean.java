@@ -3,7 +3,7 @@ package ch.m223.beans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import ch.m223.jdbc.MyTradeJDBC;
+import ch.m223.dao.UserDAO;
 
 
 
@@ -13,11 +13,11 @@ public class LoginFormBean {
 
 	private String username;
 	private String password;
-	private MyTradeJDBC jdbc;
+	private UserDAO jdbc;
 
 	public LoginFormBean() {
 
-		jdbc = new MyTradeJDBC();
+		jdbc = new UserDAO();
 	}
 
 	public String anmelden() {
