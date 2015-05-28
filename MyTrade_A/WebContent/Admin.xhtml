@@ -7,36 +7,20 @@
 <head>
 <link rel="stylesheet" type="text/css" href="../css/style.css"
 	title="Standard" />
-<title>Login</title>
+<title>Admin</title>
 </head>
 <body>
 	<div id="mutterBox">
-		<f:view>My Trade</f:view>
+		<f:view>Admin</f:view>
 	</div>
-	<br />
-	<div id= "meldungBox">
+	<div id="meldungBox">
 		<f:view>Meldungen</f:view>
 	</div>
-	<br />
 	<div id="inhaltBox">
-		<f:view>Inhalt</f:view>
-		<h:form>
-		<table>
-			<tr>
-				<td>Benutzername</td>
-				<td><h:inputText value="#{eingabe.benutzername}" /></td>
-			</tr>
-			<tr>
-				<td>Passwort</td>
-				<td><h:inputText value="#{eingabe.passwort}" /></td>
-			</tr>
-			<tr>
-				<td><h:commandButton value="OK" action="#{eingabe.ok}" /></td>
-			</tr>
-		</table>
-		</h:form>
+		<a href="#{klick.aktien}" target="_blank">Aktien erfassen</a> <br />
+		<a href="#{klick.benutzer}" target="_blank">Benutzer erfassen</a> <br />
+		<a href="#{klick.dividenden}" target="_blank">Dividenden
+			ausschütten</a>
 	</div>
-
-
 </body>
 </html>
