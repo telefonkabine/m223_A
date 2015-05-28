@@ -12,7 +12,7 @@ public class UserDAO {
 		
 		return login(user, password);
 	}
-
+	
 	public boolean login(String user, String password) {
 		try {
 			ConnectionPooling connectionPooling;
@@ -48,5 +48,24 @@ public class UserDAO {
 		}
 		return false;
 	}
+	
+	public void insertUser(String vorname, String name, String loginname, String passwort, int fk_typID, int kontostand){
+		try{
+			ConnectionPooling connectionPooling;
+			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+			
+			Connection con = connectionPooling.getConnection();
+			
+			Statement stmt = con.createStatement();
+			
+			ResultSet rs = stmt.executeQuery("INSERT INTO benutzer (Name, Vorname, Login, Passwort, Fk_TypID, Kontostand) "
+					                       + "VALUES ('" + name +"', '" + vorname + "', '" + loginname + "', "
+					                       + "MD5('"+ passwort +"'), '" + fk_typID + "', '" + kontostand + "')");
+		} catch(SQLException sqle){
+			System.out.println("Es trat ein Fehler mit SQL auf");
+			sqle.printStackTrace();
+		}
+	}
+
 
 }
