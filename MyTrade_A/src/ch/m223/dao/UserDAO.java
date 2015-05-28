@@ -1,3 +1,9 @@
+/**
+ * @author : Jason Angst, Dennis Gehrig
+ * @date   : 28.05.2015
+ * @version: 1.0
+ * 
+ * **/
 package ch.m223.dao;
 
 import java.sql.*;
@@ -21,9 +27,11 @@ public class UserDAO {
 			
 			Connection con = connectionPooling.getConnection();
 
-
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT login, passwort FROM benutzer WHERE login = '" + user + "' AND passwort = MD5('" + password + "')");
+			
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT login, passwort FROM benutzer WHERE login = ? AND passwort = MD5(?)");
+			preparedStatement.setString(1, user);
+			preparedStatement.setString(2, password);
+			ResultSet rs = preparedStatement.executeQuery();
 			 
 			int count = 0;
 			
@@ -41,7 +49,7 @@ public class UserDAO {
 			}
 		
 				rs.close();
-				stmt.close();
+				preparedStatement.close();
 				con.close();
 			
 
@@ -52,23 +60,40 @@ public class UserDAO {
 		return false;
 	}
 	
-	public void insertUser(String vorname, String name, String loginname, String passwort, int fk_typID, int kontostand){
+	public boolean insertUser(String vorname, String name, String loginname, String passwort, int fk_typID, int kontostand){
 		try{
 			ConnectionPooling connectionPooling;
 			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
 			
 			Connection con = connectionPooling.getConnection();
 			
-			Statement stmt = con.createStatement();
+			PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO benutzer (Name, Vorname, Login, Passwort, Fk_TypID, Kontostand) "
+					                                                 + "VALUES (?, ?, ?, MD5(?), ?, ?)");
 			
-			ResultSet rs = stmt.executeQuery("INSERT INTO benutzer (Name, Vorname, Login, Passwort, Fk_TypID, Kontostand) "
-					                       + "VALUES ('" + name +"', '" + vorname + "', '" + loginname + "', "
-					                       + "MD5('"+ passwort +"'), '" + fk_typID + "', '" + kontostand + "')");
+			preparedStatement.setString(1, name);
+			preparedStatement.setString(2, vorname);
+			preparedStatement.setString(3, loginname);
+			preparedStatement.setString(4, passwort);
+			preparedStatement.setInt(5, fk_typID);
+			preparedStatement.setInt(6, kontostand);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			rs.close();
+			preparedStatement.close();
+			con.close();
+			return true;
 		} catch(SQLException sqle){
 			System.out.println("Es trat ein Fehler mit SQL auf");
 			sqle.printStackTrace();
 		}
+		return false;
 	}
 
+	public boolean getUserByLogin(String login){
+		
+		//TODO: Dennis
+		return true;
+	}
 
 }
