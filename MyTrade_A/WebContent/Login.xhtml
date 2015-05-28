@@ -18,22 +18,24 @@
 		<f:view>My Trade</f:view>
 	</div>
 	<br />
-	<div id="meldungBox">
+	<div id= "meldungBox">
 		<f:view>Meldungen</f:view>
 	</div>
 	<br />
-	<div id="inhaltBox">
+	<div id = "inhaltBox">
 		<f:view>Inhalt</f:view>
 		<h:form>
-			<h:panelGrid>
-				<h:outputLabel value="Benutzername" />
-				<h:inputText  value="#{loginFormBean.username}" />
-
-				<h:outputLabel value="Passwort" />
-				<h:inputText value="#{loginFormBean.password}" />
-			</h:panelGrid>
-
-			<h:commandButton value="OK" action="#{loginFormBean.anmelden}" />
+		<h:panelGrid>
+				<h:outputLabel for="fieldBenutzername" value="Benutzername:" />
+				<h:inputText id="fieldBenutzername" value="#{loginFormBean.username}" />
+				<h:message for="fieldBenutzername" />
+				
+				<h:outputLabel for="fieldPasswort" value="Passwort:" />
+				<h:inputSecret id="fieldPasswort" value="#{loginFormBean.password}" />
+				<h:message for="Passwort" />
+				</h:panelGrid>
+				
+				<h:commandButton value="OK" action="#{loginFormBean.anmelden}" />
 		</h:form>
 	</div>
 
