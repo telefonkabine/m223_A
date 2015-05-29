@@ -71,8 +71,8 @@ public class UserDAO {
 	 * @param kontostand
 	 * @return true if the user was created otherwise false
 	 */
-	public boolean insertUser(String vorname, String name, String loginname, String passwort, int fk_typID, int kontostand){
-		if(getUserByLogin(loginname) == null){
+	public boolean insertUser(UserModel user){
+		if(getUserByLogin(user.getLogin()) == null){
 			try{
 				
 				ConnectionPooling connectionPooling;
@@ -82,12 +82,12 @@ public class UserDAO {
 				PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO benutzer (Name, Vorname, Login, Passwort, Fk_TypID, Kontostand) "
 						                                                 + "VALUES (?, ?, ?, MD5(?), ?, ?)");
 				
-				preparedStatement.setString(1, name);
-				preparedStatement.setString(2, vorname);
-				preparedStatement.setString(3, loginname);
-				preparedStatement.setString(4, passwort);
-				preparedStatement.setInt(5, fk_typID);
-				preparedStatement.setInt(6, kontostand);
+				preparedStatement.setString(1, user.getName());
+				preparedStatement.setString(2, user.getVorname());
+				preparedStatement.setString(3, user.getLogin());
+				preparedStatement.setString(4, user.getPasswort());
+				preparedStatement.setInt(5, user.getFk_typID());
+				preparedStatement.setInt(6, user.getKontostand());
 				
 				ResultSet rs = preparedStatement.executeQuery();
 				
