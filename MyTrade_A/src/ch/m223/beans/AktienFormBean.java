@@ -8,7 +8,7 @@ import ch.m223.dao.AktieDAO;
 
 @ManagedBean
 @SessionScoped
-public class AktienErfassenBean {
+public class AktienFormBean {
 
 	private String name;
 	private String kuerzel;
@@ -18,33 +18,38 @@ public class AktienErfassenBean {
 	private int anzahl;
 	private AktieDAO aktieDao;
 
-	public AktienErfassenBean() {
+	public AktienFormBean() {
 
 		aktieDao = new AktieDAO();
 		
-		
-	}
-
-	public String AktieErfassen() {
-		
-		aktieDao.InsertAktie(name, kuerzel, nominalpreis, dividende, benutzerID, anzahl);
-		
-		return null;
 	}
 	
+	//Speichert eingegebene Daten in die Datenbank. Liefert False, falls der INSERT ungueltig ist
 	public String save(){
-	
-	return "Index?faces-redirect=true";
+		
+		if(aktieDao.insertAktie(name, kuerzel, nominalpreis, dividende, benutzerID, anzahl))
+			return "Index?faces-redirect=true";
+			
+		else
+			return "Aktienbestätigung?faces-redirect=true";
 	}
 	
+	//Zurueck-Button von Aktienerfassen zur Hauptseite
+	public String back(){
+		
+		return "Admin?faces-redirect=true";	
+	}
+	
+	//Zurueck-Button von Aktienbestaetigung zu Aktienerfassen
 	public String back2(){
 		
-	return "Aktienerfassen?faces-redirect=true";	
+		return "Aktienerfassen?faces-redirect=true";	
 	}
 	
+	//Weiter-Button von Aktienerfassen zu Aktienbestaetigung 
 	public String next(){
 		
-	return "Aktienbestaetigung?faces-redirect=true";	
+		return "Aktienbestaetigung?faces-redirect=true";	
 	}
 
 
