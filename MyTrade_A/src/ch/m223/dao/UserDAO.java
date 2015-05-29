@@ -23,7 +23,7 @@ public class UserDAO {
 		return login(user, password);
 	}
 	
-	public boolean login(String user, String password) {
+	public synchronized boolean login(String user, String password) {
 		try {
 			ConnectionPooling connectionPooling;
 			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
@@ -49,7 +49,7 @@ public class UserDAO {
 					
 					FacesContext context = FacesContext.getCurrentInstance();
 					context.getExternalContext().getSessionMap().put("id", "" +benutzerID);
-					
+				System.out.println(benutzerID);
 				return true;
 				}	
 				
@@ -119,7 +119,7 @@ public class UserDAO {
 	 * @param login
 	 * @return UserModel object or null if no user was found in the db
 	 */
-	public UserModel getUserByLogin(String login){
+	public synchronized UserModel getUserByLogin(String login){
 		try{
 			
 			ConnectionPooling connectionPooling;
