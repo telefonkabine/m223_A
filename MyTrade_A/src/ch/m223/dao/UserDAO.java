@@ -57,7 +57,7 @@ public class UserDAO {
 		
 				rs.close();
 				preparedStatement.close();
-				con.close();
+				connectionPooling.putConnection(con);
 			
 
 		} catch (SQLException e) {
@@ -98,7 +98,7 @@ public class UserDAO {
 				int rows = preparedStatement.executeUpdate();
 				
 				preparedStatement.close();
-				con.close();
+				connectionPooling.putConnection(con);
 				if(rows == 1){
 					return true;
 				}
@@ -142,8 +142,10 @@ public class UserDAO {
 				user.setLogin(rs.getString("login"));
 				user.setFk_typID(rs.getInt("fk_typID"));
 				user.setKontostand(rs.getInt("kontostand"));
-				return user;
+				//return user;
 			}
+			connectionPooling.putConnection(con);
+			return user;
 			
 		} catch(SQLException sqle){
 			System.out.println("Es trat ein Fehler im SQL auf.");
