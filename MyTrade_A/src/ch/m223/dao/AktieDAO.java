@@ -2,15 +2,28 @@ package ch.m223.dao;
 
 import java.sql.*;
 
+import javax.faces.context.FacesContext;
+
 import ch.m223.connectionPooling.ConnectionPooling;
 import ch.m223.connectionPooling.ConnectionPoolingImplementation;
 
 public class AktieDAO {
 
 	//Eine neue Aktien hinzufügen
-	public boolean insertAktie(String name, String kuerzel, double nominalpreis, double dividende, int benutzerID, int anzahl) {
-		//TO DO: ID des aktuell eingeloggten Benutzer definieren
-		benutzerID=1;
+	public synchronized boolean insertAktie(String name, String kuerzel, double nominalpreis, double dividende, int benutzerID, int anzahl) {
+		
+		//ID des aktuell eingeloggten Benutzer definieren
+		FacesContext context = FacesContext.getCurrentInstance();
+		String benutzerIDString;
+		
+		benutzerIDString = (String) context.getExternalContext().getSessionMap().get("id");
+		if(benutzerIDString == null){
+			System.out.println("Fehler: AktieDAO, Methode: InsertAktie");
+			
+			return false;
+		} 
+		benutzerID= Integer.parseInt(benutzerIDString);
+		
 		try {
 			ConnectionPooling connectionPooling;
 			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);

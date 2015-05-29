@@ -8,6 +8,8 @@ package ch.m223.dao;
 
 import java.sql.*;
 
+import javax.faces.context.FacesContext;
+
 import ch.m223.connectionPooling.ConnectionPooling;
 import ch.m223.connectionPooling.ConnectionPoolingImplementation;
 import ch.m223.model.UserModel;
@@ -29,7 +31,7 @@ public class UserDAO {
 			Connection con = connectionPooling.getConnection();
 
 			
-			PreparedStatement preparedStatement = con.prepareStatement("SELECT login, passwort FROM benutzer WHERE login = ? AND passwort = MD5(?)");
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT login, passwort, benutzerID FROM benutzer WHERE login = ? AND passwort = SHA1(?)");
 			preparedStatement.setString(1, user);
 			preparedStatement.setString(2, password);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -37,13 +39,17 @@ public class UserDAO {
 			int count = 0;
 			
 			while (rs.next()) {
-				
+				int benutzerID = rs.getInt("benutzerID");
 				count++;
 				
 				if (count > 1) {
 					System.out.println("Es gibt mehr als einen Benutzer: " + user);
 					return false;	
 				} else if (count == 1){
+					
+					FacesContext context = FacesContext.getCurrentInstance();
+					context.getExternalContext().getSessionMap().put("id", "" +benutzerID);
+					
 				return true;
 				}	
 				
@@ -71,8 +77,9 @@ public class UserDAO {
 	 * @param kontostand
 	 * @return true if the user was created otherwise false
 	 */
-	public boolean insertUser(String vorname, String name, String loginname, String passwort, int fk_typID, int kontostand){
-		if(getUserByLogin(loginname) == null){
+	public synchronized boolean insertUser(UserModel user){
+		if(getUserByLogin(user.getLogin()) == null){
+			System.out.println("return null");
 			try{
 				
 				ConnectionPooling connectionPooling;
@@ -80,21 +87,21 @@ public class UserDAO {
 				
 				Connection con = connectionPooling.getConnection();
 				PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO benutzer (Name, Vorname, Login, Passwort, Fk_TypID, Kontostand) "
-						                                                 + "VALUES (?, ?, ?, MD5(?), ?, ?)");
+						                                                 + "VALUES (?, ?, ?, SHA1(?), ?, ?)");
+				System.out.println(user.getFk_typID());
+				preparedStatement.setString(1, user.getName());
+				preparedStatement.setString(2, user.getVorname());
+				preparedStatement.setString(3, user.getLogin());
+				preparedStatement.setString(4, user.getPasswort());
+				preparedStatement.setInt(5, user.getFk_typID());
+				preparedStatement.setInt(6, user.getKontostand());
+				int rows = preparedStatement.executeUpdate();
 				
-				preparedStatement.setString(1, name);
-				preparedStatement.setString(2, vorname);
-				preparedStatement.setString(3, loginname);
-				preparedStatement.setString(4, passwort);
-				preparedStatement.setInt(5, fk_typID);
-				preparedStatement.setInt(6, kontostand);
-				
-				ResultSet rs = preparedStatement.executeQuery();
-				
-				rs.close();
 				preparedStatement.close();
 				con.close();
-				return true;
+				if(rows == 1){
+					return true;
+				}
 			} catch(SQLException sqle){
 				System.out.println("Es trat ein Fehler mit SQL auf");
 				sqle.printStackTrace();
@@ -120,22 +127,24 @@ public class UserDAO {
 			
 			Connection con = connectionPooling.getConnection();
 			
-			PreparedStatement preparedStatement = con.prepareStatement("SELECT name, vorname, login, passwort, fk_typID, kontostand FROM benutzer WHERE login = ?");
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT benutzerID, name, vorname, login, passwort, fk_typID, kontostand FROM benutzer WHERE login = ?");
 			preparedStatement.setString(1, login);
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			UserModel user = new UserModel();
-			
-			while(rs.next()){
+			System.out.println("testgetuser");
+			if(rs.next()){
+				System.out.println(rs.getString("login"));
+				user.setBenutzerID(rs.getInt("benutzerID"));
 				user.setName(rs.getString("name"));
 				user.setVorname((rs.getString("vorname")));
 				user.setLogin(rs.getString("login"));
 				user.setFk_typID(rs.getInt("fk_typID"));
 				user.setKontostand(rs.getInt("kontostand"));
+				return user;
 			}
 			
-			return user;
 		} catch(SQLException sqle){
 			System.out.println("Es trat ein Fehler im SQL auf.");
 			sqle.printStackTrace();
