@@ -50,6 +50,7 @@ public class BenutzerFormBean {
 		user.setLogin(login);
 		user.setPasswort(passwort);
 		user.setFk_typID(rolle);
+		user.setKontostand(10000);
 		
 		userDao.insertUser(user);
 		
