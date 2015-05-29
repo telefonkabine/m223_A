@@ -23,7 +23,7 @@ public class UserDAO {
 		return login(user, password);
 	}
 	
-	public boolean login(String user, String password) {
+	public synchronized boolean login(String user, String password) {
 		try {
 			ConnectionPooling connectionPooling;
 			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
@@ -49,7 +49,7 @@ public class UserDAO {
 					
 					FacesContext context = FacesContext.getCurrentInstance();
 					context.getExternalContext().getSessionMap().put("id", "" +benutzerID);
-					
+				System.out.println(benutzerID);
 				return true;
 				}	
 				
@@ -57,7 +57,7 @@ public class UserDAO {
 		
 				rs.close();
 				preparedStatement.close();
-				con.close();
+				connectionPooling.putConnection(con);
 			
 
 		} catch (SQLException e) {
@@ -98,7 +98,7 @@ public class UserDAO {
 				int rows = preparedStatement.executeUpdate();
 				
 				preparedStatement.close();
-				con.close();
+				connectionPooling.putConnection(con);
 				if(rows == 1){
 					return true;
 				}
@@ -119,7 +119,7 @@ public class UserDAO {
 	 * @param login
 	 * @return UserModel object or null if no user was found in the db
 	 */
-	public UserModel getUserByLogin(String login){
+	public synchronized UserModel getUserByLogin(String login){
 		try{
 			
 			ConnectionPooling connectionPooling;
@@ -142,8 +142,10 @@ public class UserDAO {
 				user.setLogin(rs.getString("login"));
 				user.setFk_typID(rs.getInt("fk_typID"));
 				user.setKontostand(rs.getInt("kontostand"));
-				return user;
+				//return user;
 			}
+			connectionPooling.putConnection(con);
+			return user;
 			
 		} catch(SQLException sqle){
 			System.out.println("Es trat ein Fehler im SQL auf.");
