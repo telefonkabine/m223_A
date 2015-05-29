@@ -28,11 +28,9 @@
 		<h:panelGrid>
 				<h:outputLabel for="fieldBenutzername" value="Benutzername:" />
 				<h:inputText id="fieldBenutzername" value="#{loginFormBean.username}" />
-				<h:message for="fieldBenutzername" />
 				
 				<h:outputLabel for="fieldPasswort" value="Passwort:" />
 				<h:inputSecret id="fieldPasswort" value="#{loginFormBean.password}" />
-				<h:message for="Passwort" />
 				</h:panelGrid>
 				
 				<h:commandButton value="OK" action="#{loginFormBean.anmelden}" />
