@@ -1,33 +1,31 @@
 package ch.m223.dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import ch.m223.connectionPooling.ConnectionPooling;
 import ch.m223.connectionPooling.ConnectionPoolingImplementation;
 
-public class AktieDAO {
-
-	//Eine neue Aktien hinzufügen
-	public synchronized boolean insertAktie(String name, String kuerzel, double nominalpreis, double dividende, int benutzerID, int anzahl) {
+public class AuftragDAO {
+	
+	//Ein neuer Auftrag hinzufügen
+	public synchronized boolean insertAuftrag(double preis, int aktieID, int anzahl) {
 		//TO DO: ID des aktuell eingeloggten Benutzer definieren
-		benutzerID=1;
+		aktieID=1;
 		try {
 			ConnectionPooling connectionPooling;
 			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
 			Connection con = connectionPooling.getConnection();
 
-			String insertTableSQL = "INSERT INTO aktie (Name, kuerzel, nominalpreis, dividende, fk_benutzerID) "
-                    + "VALUES (?, ?, ?, ?, ?)";
+			String insertTableSQL = "INSERT INTO auftrag (preis, fk_benutzerID) "
+                    + "VALUES (?, ?)";
 			
 				PreparedStatement preparedStatement = con.prepareStatement(insertTableSQL);
-				preparedStatement.setString(1, name);
-				preparedStatement.setString(2, kuerzel);
-				preparedStatement.setDouble(3, nominalpreis);
-				preparedStatement.setDouble(4, dividende);
-				preparedStatement.setInt(5, benutzerID);
-				while (anzahl>0){
-				anzahl = anzahl -1;
+				preparedStatement.setDouble(1, preis);
+				preparedStatement.setInt(2, aktieID);
 				preparedStatement.executeUpdate();	
-				}
+				
 				
 			preparedStatement.close();
 			con.close();	
