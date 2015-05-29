@@ -24,7 +24,7 @@ public class LoginFormBean {
 
 		if (jdbc.accountExistiert(username, password)) {
 			System.out.println("hat geklappt");
-			return "Index?faces-redirect=true";
+			return "Portfolio?faces-redirect=true";
 		} else {
 			System.out.println("User oder PW falsch");
 			return "login?faces-redirect=true";

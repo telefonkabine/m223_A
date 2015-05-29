@@ -6,6 +6,7 @@ import javax.faces.context.FacesContext;
 
 import ch.m223.connectionPooling.ConnectionPooling;
 import ch.m223.connectionPooling.ConnectionPoolingImplementation;
+import ch.m223.model.AktieModel;
 
 public class AktieDAO {
 
@@ -44,7 +45,7 @@ public class AktieDAO {
 				}
 				
 			preparedStatement.close();
-			con.close();	
+			connectionPooling.putConnection(con);	
 			
 			return true;
 		
@@ -54,6 +55,37 @@ public class AktieDAO {
 			}
 		
 			return false;
+	}
+	
+	public synchronized AktieModel getAktieFromUserID(int benutzerID){
+		//to do: Aktien anhand von BenutzerID auslesen und in eine Liste speichern.
+		try{
+			
+			ConnectionPooling connectionPooling;
+			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+			
+			Connection con = connectionPooling.getConnection();
+			
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT AktienID, dividende, fk_benutzerID, kuerzel, name, nominalpreis FROM mytrade.aktie WHERE fk_benutzerID = ?");
+			preparedStatement.setInt(3, benutzerID);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			AktieModel aktien = new AktieModel();
+			if(rs.next()){
+				System.out.println(rs.getString("login"));
+				aktien.setKuerzel("kuerzel");
+
+				return aktien;
+			}
+			preparedStatement.close();
+			connectionPooling.putConnection(con);	
+		} catch(SQLException sqle){
+			System.out.println("Es trat ein Fehler im SQL auf.");
+			sqle.printStackTrace();
+		}
+		
+		return null;
 	}
 
 }
