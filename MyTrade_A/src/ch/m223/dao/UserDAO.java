@@ -8,6 +8,8 @@ package ch.m223.dao;
 
 import java.sql.*;
 
+import javax.faces.context.FacesContext;
+
 import ch.m223.connectionPooling.ConnectionPooling;
 import ch.m223.connectionPooling.ConnectionPoolingImplementation;
 import ch.m223.model.UserModel;
@@ -44,6 +46,10 @@ public class UserDAO {
 					System.out.println("Es gibt mehr als einen Benutzer: " + user);
 					return false;	
 				} else if (count == 1){
+					
+					FacesContext context = FacesContext.getCurrentInstance();
+					context.getExternalContext().getSessionMap().put(user, user);
+					
 				return true;
 				}	
 				
