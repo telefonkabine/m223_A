@@ -10,6 +10,9 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import ch.m223.dao.UserDAO;
+import ch.m223.model.UserModel;
+
 @ManagedBean
 @SessionScoped
 public class BenutzerFormBean {
@@ -39,6 +42,15 @@ public class BenutzerFormBean {
 	}
 	
 	public String saveUser(){
+		UserModel user = new UserModel();
+		UserDAO userDao = new UserDAO();
+		
+		user.setName(name);
+		user.setVorname(vorname);
+		user.setLogin(login);
+		user.setPasswort(passwort);
+		
+		userDao.insertUser(user);
 		
 		return "Admin?faces-redirect=true";
 	}

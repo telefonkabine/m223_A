@@ -9,7 +9,7 @@ public class UserModel {
 	private String passwort;
 	private int fk_typID;
 	private int kontostand;
-	
+
 	public int getBenutzerID() {
 		return benutzerID;
 	}
