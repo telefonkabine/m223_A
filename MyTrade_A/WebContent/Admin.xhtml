@@ -17,22 +17,23 @@
 	<div id="mutterBox">
 		<div id="portfolioBox">
 			<h:panelGrid columns="5">
-				<td><h:outputLink value="portfolio?faces-redirect=true">Mein Portfolio</h:outputLink></td>
+				<!-- <h:commandLink value="portfolio?faces-redirect=true">Mein Portfolio</h:commandLink> -->
+				<h:outputLink value="Portfolio.xhtml">Mein Portfolio</h:outputLink>
 			</h:panelGrid>
 		</div>
 		<div id="auftragBox">
 			<h:panelGrid columns="5">
-				<td><h:outputLink value="auftraege?faces-redirect=true">Offene Aufträge</h:outputLink></td>
+				<td><h:outputLink value="Auftraege.xhtml">Offene Aufträge</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<div id="administrationBox">
 			<h:panelGrid columns="5">
-				<td><h:outputLink value="admin?faces-redirect=true">Administration</h:outputLink></td>
+				<td><h:outputLink value="Admin.xhtml">Administration</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<div id="musterBox">
 			<h:panelGrid columns="5">
-				<td><h:outputLink value="aktienerfassen?faces-redirect=true">Muster</h:outputLink></td>
+				<td><h:outputLink value="Aktienerfassen.xhtml">Muster</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<f:view>Mein Portfolio</f:view>
@@ -40,10 +41,11 @@
 			<f:view>Meldungen</f:view>
 		</div>
 		<div id="inhaltBox">
-			<a href="#{klick.aktien}" target="_blank">Aktien erfassen</a> <br />
-			<a href="#{klick.benutzer}" target="_blank">Benutzer erfassen</a> <br />
-			<a href="#{klick.dividenden}" target="_blank">Dividenden
-				ausschütten</a>
+			<h:outputLink value="Aktienerfassen.xhtml">Aktien erfassen</h:outputLink>
+			<br />
+			<h:outputLink value="Benutzererfassen.xhtml">Benutzer erfassen</h:outputLink>
+			<br />
+			<h:outputLink value="Auftraege.xhtml">Dividenden ausschütten</h:outputLink>
 		</div>
 	</div>
 </body>

@@ -17,22 +17,22 @@
 	<div id="mutterBox">
 		<div id="portfolioBox">
 			<h:panelGrid columns="5">
-				<td><h:outputLink value="portfolio?faces-redirect=true">Mein Portfolio</h:outputLink></td>
+				<h:outputLink value="Portfolio.xhtml">Mein Portfolio</h:outputLink>
 			</h:panelGrid>
 		</div>
 		<div id="auftragBox">
 			<h:panelGrid columns="5">
-				<td><h:outputLink value="auftraege?faces-redirect=true">Offene Aufträge</h:outputLink></td>
+				<td><h:outputLink value="Auftraege.xhtml">Offene Aufträge</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<div id="administrationBox">
 			<h:panelGrid columns="5">
-				<td><h:outputLink value="admin?faces-redirect=true">Administration</h:outputLink></td>
+				<td><h:outputLink value="Admin.xhtml">Administration</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<div id="musterBox">
 			<h:panelGrid columns="5">
-				<td><h:outputLink value="aktienerfassen?faces-redirect=true">Muster</h:outputLink></td>
+				<td><h:outputLink value="Aktienerfassen.xhtml">Muster</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<f:view>Aktie erfassen</f:view>
@@ -59,7 +59,7 @@
 
 					<h:outputLabel for="fieldPreis" value="Normalpreis (CHF)" />
 					<h:inputText id="fieldPreis" value="#{aktienFormBean.nominalpreis}">
-					<f:validateDoubleRange minimum="0.0" maximum="1.0" />
+						<f:validateDoubleRange minimum="0.0" maximum="1.0" />
 					</h:inputText>
 
 					<h:outputLabel for="fieldDividende" value="Dividende" />
