@@ -31,7 +31,7 @@ public class UserDAO {
 			Connection con = connectionPooling.getConnection();
 
 			
-			PreparedStatement preparedStatement = con.prepareStatement("SELECT login, passwort FROM benutzer WHERE login = ? AND passwort = MD5(?)");
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT login, passwort, benutzerID FROM benutzer WHERE login = ? AND passwort = SHA1(?)");
 			preparedStatement.setString(1, user);
 			preparedStatement.setString(2, password);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -39,7 +39,7 @@ public class UserDAO {
 			int count = 0;
 			
 			while (rs.next()) {
-				
+				int benutzerID = rs.getInt("benutzerID");
 				count++;
 				
 				if (count > 1) {
@@ -48,7 +48,7 @@ public class UserDAO {
 				} else if (count == 1){
 					
 					FacesContext context = FacesContext.getCurrentInstance();
-					context.getExternalContext().getSessionMap().put(user, user);
+					context.getExternalContext().getSessionMap().put("id", "" +benutzerID);
 					
 				return true;
 				}	
