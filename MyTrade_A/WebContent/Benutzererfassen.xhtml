@@ -48,16 +48,16 @@
 		<h:form>
 			<h:panelGrid>
 				<h:outputLabel for="fieldName" value="Name" />
-				<h:inputText id="fieldName" value="#{name}" />
+				<h:inputText id="fieldName" value="#{benutzerFormBean.name}" />
 
 				<h:outputLabel for="fieldVorname" value="Vorname" />
-				<h:inputText id="fieldVorname" value="#{vorname}" />
+				<h:inputText id="fieldVorname" value="#{benutzerFormBean.vorname}" />
 
 				<h:outputLabel for="fieldLogin" value="Login" />
-				<h:inputText id="fieldLogin" value="#{login}" />
+				<h:inputText id="fieldLogin" value="#{benutzerFormBean.login}" />
 
 				<h:outputLabel for="fieldPasswort" value="Passwort" />
-				<h:inputSecret id="fieldPasswort" value="#{passwort}" />
+				<h:inputSecret id="fieldPasswort" value="#{benutzerFormBean.passwort}" />
 
 				<h:outputLabel for="fieldRolle" value="Rolle" />
 				<h:selectOneMenu value="#{benutzerFormBean.rolle}">

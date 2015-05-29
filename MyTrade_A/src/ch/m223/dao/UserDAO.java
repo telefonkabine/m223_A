@@ -71,8 +71,9 @@ public class UserDAO {
 	 * @param kontostand
 	 * @return true if the user was created otherwise false
 	 */
-	public boolean insertUser(UserModel user){
+	public synchronized boolean insertUser(UserModel user){
 		if(getUserByLogin(user.getLogin()) == null){
+			System.out.println("return null");
 			try{
 				
 				ConnectionPooling connectionPooling;
@@ -80,7 +81,7 @@ public class UserDAO {
 				
 				Connection con = connectionPooling.getConnection();
 				PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO benutzer (Name, Vorname, Login, Passwort, Fk_TypID, Kontostand) "
-						                                                 + "VALUES (?, ?, ?, MD5(?), ?, ?)");
+						                                                 + "VALUES (?, ?, ?, SHA1(?), ?, ?)");
 				
 				preparedStatement.setString(1, user.getName());
 				preparedStatement.setString(2, user.getVorname());
@@ -88,13 +89,13 @@ public class UserDAO {
 				preparedStatement.setString(4, user.getPasswort());
 				preparedStatement.setInt(5, user.getFk_typID());
 				preparedStatement.setInt(6, user.getKontostand());
+				int rows = preparedStatement.executeUpdate();
 				
-				ResultSet rs = preparedStatement.executeQuery();
-				
-				rs.close();
 				preparedStatement.close();
 				con.close();
-				return true;
+				if(rows == 1){
+					return true;
+				}
 			} catch(SQLException sqle){
 				System.out.println("Es trat ein Fehler mit SQL auf");
 				sqle.printStackTrace();
@@ -126,17 +127,18 @@ public class UserDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			UserModel user = new UserModel();
-			
-			while(rs.next()){
+			System.out.println("testgetuser");
+			if(rs.next()){
+				System.out.println(rs.getString("login"));
 				user.setBenutzerID(rs.getInt("benutzerID"));
 				user.setName(rs.getString("name"));
 				user.setVorname((rs.getString("vorname")));
 				user.setLogin(rs.getString("login"));
 				user.setFk_typID(rs.getInt("fk_typID"));
 				user.setKontostand(rs.getInt("kontostand"));
+				return user;
 			}
 			
-			return user;
 		} catch(SQLException sqle){
 			System.out.println("Es trat ein Fehler im SQL auf.");
 			sqle.printStackTrace();
