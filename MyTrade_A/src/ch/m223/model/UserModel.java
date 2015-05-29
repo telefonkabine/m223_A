@@ -2,6 +2,7 @@ package ch.m223.model;
 
 public class UserModel {
 	
+	private int benutzerID;
 	private String name;
 	private String vorname;
 	private String login;
@@ -9,7 +10,12 @@ public class UserModel {
 	private int fk_typID;
 	private int kontostand;
 	
-	
+	public int getBenutzerID() {
+		return benutzerID;
+	}
+	public void setBenutzerID(int benutzerID) {
+		this.benutzerID = benutzerID;
+	}
 	public String getPasswort() {
 		return passwort;
 	}

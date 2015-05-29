@@ -120,7 +120,7 @@ public class UserDAO {
 			
 			Connection con = connectionPooling.getConnection();
 			
-			PreparedStatement preparedStatement = con.prepareStatement("SELECT name, vorname, login, passwort, fk_typID, kontostand FROM benutzer WHERE login = ?");
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT benutzerID, name, vorname, login, passwort, fk_typID, kontostand FROM benutzer WHERE login = ?");
 			preparedStatement.setString(1, login);
 			
 			ResultSet rs = preparedStatement.executeQuery();
@@ -128,6 +128,7 @@ public class UserDAO {
 			UserModel user = new UserModel();
 			
 			while(rs.next()){
+				user.setBenutzerID(rs.getInt("benutzerID"));
 				user.setName(rs.getString("name"));
 				user.setVorname((rs.getString("vorname")));
 				user.setLogin(rs.getString("login"));

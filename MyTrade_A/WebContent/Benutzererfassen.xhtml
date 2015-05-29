@@ -44,13 +44,6 @@
 			<f:view>Meldungen</f:view>
 		</div>
 
-		<div id="inhaltBox">
-			<f:view>Benutzer erfassen</f:view>
-			<h:form>
-				<h:panelGrid>
-					<h:outputLabel for="fieldName" value="Name" />
-					<h:inputText id="fieldName" value="#{name}" />
-					<h:message for="fieldName" />
 	<div id="inhaltBox">
 		<f:view>Benutzer erfassen</f:view>
 		<h:form>
@@ -65,16 +58,16 @@
 				<h:inputText id="fieldLogin" value="#{login}" />
 
 				<h:outputLabel for="fieldPasswort" value="Passwort" />
-				<h:inputText id="fieldPasswort" value="#{passwort}" />
+				<h:inputSecret id="fieldPasswort" value="#{passwort}" />
 
 				<h:outputLabel for="fieldRolle" value="Rolle" />
 				<h:selectOneMenu value="#{benutzerFormBean.rolle}">
-					<f:selectItems itemValue="#{benutzerFormBean.rollenListe}" />
+					<f:selectItems value="#{benutzerFormBean.rollenListe}" />
 				</h:selectOneMenu>
 			</h:panelGrid>
 
 			<h:commandButton value="Zurück" action="#{zurueck}" ajax="false" />
-			<h:commandButton value="Speichern" action="#{saveAktie}" ajax="false" />
+			<h:commandButton value="Speichern" action="#{benutzerFormBean.saveUser}" ajax="false" />
 		</h:form>
 
 		</div>
