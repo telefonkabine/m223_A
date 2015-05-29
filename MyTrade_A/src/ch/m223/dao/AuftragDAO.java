@@ -28,7 +28,7 @@ public class AuftragDAO {
 				
 				
 			preparedStatement.close();
-			con.close();	
+			connectionPooling.putConnection(con);	
 			
 			return true;
 		

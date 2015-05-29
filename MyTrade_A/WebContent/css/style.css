@@ -10,6 +10,14 @@ a:link {
 	text-decoration: none;
 }
 
+a:visited{
+	color:rgb(28,159,240);
+	}
+a:hover{
+	color:rgb(28,159,240);
+	font-size: 17px;
+	}
+
 /* Boxen */
 #mutterBox {
 	background-color: #e4e0d3;

@@ -17,22 +17,22 @@
 	<div id="mutterBox">
 		<div id="portfolioBox">
 			<h:panelGrid columns="5">
-				<td><a href="#{portfolio}">Mein Portfolio</a></td>
+				<h:outputLink value="Portfolio.xhtml">Mein Portfolio</h:outputLink>
 			</h:panelGrid>
 		</div>
 		<div id="auftragBox">
 			<h:panelGrid columns="5">
-				<td><a href="#{auftraege}">Offene Aufträge</a></td>
+				<td><h:outputLink value="Auftraege.xhtml">Offene Aufträge</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<div id="administrationBox">
 			<h:panelGrid columns="5">
-				<td><a href="#{administration}">Administration</a></td>
+				<td><h:outputLink value="Admin.xhtml">Administration</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<div id="musterBox">
 			<h:panelGrid columns="5">
-				<td><a href="#{muster}">Muster</a></td>
+				<td><h:outputLink value="Aktienerfassen.xhtml">Muster</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<f:view>Mein Portfolio</f:view>
