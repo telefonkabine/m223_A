@@ -49,6 +49,7 @@ public class BenutzerFormBean {
 		user.setVorname(vorname);
 		user.setLogin(login);
 		user.setPasswort(passwort);
+		user.setFk_typID(rolle);
 		
 		userDao.insertUser(user);
 		

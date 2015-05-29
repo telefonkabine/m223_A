@@ -88,7 +88,7 @@ public class UserDAO {
 				Connection con = connectionPooling.getConnection();
 				PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO benutzer (Name, Vorname, Login, Passwort, Fk_TypID, Kontostand) "
 						                                                 + "VALUES (?, ?, ?, SHA1(?), ?, ?)");
-				
+				System.out.println(user.getFk_typID());
 				preparedStatement.setString(1, user.getName());
 				preparedStatement.setString(2, user.getVorname());
 				preparedStatement.setString(3, user.getLogin());
