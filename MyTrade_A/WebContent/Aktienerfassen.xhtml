@@ -17,54 +17,63 @@
 	<div id="mutterBox">
 		<div id="portfolioBox">
 			<h:panelGrid columns="5">
-				<td><a href="#{portfolio}">Mein Portfolio</a></td>
+				<td><h:outputLink value="portfolio?faces-redirect=true">Mein Portfolio</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<div id="auftragBox">
 			<h:panelGrid columns="5">
-				<td><a href="#{auftraege}">Offene Aufträge</a></td>
+				<td><h:outputLink value="auftraege?faces-redirect=true">Offene Aufträge</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<div id="administrationBox">
 			<h:panelGrid columns="5">
-				<td><a href="#{administration}">Administration</a></td>
+				<td><h:outputLink value="admin?faces-redirect=true">Administration</h:outputLink></td>
 			</h:panelGrid>
 		</div>
 		<div id="musterBox">
 			<h:panelGrid columns="5">
-				<td><a href="#{muster}">Muster</a></td>
+				<td><h:outputLink value="aktienerfassen?faces-redirect=true">Muster</h:outputLink></td>
 			</h:panelGrid>
-		</div>
-		<f:view>Mein Portfolio</f:view>
-		<div id="meldungBox">
-			<f:view>Meldungen</f:view>
 		</div>
 		<f:view>Aktie erfassen</f:view>
 		<div id="meldungBox">
 			<f:view>Meldungen</f:view>
 		</div>
 
-	<div id="inhaltBox">
-		<h:form>
-			<h:panelGrid>
-				<h:outputLabel for="fieldName" value="Name" />
-				<h:inputText id="fieldName" value="#{aktienFormBean.name}" />
+		<div id="inhaltBox">
+			<h:form>
+				<h:panelGrid>
+					<h:outputLabel for="fieldName" value="Name" />
+					<h:inputText id="fieldName" value="#{aktienFormBean.name}">
+						<f:validateRequired />
+						<f:validateLength minimum="3" maximum="255" />
+						<f:validateRegex pattern="[A-Z][a-zA-Z]*" />
+					</h:inputText>
 
-				<h:outputLabel for="fieldKuerzel" value="Kürzel" />
-				<h:inputText id="fieldKuerzel" value="#{aktienFormBean.kuerzel}" />
+					<h:outputLabel for="fieldKuerzel" value="Kürzel" />
+					<h:inputText id="fieldKuerzel" value="#{aktienFormBean.kuerzel}">
+						<f:validateRequired />
+						<f:validateLength minimum="4" maximum="4" />
+						<f:validateRegex pattern="[a-zA-Z]*" />
+					</h:inputText>
 
-				<h:outputLabel for="fieldPreis" value="Normalpreis (CHF)" />
-				<h:inputText id="fieldPreis" value="#{aktienFormBean.nominalpreis}" />
+					<h:outputLabel for="fieldPreis" value="Normalpreis (CHF)" />
+					<h:inputText id="fieldPreis" value="#{aktienFormBean.nominalpreis}">
+					<f:validateDoubleRange minimum="0.0" maximum="1.0" />
+					</h:inputText>
 
-				<h:outputLabel for="fieldDividende" value="Dividende" />
-				<h:inputText id="fieldDividende" value="#{aktienFormBean.dividende}" />
+					<h:outputLabel for="fieldDividende" value="Dividende" />
+					<h:inputText id="fieldDividende"
+						value="#{aktienFormBean.dividende}" />
 
-				<h:outputLabel for="fieldAnzahl" value="Stückanzahl" />
-				<h:inputText id="fieldAnzahl" value="#{aktienFormBean.anzahl}" />
-			</h:panelGrid>
+					<h:outputLabel for="fieldAnzahl" value="Stückanzahl" />
+					<h:inputText id="fieldAnzahl" value="#{aktienFormBean.anzahl}" />
+				</h:panelGrid>
 
-			<h:commandButton value="Zurück" action="#{aktienFormBean.back}" ajax="false" />
-			<h:commandButton value="weiter" action="#{aktienFormBean.next}" ajax="false" />
+				<h:commandButton value="Zurück" action="#{aktienFormBean.back}"
+					ajax="false" />
+				<h:commandButton value="weiter" action="#{aktienFormBean.next}"
+					ajax="false" />
 
 			</h:form>
 		</div>

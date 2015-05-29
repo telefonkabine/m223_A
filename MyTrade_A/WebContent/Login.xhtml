@@ -18,22 +18,31 @@
 		<f:view>My Trade</f:view>
 	</div>
 	<br />
-	<div id= "meldungBox">
+	<div id="meldungBox">
 		<f:view>Meldungen</f:view>
 	</div>
 	<br />
-	<div id = "inhaltBox">
-		<f:view>Inhalt</f:view>
+	<div id="inhaltBox">
+		<f:view>Login</f:view>
 		<h:form>
-		<h:panelGrid>
+			<h:panelGrid>
 				<h:outputLabel for="fieldBenutzername" value="Benutzername:" />
-				<h:inputText id="fieldBenutzername" value="#{loginFormBean.username}" />
-				
+				<h:inputText id="fieldBenutzername"
+					value="#{loginFormBean.username}">
+					<f:validateRequired />
+					<f:validateLength minimum="3" maximum="9" />
+					<f:validateRegex pattern="[A-Z][a-zA-Z]*" />
+				</h:inputText>
+
 				<h:outputLabel for="fieldPasswort" value="Passwort:" />
-				<h:inputSecret id="fieldPasswort" value="#{loginFormBean.password}" />
-				</h:panelGrid>
-				
-				<h:commandButton value="OK" action="#{loginFormBean.anmelden}" />
+				<h:inputSecret id="fieldPasswort" value="#{loginFormBean.password}">
+<!-- 					<f:validateRequired />
+					<f:validateLength minimum="3" maximum="9" />
+					<f:validateRegex pattern="[A-Z][a-z0-9]*" /> -->
+				</h:inputSecret>
+			</h:panelGrid>
+
+			<h:commandButton value="OK" action="#{loginFormBean.anmelden}" />
 		</h:form>
 	</div>
 
