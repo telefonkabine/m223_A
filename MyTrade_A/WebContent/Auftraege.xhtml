@@ -15,39 +15,63 @@
 </head>
 <body>
 	<div id="mutterBox">
+		<div id="portfolioBox">
+			<h:panelGrid columns="5">
+				<td><a href="#{portfolio}">Mein Portfolio</a></td>
+			</h:panelGrid>
+		</div>
+		<div id="auftragBox">
+			<h:panelGrid columns="5">
+				<td><a href="#{auftraege}">Offene Aufträge</a></td>
+			</h:panelGrid>
+		</div>
+		<div id="administrationBox">
+			<h:panelGrid columns="5">
+				<td><a href="#{administration}">Administration</a></td>
+			</h:panelGrid>
+		</div>
+		<div id="musterBox">
+			<h:panelGrid columns="5">
+				<td><a href="#{muster}">Muster</a></td>
+			</h:panelGrid>
+		</div>
+		<f:view>Mein Portfolio</f:view>
+		<div id="meldungBox">
+			<f:view>Meldungen</f:view>
+		</div>
 		<f:view>Aufrtag erfassen</f:view>
-	</div>
-	<div id="meldungBox">
-		<f:view>Meldungen</f:view>
-	</div>
-	<div id="inhaltBox">
-		<h:form>
-			<h:outputLabel value="Aktueller Kontostand" />
-			<h:outputText value="#{kontostand}" />
-			<h:dataTable value="#{offen.Liste}" var="o" styleClass="order-table"
-				headerClass="order-table-header"
-				rowClasses="order-table-odd-row,order-table-even-row">
-				<h:column>
-					<f:facet name="header">Symbol</f:facet>
+		<div id="meldungBox">
+			<f:view>Meldungen</f:view>
+		</div>
+		<div id="inhaltBox">
+			<h:form>
+				<h:outputLabel value="Aktueller Kontostand" />
+				<h:outputText value="#{kontostand}" />
+				<h:dataTable value="#{offen.Liste}" var="o" styleClass="order-table"
+					headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-even-row">
+					<h:column>
+						<f:facet name="header">Symbol</f:facet>
     				#{o.symbol}
     			</h:column>
 
-				<h:column>
-					<f:facet name="header">Aktie</f:facet>
+					<h:column>
+						<f:facet name="header">Aktie</f:facet>
     				#{o.aktie}
     			</h:column>
 
-				<h:column>
-					<f:facet name="header">Preis</f:facet>
+					<h:column>
+						<f:facet name="header">Preis</f:facet>
     				#{o.preis}
     			</h:column>
 
-				<h:column>
-					<f:facet name="header">Aktionen</f:facet>
+					<h:column>
+						<f:facet name="header">Aktionen</f:facet>
     				#{o.aktionen}
     			</h:column>
-			</h:dataTable>
-		</h:form>
+				</h:dataTable>
+			</h:form>
+		</div>
 	</div>
 </body>
 </html>

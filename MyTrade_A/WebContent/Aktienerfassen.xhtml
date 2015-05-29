@@ -15,40 +15,65 @@
 </head>
 <body>
 	<div id="mutterBox">
-		<f:view>Aktie erfassen</f:view>
-	</div>
-	<div id="meldungBox">
-		<f:view>Meldungen</f:view>
-	</div>
-
-	<div id="inhaltBox">
-		<h:form>
-			<h:panelGrid>
-				<h:outputLabel for="fieldName" value="Name" />
-				<h:inputText id="fieldName" value="#{name}" />
-				<h:message for="fieldName" />
-
-				<h:outputLabel for="fieldKuerzel" value="Kürzel" />
-				<h:inputText id="fieldKuerzel" value="#{kuerzel}" />
-				<h:message for="fieldKuerzel" />
-
-				<h:outputLabel for="fieldPreis" value="Normalpreis (CHF)" />
-				<h:inputText id="fieldPreis" value="#{preis}" />
-				<h:message for="fieldPreis" />
-
-				<h:outputLabel for="fieldDividende" value="Dividende" />
-				<h:inputText id="fieldDividende" value="#{dividende}" />
-				<h:message for="fieldDividende" />
-
-				<h:outputLabel for="fieldAnzahl" value="Stückanzahl" />
-				<h:inputText id="fieldAnzahl" value="#{anzahl}" />
-				<h:message for="Anzahl" />
+		<div id="portfolioBox">
+			<h:panelGrid columns="5">
+				<td><a href="#{portfolio}">Mein Portfolio</a></td>
 			</h:panelGrid>
+		</div>
+		<div id="auftragBox">
+			<h:panelGrid columns="5">
+				<td><a href="#{auftraege}">Offene Aufträge</a></td>
+			</h:panelGrid>
+		</div>
+		<div id="administrationBox">
+			<h:panelGrid columns="5">
+				<td><a href="#{administration}">Administration</a></td>
+			</h:panelGrid>
+		</div>
+		<div id="musterBox">
+			<h:panelGrid columns="5">
+				<td><a href="#{muster}">Muster</a></td>
+			</h:panelGrid>
+		</div>
+		<f:view>Mein Portfolio</f:view>
+		<div id="meldungBox">
+			<f:view>Meldungen</f:view>
+		</div>
+		<f:view>Aktie erfassen</f:view>
+		<div id="meldungBox">
+			<f:view>Meldungen</f:view>
+		</div>
 
-			<h:commandButton value="Zurück" action="#{zurueck}" ajax="false" />
-			<h:commandButton value="Speichern" action="#{saveAktie}" ajax="false" />
+		<div id="inhaltBox">
+			<h:form>
+				<h:panelGrid>
+					<h:outputLabel for="fieldName" value="Name" />
+					<h:inputText id="fieldName" value="#{name}" />
+					<h:message for="fieldName" />
 
-		</h:form>
+					<h:outputLabel for="fieldKuerzel" value="Kürzel" />
+					<h:inputText id="fieldKuerzel" value="#{kuerzel}" />
+					<h:message for="fieldKuerzel" />
+
+					<h:outputLabel for="fieldPreis" value="Normalpreis (CHF)" />
+					<h:inputText id="fieldPreis" value="#{preis}" />
+					<h:message for="fieldPreis" />
+
+					<h:outputLabel for="fieldDividende" value="Dividende" />
+					<h:inputText id="fieldDividende" value="#{dividende}" />
+					<h:message for="fieldDividende" />
+
+					<h:outputLabel for="fieldAnzahl" value="Stückanzahl" />
+					<h:inputText id="fieldAnzahl" value="#{anzahl}" />
+					<h:message for="Anzahl" />
+				</h:panelGrid>
+
+				<h:commandButton value="Zurück" action="#{zurueck}" ajax="false" />
+				<h:commandButton value="Speichern" action="#{saveAktie}"
+					ajax="false" />
+
+			</h:form>
+		</div>
 	</div>
 </body>
 </html>
