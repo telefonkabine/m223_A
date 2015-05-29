@@ -12,47 +12,90 @@ a:link {
 
 /* Boxen */
 #mutterBox {
-	background-color: blue;
+	background-color: #e4e0d3;
+	margin: 0 auto;
 	height: 1000px;
 	width: 2040px;
-	margin: auto;
 	z-index: 2;
-	position: fixed;
+	position: relative;
+}
+
+#portfolioBox {
+	background-color: #c0c0c0;
+	height: 50px;
+	width: 250px;
+	z-index: 3;
+	flex-direction: row;
+	top: 50px;
+	left: 250px;
+	margin-bottom: 5px;
+	position: absolute;
+	left: 20%;
+}
+
+#auftragBox {
+	background-color: #c0c0c0;
+	height: 50px;
+	width: 250px;
+	z-index: 3;
+	flex-direction: row;
+	top: 50px;
+	left: 550px;
+	margin-bottom: 5px;
+	position: absolute;
+}
+
+#administrationBox {
+	background-color: #c0c0c0;
+	height: 50px;
+	width: 250px;
+	z-index: 3;
+	flex-direction: row;
+	top: 50px;
+	left: 800px;
+	margin-bottom: 5px;
+	position: absolute;
+}
+
+#musterBox {
+	background-color: #c0c0c0;
+	top: 50px;
+	left: 1050px;
+	height: 50px;
+	width: 250px;
+	z-index: 3;
+	margin-bottom: 5px;
+	position: absolute;
+	left: 50%;
 }
 
 #meldungBox {
-	background-color:yellow;
-	height: 100px;
+	background-color: #e4e0d3;
+	height: 30px;
 	width: 1024px;
 	z-index: 3;
-	flex-direction:row;
-	top: 15%;
+	flex-direction: row;
+	top: 11%;
 	left: 20%;
-	margin-bottom:5px;
-/*	margin-top: 75px;
-	margin-left: 440px; */
-	position: fixed;
+	margin-bottom: 5px;
+	position: absolute;
 }
 
-
 #inhaltBox {
-	background-color: white;
+	background-color: #d1d6dc;
 	color: black;
 	height: 595px;
 	width: 964px;
-	margin-top:10px;
+	margin-top: 10px;
 	z-index: 3;
-	position: fixed;
-	top: 30%;
+	position: absolute;
+	top: 14%;
 	left: 20%;
-	/*  text-align: center; */
-	/*opacity: 0.4;*/
 	padding-left: 30px;
 	padding-right: 30px;
 	padding-top: 50px;
 	font-family: Arial;
 }
-
 
 /* Tabellen */
 .tableTitel {
@@ -71,25 +114,25 @@ a:link {
 	text-align: center;
 }
 
-order-table{   
-	border-collapse:collapse;
+order-table {
+	border-collapse: collapse;
 }
- 
-.order-table-header{
-	text-align:center;
-	background:none repeat scroll 0 0 #E5E5E5;
-	border-bottom:1px solid #BBBBBB;
-	padding:16px;
+
+.order-table-header {
+	text-align: center;
+	background: none repeat scroll 0 0 #E5E5E5;
+	border-bottom: 1px solid #BBBBBB;
+	padding: 16px;
 }
- 
-.order-table-odd-row{
-	text-align:center;
-	background:none repeat scroll 0 0 #FFFFFFF;
-	border-top:1px solid #BBBBBB;
+
+.order-table-odd-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #FFFFFFF;
+	border-top: 1px solid #BBBBBB;
 }
- 
-.order-table-even-row{
-	text-align:center;
-	background:none repeat scroll 0 0 #F9F9F9;
-	border-top:1px solid #BBBBBB;
+
+.order-table-even-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #F9F9F9;
+	border-top: 1px solid #BBBBBB;
 }
