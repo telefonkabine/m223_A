@@ -64,10 +64,14 @@
 
 					<h:outputLabel for="fieldDividende" value="Dividende" />
 					<h:inputText id="fieldDividende"
-						value="#{aktienFormBean.dividende}" />
+						value="#{aktienFormBean.dividende}">
+						<f:validateDoubleRange minimum="0.0" maximum="1.0" />
+					</h:inputText>
 
 					<h:outputLabel for="fieldAnzahl" value="Stückanzahl" />
-					<h:inputText id="fieldAnzahl" value="#{aktienFormBean.anzahl}" />
+					<h:inputText id="fieldAnzahl" value="#{aktienFormBean.anzahl}">
+						<f:validateLongRange minimum="0" maximum="100" />
+					</h:inputText>
 				</h:panelGrid>
 
 				<h:commandButton value="Zurück" action="#{aktienFormBean.back}"

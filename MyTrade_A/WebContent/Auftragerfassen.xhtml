@@ -53,12 +53,14 @@
 					</h:selectOneMenu>
 
 					<h:outputLabel for="fieldPreis" value="Preis (CHF)" />
-					<h:inputText id="fieldPreis" value="#{preis}" />
-					<h:message for="fieldPreis" />
+					<h:inputText id="fieldPreis" value="#{preis}">
+						<f:validateDoubleRange minimum="0.0" maximum="1.0" />
+					</h:inputText>
 
 					<h:outputLabel for="fieldAnzahl" value="Stückzahl (1-n)" />
-					<h:inputText id="fieldAnzahl" value="#{anzahl}" />
-					<h:message for="Anzahl" />
+					<h:inputText id="fieldAnzahl" value="#{anzahl}">
+						<f:validateLongRange minimum="0" maximum="100" />
+					</h:inputText>
 				</h:panelGrid>
 
 				<h:commandButton value="Zurück" action="#{back}" ajax="false" />
