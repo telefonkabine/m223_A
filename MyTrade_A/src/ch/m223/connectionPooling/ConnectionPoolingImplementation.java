@@ -25,7 +25,7 @@ public class ConnectionPoolingImplementation implements ConnectionPooling {
 	// TODO: Dependency inject (Property file)
 	final String treiberName   = "com.mysql.jdbc.Driver";
 	// TODO: Property file
-	final String connectionURL = "jdbc:mysql://192.168.56.1/mytrade"; 
+	final String connectionURL = "jdbc:mysql://192.168.1.85/mytrade"; 
 
 	// TODO: Security: store username and pwd externally
 	private String myUserName    = "MyTradeUser";
