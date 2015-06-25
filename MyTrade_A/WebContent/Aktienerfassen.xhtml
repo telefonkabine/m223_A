@@ -36,18 +36,16 @@
 			</h:panelGrid>
 		</div>
 		<f:view>Aktie erfassen</f:view>
-		<div id="meldungBox">
-			<f:view>Meldungen</f:view>
-		</div>
-
+		<div id="meldungBox"></div>
+			<h:outputText value="#{meldungFormBean.meldung}" />
 		<div id="inhaltBox">
 			<h:form>
 				<h:panelGrid>
 					<h:outputLabel for="fieldName" value="Name" />
 					<h:inputText id="fieldName" value="#{aktienFormBean.name}">
 						<f:validateRequired />
-						<f:validateLength minimum="3" maximum="255" />
-						<f:validateRegex pattern="[A-Z][a-zA-Z]*" />
+						<f:validateLength minimum="3" maximum="20" />
+						<f:validateRegex pattern="[a-zA-Z]*" />
 					</h:inputText>
 
 					<h:outputLabel for="fieldKuerzel" value="Kürzel" />
@@ -59,18 +57,18 @@
 
 					<h:outputLabel for="fieldPreis" value="Normalpreis (CHF)" />
 					<h:inputText id="fieldPreis" value="#{aktienFormBean.nominalpreis}">
-						<f:validateDoubleRange minimum="0.0" maximum="1.0" />
+						<f:validateDoubleRange minimum="0.0" maximum="5000.0" />
 					</h:inputText>
 
 					<h:outputLabel for="fieldDividende" value="Dividende" />
 					<h:inputText id="fieldDividende"
 						value="#{aktienFormBean.dividende}">
-						<f:validateDoubleRange minimum="0.0" maximum="1.0" />
+						<f:validateDoubleRange minimum="0.0" maximum="50.0" />
 					</h:inputText>
 
 					<h:outputLabel for="fieldAnzahl" value="Stückanzahl" />
 					<h:inputText id="fieldAnzahl" value="#{aktienFormBean.anzahl}">
-						<f:validateLongRange minimum="0" maximum="100" />
+						<f:validateLongRange minimum="1" maximum="100" />
 					</h:inputText>
 				</h:panelGrid>
 

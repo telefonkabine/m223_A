@@ -19,19 +19,19 @@ public class AktienFormBean {
 	private AktieDAO aktieDao;
 
 	public AktienFormBean() {
-
-		aktieDao = new AktieDAO();
-		
+		aktieDao = new AktieDAO();	
 	}
 	
 	//Speichert eingegebene Daten in die Datenbank. Liefert False, falls der INSERT ungueltig ist
 	public String save(){
 		
 		if(aktieDao.insertAktie(name, kuerzel, nominalpreis, dividende, benutzerID, anzahl))
-			return "Index?faces-redirect=true";
+			
+			return "Admin?faces-redirect=true";
 			
 		else
-			return "Aktienbestätigung?faces-redirect=true";
+			return "Aktienerfassen?faces-redirect=true";
+		
 	}
 	
 	//Zurueck-Button von Aktienerfassen zur Hauptseite
