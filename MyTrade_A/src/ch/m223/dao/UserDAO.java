@@ -78,7 +78,8 @@ public class UserDAO {
 	 * @return true if the user was created otherwise false
 	 */
 	public synchronized boolean insertUser(UserModel user){
-		if(getUserByLogin(user.getLogin()) == null){
+		
+		if(getUserByLogin(user.getLogin()).getLogin() == null){
 			System.out.println("return null");
 			try{
 				
@@ -126,7 +127,7 @@ public class UserDAO {
 			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
 			
 			Connection con = connectionPooling.getConnection();
-			
+			System.out.println("Connection: " + con);
 			PreparedStatement preparedStatement = con.prepareStatement("SELECT benutzerID, name, vorname, login, passwort, fk_typID, kontostand FROM benutzer WHERE login = ?");
 			preparedStatement.setString(1, login);
 			
@@ -145,6 +146,7 @@ public class UserDAO {
 				//return user;
 			}
 			connectionPooling.putConnection(con);
+			System.out.println(user.getLogin());
 			return user;
 			
 		} catch(SQLException sqle){
