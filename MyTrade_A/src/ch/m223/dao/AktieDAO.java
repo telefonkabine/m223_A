@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import ch.m223.connectionPooling.ConnectionPooling;
 import ch.m223.connectionPooling.ConnectionPoolingImplementation;
 import ch.m223.model.AktieModel;
+import ch.m223.model.UserModel;
 
 public class AktieDAO {
 
@@ -86,6 +87,40 @@ public class AktieDAO {
 		}
 		
 		return null;
+	}
+	
+	public AktieModel getAktieById(int aktieId){
+		try{
+			ConnectionPooling connectionPooling;
+			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+			
+			Connection con = connectionPooling.getConnection();
+			System.out.println("Connection: " + con);
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT aktienId, name, kuerzel, nominalpreis, dividende, fk_benutzerId "
+																		+ "FROM aktie WHERE aktienId = ?");
+			preparedStatement.setInt(1, aktieId);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			AktieModel aktie = null;
+			if(rs.next()){
+				aktie = new AktieModel();
+				aktie.setAktienId(rs.getInt("aktienId"));
+				aktie.setDividende(rs.getInt("dividende"));
+				aktie.setFk_benutzerId(rs.getInt("benutzerId"));
+				aktie.setKuerzel(rs.getString("kuerzel"));
+				aktie.setName(rs.getString("name"));
+				aktie.setNominalpreis(rs.getInt("nominalpreis"));
+				//return user;
+			}
+		connectionPooling.putConnection(con);
+		return aktie;
+		
+		} catch(SQLException sqle){
+			System.out.println("Es trat ein Fehler im SQL auf.");
+			sqle.printStackTrace();
+		}
+			return null;
 	}
 
 }
