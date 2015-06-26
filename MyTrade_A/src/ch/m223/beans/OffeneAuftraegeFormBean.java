@@ -19,9 +19,11 @@ public class OffeneAuftraegeFormBean {
 		AuftragModel auftragM = new AuftragModel();
 		
 		if(auftragM.isUser()){
+			MeldungFormBean.aktuelleMeldung = new MeldungFormBean().getMeldung6();
 			return "stornieren";
 		}
 		else{
+			MeldungFormBean.aktuelleMeldung = new MeldungFormBean().getMeldung4();
 			return "kaufen";
 		}
 	}

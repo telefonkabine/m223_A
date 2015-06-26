@@ -54,6 +54,7 @@ public class BenutzerFormBean {
 		
 		userDao.insertUser(user);
 		
+		MeldungFormBean.aktuelleMeldung = new MeldungFormBean().getMeldung3() + getVorname();
 		return "Admin?faces-redirect=true";
 	}
 	public String getName() {

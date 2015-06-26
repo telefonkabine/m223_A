@@ -28,7 +28,7 @@ public class AktienFormBean {
 		if (aktieDao.insertAktie(name, kuerzel, nominalpreis, dividende,
 				benutzerID, anzahl)) {
 			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
-					.getMeldung1();
+					.getMeldung1() + getName();
 			return "Admin?faces-redirect=true";
 		} else {
 			MeldungFormBean.aktuelleMeldung = "";

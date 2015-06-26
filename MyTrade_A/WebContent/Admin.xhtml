@@ -38,14 +38,14 @@
 		</div>
 		<f:view>Mein Portfolio</f:view>
 		<div id="meldungBox">
-			<h:outputText value="#{meldungFormBean.aktuelleMeldung}" value="#{aktienFormBean.name"}" />
+			<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
 		</div>
 		<div id="inhaltBox">
 			<h:outputLink value="Aktienerfassen.xhtml">Aktien erfassen</h:outputLink>
 			<br />
 			<h:outputLink value="Benutzererfassen.xhtml">Benutzer erfassen</h:outputLink>
 			<br />
-			<h:outputLink value="Auftraege.xhtml">Dividenden ausschütten</h:outputLink>
+			<h:outputLink value="#{DividendenFormBean.ausschuetten">Dividenden ausschütten</h:outputLink>
 		</div>
 	</div>
 </body>
