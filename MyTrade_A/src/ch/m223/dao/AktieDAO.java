@@ -107,7 +107,7 @@ public class AktieDAO {
 				aktie = new AktieModel();
 				aktie.setAktienId(rs.getInt("aktienId"));
 				aktie.setDividende(rs.getInt("dividende"));
-				aktie.setFk_benutzerId(rs.getInt("benutzerId"));
+				aktie.setFk_benutzerId(rs.getInt("fk_benutzerId"));
 				aktie.setKuerzel(rs.getString("kuerzel"));
 				aktie.setName(rs.getString("name"));
 				aktie.setNominalpreis(rs.getInt("nominalpreis"));

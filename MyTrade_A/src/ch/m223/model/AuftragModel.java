@@ -6,9 +6,16 @@ public class AuftragModel {
 	private int kontostand;
 	private String symbol;
 	private String name;
+	private boolean isUser;
 	
+
 	
-	
+	public boolean isUser() {
+		return isUser;
+	}
+	public void setUser(boolean isUser) {
+		this.isUser = isUser;
+	}
 	public int getKontostand() {
 		return kontostand;
 	}
