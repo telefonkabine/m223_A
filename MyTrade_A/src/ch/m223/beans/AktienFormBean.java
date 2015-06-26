@@ -5,7 +5,6 @@ import javax.faces.bean.SessionScoped;
 
 import ch.m223.dao.AktieDAO;
 
-
 @ManagedBean
 @SessionScoped
 public class AktienFormBean {
@@ -19,39 +18,41 @@ public class AktienFormBean {
 	private AktieDAO aktieDao;
 
 	public AktienFormBean() {
-		aktieDao = new AktieDAO();	
-	}
-	
-	//Speichert eingegebene Daten in die Datenbank. Liefert False, falls der INSERT ungueltig ist
-	public String save(){
-		
-		if(aktieDao.insertAktie(name, kuerzel, nominalpreis, dividende, benutzerID, anzahl))
-			
-			return "Admin?faces-redirect=true";
-			
-		else
-			return "Aktienerfassen?faces-redirect=true";
-		
-	}
-	
-	//Zurueck-Button von Aktienerfassen zur Hauptseite
-	public String back(){
-		
-		return "Admin?faces-redirect=true";	
-	}
-	
-	//Zurueck-Button von Aktienbestaetigung zu Aktienerfassen
-	public String back2(){
-		
-		return "Aktienerfassen?faces-redirect=true";	
-	}
-	
-	//Weiter-Button von Aktienerfassen zu Aktienbestaetigung 
-	public String next(){
-		
-		return "Aktienbestaetigung?faces-redirect=true";	
+		aktieDao = new AktieDAO();
 	}
 
+	// Speichert eingegebene Daten in die Datenbank. Liefert False, falls der
+	// INSERT ungueltig ist
+	public String save() {
+
+		if (aktieDao.insertAktie(name, kuerzel, nominalpreis, dividende,
+				benutzerID, anzahl)) {
+			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
+					.getMeldung1();
+			return "Admin?faces-redirect=true";
+		} else {
+			MeldungFormBean.aktuelleMeldung = "";
+			return "Aktienerfassen?faces-redirect=true";
+		}
+	}
+
+	// Zurueck-Button von Aktienerfassen zur Hauptseite
+	public String back() {
+
+		return "Admin?faces-redirect=true";
+	}
+
+	// Zurueck-Button von Aktienbestaetigung zu Aktienerfassen
+	public String back2() {
+
+		return "Aktienerfassen?faces-redirect=true";
+	}
+
+	// Weiter-Button von Aktienerfassen zu Aktienbestaetigung
+	public String next() {
+
+		return "Aktienbestaetigung?faces-redirect=true";
+	}
 
 	public String getName() {
 		return name;
@@ -108,7 +109,7 @@ public class AktienFormBean {
 	public void setaktieDao(AktieDAO aktieDao) {
 		this.aktieDao = aktieDao;
 	}
-	
+
 	public int getanzahl() {
 		return anzahl;
 	}

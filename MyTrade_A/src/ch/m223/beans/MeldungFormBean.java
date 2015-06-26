@@ -14,6 +14,7 @@ public class MeldungFormBean {
 	private String meldung5 = "Der Auftrag wurde erfolgreich erfasst: ";
 	private String meldung6 = "Der Auftrag wurde erfolgreich storniert: ";
 	private String meldung = "";
+	public static String aktuelleMeldung = "";
 
 	public String getMeldung1() {
 		return meldung1;
@@ -70,5 +71,11 @@ public class MeldungFormBean {
 	public void setMeldung(String meldung) {
 		this.meldung = meldung;
 	}
+	
+	public String getAktuelleMeldung() {
+		return MeldungFormBean.aktuelleMeldung;
+	}
+	
+	
 
 }
