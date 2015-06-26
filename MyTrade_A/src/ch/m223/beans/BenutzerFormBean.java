@@ -54,7 +54,7 @@ public class BenutzerFormBean {
 		
 		userDao.insertUser(user);
 		
-		return "Admin?faces-redirect=true";
+		return "/private/Admin?faces-redirect=true";
 	}
 	public String getName() {
 		return name;

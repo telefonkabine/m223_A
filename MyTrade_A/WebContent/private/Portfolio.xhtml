@@ -44,33 +44,30 @@
 
 				<h:outputLabel value="Aktueller Kontostand" />
 				<h:outputText value="#{kontostand}" />
-				<h:dataTable value="#{offen.Liste}" var="o" styleClass="order-table"
+				<h:dataTable value="#{meinPortfolioBean.list}" var="l" styleClass="order-table"
 					headerClass="order-table-header"
 					rowClasses="order-table-odd-row,order-table-even-row">
+					
+				<h:column>
+						<f:facet name="header">Aktien</f:facet>
+    				#{l.name}
+    			</h:column>
+					
 					<h:column>
 						<f:facet name="header">Symbol</f:facet>
-    				#{o.symbol}
+    				#{l.kuerzel}
     			</h:column>
 
-					<h:column>
-						<f:facet name="header">Offene Aufträge</f:facet>
-    				#{o.aufträge}
-    			</h:column>
-
-					<h:column>
-						<f:facet name="header">Anzahl</f:facet>
-    				#{o.anzahl}
-    			</h:column>
-
-					<h:column>
+				<h:column>
 						<f:facet name="header">Letzte Dividende (CHF)</f:facet>
-    				#{o.dividende}
+    				#{l.dividende}
+    			</h:column>
+    			
+    			<h:column>
+						<f:facet name="header">Letzte Dividende (CHF)</f:facet>
+    				<h:commandButton value="verkaufen" action="#{meinPortfolioBean.Verkaufen}" ajax="false" />
     			</h:column>
 
-					<h:column>
-						<f:facet name="header">Aktionen</f:facet>
-    				#{o.aktionen}
-    			</h:column>
 				</h:dataTable>
 			</h:form>
 		</div>

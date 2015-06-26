@@ -1,11 +1,8 @@
 package ch.m223.beans;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
 import ch.m223.dao.AuftragDAO;
 import ch.m223.model.AuftragModel;
 

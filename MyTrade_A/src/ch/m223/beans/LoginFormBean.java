@@ -36,7 +36,7 @@ public class LoginFormBean {
 			return "/private/Portfolio?faces-redirect=true";
 		} else {
 			System.out.println("User oder PW falsch");
-			return "login?faces-redirect=true";
+			return "/public/login?faces-redirect=true";
 		}
 		
 	

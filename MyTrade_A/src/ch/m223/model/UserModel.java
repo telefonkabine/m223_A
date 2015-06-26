@@ -1,5 +1,8 @@
 package ch.m223.model;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
 public class UserModel {
 	
 	private int benutzerID;
@@ -9,7 +12,16 @@ public class UserModel {
 	private String passwort;
 	private int fk_typID;
 	private int kontostand;
-
+	
+	public UserModel getUserObjectFromSession(){
+		UserModel u = new UserModel();
+		
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		externalContext.getSessionMap().get("user");
+		
+	return u;
+	}
 	public int getBenutzerID() {
 		return benutzerID;
 	}
