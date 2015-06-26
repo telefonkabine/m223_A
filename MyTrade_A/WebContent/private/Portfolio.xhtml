@@ -11,7 +11,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="../css/style.css"
 	title="Standard" />
-<title>Offene Aufträge</title>
+<title>Mein Portfolio</title>
 </head>
 <body>
 	<div id="mutterBox">
@@ -37,38 +37,40 @@
 		</div>
 		<f:view>Mein Portfolio</f:view>
 		<div id="meldungBox">
-			<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
-		</div>
-		<f:view>Aufrtag erfassen</f:view>
-		<div id="meldungBox">
-			
+			<f:view>Meldungen</f:view>
 		</div>
 		<div id="inhaltBox">
 			<h:form>
+
 				<h:outputLabel value="Aktueller Kontostand" />
 				<h:outputText value="#{kontostand}" />
-				<h:dataTable value="#{offeneAuftraegeFormBean.auftraege}" var="o" styleClass="order-table"
+				<h:dataTable value="#{offen.Liste}" var="o" styleClass="order-table"
 					headerClass="order-table-header"
 					rowClasses="order-table-odd-row,order-table-even-row">
 					<h:column>
 						<f:facet name="header">Symbol</f:facet>
-    					<h:outputText value="#{o.symbol}"></h:outputText>
-    				</h:column>
+    				#{o.symbol}
+    			</h:column>
 
 					<h:column>
-						<f:facet name="header">Aktie</f:facet>
-    					<h:outputText value="#{o.name}"></h:outputText>
-    				</h:column>
+						<f:facet name="header">Offene Aufträge</f:facet>
+    				#{o.aufträge}
+    			</h:column>
 
 					<h:column>
-						<f:facet name="header">Preis</f:facet>
-    					<h:outputText value="#{o.preis}"></h:outputText>
-    				</h:column>
+						<f:facet name="header">Anzahl</f:facet>
+    				#{o.anzahl}
+    			</h:column>
+
+					<h:column>
+						<f:facet name="header">Letzte Dividende (CHF)</f:facet>
+    				#{o.dividende}
+    			</h:column>
 
 					<h:column>
 						<f:facet name="header">Aktionen</f:facet>
-    					<h:outputText value="#{offeneAuftraegeFormBean.getAktion()}"></h:outputText>
-    				</h:column>
+    				#{o.aktionen}
+    			</h:column>
 				</h:dataTable>
 			</h:form>
 		</div>

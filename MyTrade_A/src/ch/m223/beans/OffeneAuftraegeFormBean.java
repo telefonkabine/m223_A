@@ -14,19 +14,61 @@ import ch.m223.model.AuftragModel;
 public class OffeneAuftraegeFormBean {
 	private AuftragDAO auftragDao = new AuftragDAO();
 	private List<AuftragModel> auftraege = auftragDao.getAuftraege();
-	
-	public String getAktion(){
-		AuftragModel auftragM = new AuftragModel();
-		
-		if(auftragM.isUser()){
-			MeldungFormBean.aktuelleMeldung = new MeldungFormBean().getMeldung6();
-			return "stornieren";
+	private String aktionName;
+	private AuftragModel auftragM = new AuftragModel();
+
+	public String getAktionName() {
+
+		if (auftragM.isUser()) {
+
+			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
+					.getMeldung6();
+			aktionName = "stornieren";
+
+		} else {
+
+			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
+					.getMeldung4();
+			aktionName = "kaufen";
+
 		}
-		else{
-			MeldungFormBean.aktuelleMeldung = new MeldungFormBean().getMeldung4();
-			return "kaufen";
-		}
+		return aktionName;
 	}
+
+	public void setAktionName(String aktionName) {
+		this.aktionName = aktionName;
+	}
+
+	// TODO: Welche View wird angezeigt nach kaufen/stornieren?
+	public String doAktion() {
+		if (auftragM.isUser()) {
+			doStornieren();
+		} else {
+			doKaufen();
+		}
+		return "/private/Auftraege?faces-redirect=true";
+	}
+
+	private void doKaufen() {
+		System.out.println("kaufen");
+	}
+
+	private void doStornieren() {
+		AuftragDAO auftragDao = new AuftragDAO();
+		auftragDao.deleteAuftragById(auftragM.getAuftragId());
+		System.out.println("stornieren");
+	}
+
+	// public String getAktion(){
+	// AuftragModel auftragM = new AuftragModel();
+	//
+	// if(auftragM.isUser()){
+	// return "stornieren";
+	// }
+	// else{
+	// return "kaufen";
+	// }
+	// }
 
 	public List<AuftragModel> getAuftraege() {
 		return auftraege;

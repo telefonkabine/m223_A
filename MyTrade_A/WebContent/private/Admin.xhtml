@@ -11,12 +11,13 @@
 <head>
 <link rel="stylesheet" type="text/css" href="../css/style.css"
 	title="Standard" />
-<title>Mein Portfolio</title>
+<title>Admin</title>
 </head>
 <body>
 	<div id="mutterBox">
 		<div id="portfolioBox">
 			<h:panelGrid columns="5">
+				<!-- <h:commandLink value="portfolio?faces-redirect=true">Mein Portfolio</h:commandLink> -->
 				<h:outputLink value="Portfolio.xhtml">Mein Portfolio</h:outputLink>
 			</h:panelGrid>
 		</div>
@@ -37,42 +38,14 @@
 		</div>
 		<f:view>Mein Portfolio</f:view>
 		<div id="meldungBox">
-			
+			<h:outputText value="#{meldungFormBean.aktuelleMeldung}" value="#{aktienFormBean.name}" />
 		</div>
 		<div id="inhaltBox">
-			<h:form>
-
-				<h:outputLabel value="Aktueller Kontostand" />
-				<h:outputText value="#{kontostand}" />
-				<h:dataTable value="#{offen.Liste}" var="o" styleClass="order-table"
-					headerClass="order-table-header"
-					rowClasses="order-table-odd-row,order-table-even-row">
-					<h:column>
-						<f:facet name="header">Symbol</f:facet>
-    				#{o.symbol}
-    			</h:column>
-
-					<h:column>
-						<f:facet name="header">Offene Aufträge</f:facet>
-    				#{o.aufträge}
-    			</h:column>
-
-					<h:column>
-						<f:facet name="header">Anzahl</f:facet>
-    				#{o.anzahl}
-    			</h:column>
-
-					<h:column>
-						<f:facet name="header">Letzte Dividende (CHF)</f:facet>
-    				#{o.dividende}
-    			</h:column>
-
-					<h:column>
-						<f:facet name="header">Aktionen</f:facet>
-    				#{o.aktionen}
-    			</h:column>
-				</h:dataTable>
-			</h:form>
+			<h:outputLink value="Aktienerfassen.xhtml">Aktien erfassen</h:outputLink>
+			<br />
+			<h:outputLink value="Benutzererfassen.xhtml">Benutzer erfassen</h:outputLink>
+			<br />
+			<h:outputLink value="#{DividendenFormBean.ausschuetten">Dividenden ausschütten</h:outputLink>
 		</div>
 	</div>
 </body>

@@ -7,7 +7,6 @@ import javax.faces.context.FacesContext;
 import ch.m223.connectionPooling.ConnectionPooling;
 import ch.m223.connectionPooling.ConnectionPoolingImplementation;
 import ch.m223.model.AktieModel;
-import ch.m223.model.UserModel;
 
 public class AktieDAO {
 

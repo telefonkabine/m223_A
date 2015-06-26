@@ -11,13 +11,12 @@
 <head>
 <link rel="stylesheet" type="text/css" href="../css/style.css"
 	title="Standard" />
-<title>Admin</title>
+<title>Offene Aufträge</title>
 </head>
 <body>
 	<div id="mutterBox">
 		<div id="portfolioBox">
 			<h:panelGrid columns="5">
-				<!-- <h:commandLink value="portfolio?faces-redirect=true">Mein Portfolio</h:commandLink> -->
 				<h:outputLink value="Portfolio.xhtml">Mein Portfolio</h:outputLink>
 			</h:panelGrid>
 		</div>
@@ -41,11 +40,33 @@
 			<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
 		</div>
 		<div id="inhaltBox">
-			<h:outputLink value="Aktienerfassen.xhtml">Aktien erfassen</h:outputLink>
-			<br />
-			<h:outputLink value="Benutzererfassen.xhtml">Benutzer erfassen</h:outputLink>
-			<br />
-			<h:outputLink value="#{DividendenFormBean.ausschuetten">Dividenden ausschütten</h:outputLink>
+			<h:form>
+				<h:outputLabel value="Aktueller Kontostand" />
+				<h:outputText value="#{kontostand}" />
+				<h:dataTable value="#{offeneAuftraegeFormBean.auftraege}" var="o" styleClass="order-table"
+					headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-even-row">
+					<h:column>
+						<f:facet name="header">Symbol</f:facet>
+    					<h:outputText value="#{o.symbol}"></h:outputText>
+    				</h:column>
+
+					<h:column>
+						<f:facet name="header">Aktie</f:facet>
+    					<h:outputText value="#{o.name}"></h:outputText>
+    				</h:column>
+
+					<h:column>
+						<f:facet name="header">Preis</f:facet>
+    					<h:outputText value="#{o.preis}"></h:outputText>
+    				</h:column>
+
+					<h:column>
+						<f:facet name="header">Aktionen</f:facet>
+    					<h:commandLink action ="#{offeneAuftraegeFormBean.doAktion()}" value="#{offeneAuftraegeFormBean.aktionName}"></h:commandLink>
+    				</h:column>
+				</h:dataTable>
+			</h:form>
 		</div>
 	</div>
 </body>

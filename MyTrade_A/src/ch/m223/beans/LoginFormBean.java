@@ -2,8 +2,10 @@ package ch.m223.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import ch.m223.dao.UserDAO;
+import ch.m223.model.UserModel;
 
 
 
@@ -14,6 +16,8 @@ public class LoginFormBean {
 	private String username;
 	private String password;
 	private UserDAO jdbc;
+	FacesContext context;
+	
 
 	public LoginFormBean() {
 
@@ -21,10 +25,15 @@ public class LoginFormBean {
 	}
 
 	public String anmelden() {
-
-		if (jdbc.accountExistiert(username, password)) {
+		UserModel u = null;
+		if (jdbc.login(username, password)) {
 			System.out.println("hat geklappt");
-			return "Portfolio?faces-redirect=true";
+				u = new UserModel();
+				u = jdbc.getUserByLogin(username);
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				externalContext.getSessionMap().put("user", u);
+			return "/private/Portfolio?faces-redirect=true";
 		} else {
 			System.out.println("User oder PW falsch");
 			return "login?faces-redirect=true";
