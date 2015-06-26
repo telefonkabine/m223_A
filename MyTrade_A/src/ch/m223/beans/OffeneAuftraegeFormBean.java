@@ -1,6 +1,5 @@
 package ch.m223.beans;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -22,15 +21,13 @@ public class OffeneAuftraegeFormBean {
 		if (auftragM.isUser()) {
 
 			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
-					.getMeldung6();
+					.getMeldung6() + auftragM.getName();
 			aktionName = "stornieren";
-
 		} else {
 
 			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
-					.getMeldung4();
+					.getMeldung4() + auftragM.getName();
 			aktionName = "kaufen";
-
 		}
 		return aktionName;
 	}

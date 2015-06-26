@@ -9,7 +9,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <head>
-<link rel="stylesheet" type="text/css" href="../css/style.css"
+<link rel="stylesheet" type="text/css" href="../../css/style.css"
 	title="Standard" />
 <title>Mein Portfolio</title>
 </head>
@@ -37,7 +37,7 @@
 		</div>
 		<f:view>Mein Portfolio</f:view>
 		<div id="meldungBox">
-			<f:view>Meldungen</f:view>
+			<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
 		</div>
 		<div id="inhaltBox">
 			<h:form>
