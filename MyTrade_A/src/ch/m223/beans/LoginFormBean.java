@@ -29,7 +29,7 @@ public class LoginFormBean {
 		if (jdbc.login(username, password)) {
 			System.out.println("hat geklappt");
 				u = new UserModel();
-				u.setName(username);	
+				u = jdbc.getUserByLogin(username);
 				FacesContext facesContext = FacesContext.getCurrentInstance();
 				ExternalContext externalContext = facesContext.getExternalContext();
 				externalContext.getSessionMap().put("user", u);
