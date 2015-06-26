@@ -7,10 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
 import ch.m223.connectionPooling.ConnectionPooling;
 import ch.m223.connectionPooling.ConnectionPoolingImplementation;
 import ch.m223.model.AktieModel;
 import ch.m223.model.AuftragModel;
+import ch.m223.model.UserModel;
 
 public class AuftragDAO {
 	
@@ -63,6 +67,9 @@ public class AuftragDAO {
 			
 			AktieModel aktie = new AktieModel();
 			AktieDAO aktieDao = new AktieDAO();
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			UserModel u = (UserModel) externalContext.getSessionMap().get("user");
 			while(rs.next()){
 				auftrag = new AuftragModel();
 //				Preis
@@ -78,7 +85,7 @@ public class AuftragDAO {
 				
 //				TODO: benutzerId von aktie mit userId in Session abgleichen
 //				if true auftrag.isUser == true;
-				if(aktie.getFk_benutzerId() == 2){
+				if(aktie.getFk_benutzerId() == u.getBenutzerID()){
 					auftrag.setUser(true);
 				}
 				else{

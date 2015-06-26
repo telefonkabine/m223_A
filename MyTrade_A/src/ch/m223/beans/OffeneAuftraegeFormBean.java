@@ -14,17 +14,52 @@ import ch.m223.model.AuftragModel;
 public class OffeneAuftraegeFormBean {
 	private AuftragDAO auftragDao = new AuftragDAO();
 	private List<AuftragModel> auftraege = auftragDao.getAuftraege();
+	private String aktionName;
+	private AuftragModel auftragM = new AuftragModel();
 	
-	public String getAktion(){
-		AuftragModel auftragM = new AuftragModel();
+	
+	public String getAktionName() {
 		
 		if(auftragM.isUser()){
-			return "stornieren";
+			aktionName = "stornieren";
 		}
 		else{
-			return "kaufen";
+			aktionName = "kaufen";
 		}
+		return aktionName;
 	}
+
+	public void setAktionName(String aktionName) {
+		this.aktionName = aktionName;
+	}
+	
+	public String doAktion(){
+		if(auftragM.isUser()){
+			doStornieren();
+		}
+		else{
+			doKaufen();
+		}
+		return "";
+	}
+	
+	private void doKaufen(){
+		System.out.println("kaufen");
+	}
+	
+	private void doStornieren(){
+		System.out.println("stornieren");
+	}
+//	public String getAktion(){
+//		AuftragModel auftragM = new AuftragModel();
+//		
+//		if(auftragM.isUser()){
+//			return "stornieren";
+//		}
+//		else{
+//			return "kaufen";
+//		}
+//	}
 
 	public List<AuftragModel> getAuftraege() {
 		return auftraege;
