@@ -47,28 +47,28 @@
 			<h:form>
 				<h:outputLabel value="Aktueller Kontostand" />
 				<h:outputText value="#{kontostand}" />
-				<h:dataTable value="#{offen.Liste}" var="o" styleClass="order-table"
+				<h:dataTable value="#{offeneAuftraegeFormBean.auftraege}" var="o" styleClass="order-table"
 					headerClass="order-table-header"
 					rowClasses="order-table-odd-row,order-table-even-row">
 					<h:column>
 						<f:facet name="header">Symbol</f:facet>
-    				#{o.symbol}
-    			</h:column>
+    					<h:outputText value="#{o.symbol}"></h:outputText>
+    				</h:column>
 
 					<h:column>
 						<f:facet name="header">Aktie</f:facet>
-    				#{o.aktie}
-    			</h:column>
+    					<h:outputText value="#{o.name}"></h:outputText>
+    				</h:column>
 
 					<h:column>
 						<f:facet name="header">Preis</f:facet>
-    				#{o.preis}
-    			</h:column>
+    					<h:outputText value="#{o.preis}"></h:outputText>
+    				</h:column>
 
 					<h:column>
 						<f:facet name="header">Aktionen</f:facet>
-    				#{o.aktionen}
-    			</h:column>
+    					<h:outputText value="#{offeneAuftraegeFormBean.getAktion()}"></h:outputText>
+    				</h:column>
 				</h:dataTable>
 			</h:form>
 		</div>

@@ -66,12 +66,30 @@ public class AuftragDAO {
 			AktieDAO aktieDao = new AktieDAO();
 			while(rs.next()){
 				auftrag = new AuftragModel();
+//				Preis
 				auftrag.setPreis(rs.getInt("preis"));
+//				Verbindung zu Aktie
 				auftrag.setFk_AtkienID(rs.getInt("fk_aktienId"));
+//				AktienObjekt befüllen von DB
 				aktie = aktieDao.getAktieById(auftrag.getFk_AtkienID());
+//				Name der Aktie in AuftragsObjekt schreiben
 				auftrag.setName(aktie.getName());
+//				Kuerzel von Aktie in AuftragsObjekt schreiben
 				auftrag.setSymbol(aktie.getKuerzel());
+				
+//				TODO: benutzerId von aktie mit userId in Session abgleichen
+//				if true auftrag.isUser == true;
+				if(aktie.getFk_benutzerId() == 2){
+					auftrag.setUser(true);
+				}
+				else{
+					auftrag.setUser(false);
+				}
+				
+				auftraege.add(auftrag);
 			}
+			
+			return auftraege;
 		
 		} catch(SQLException sqlEx){
 			sqlEx.printStackTrace();
