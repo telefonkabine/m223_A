@@ -29,29 +29,29 @@ public class AktienFormBean {
 				benutzerID, anzahl)) {
 			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
 					.getMeldung1();
-			return "Admin?faces-redirect=true";
+			return "/private/Admin?faces-redirect=true";
 		} else {
 			MeldungFormBean.aktuelleMeldung = "";
-			return "Aktienerfassen?faces-redirect=true";
+			return "/private/Aktienerfassen?faces-redirect=true";
 		}
 	}
 
 	// Zurueck-Button von Aktienerfassen zur Hauptseite
 	public String back() {
 
-		return "Admin?faces-redirect=true";
+		return "/private/Admin?faces-redirect=true";
 	}
 
 	// Zurueck-Button von Aktienbestaetigung zu Aktienerfassen
 	public String back2() {
 
-		return "Aktienerfassen?faces-redirect=true";
+		return "/private/Aktienerfassen?faces-redirect=true";
 	}
 
 	// Weiter-Button von Aktienerfassen zu Aktienbestaetigung
 	public String next() {
 
-		return "Aktienbestaetigung?faces-redirect=true";
+		return "/private/Aktienbestaetigung?faces-redirect=true";
 	}
 
 	public String getName() {
