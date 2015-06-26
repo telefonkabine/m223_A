@@ -87,13 +87,9 @@ public class AuftragDAO {
 				auftrag.setSymbol(aktie.getKuerzel());
 				
 //				if true auftrag.isUser == true;
-				if(aktie.getFk_benutzerId() == u.getBenutzerID()){
-					auftrag.setUser(true);
-				}
-				else{
-					auftrag.setUser(false);
-				}
-				
+			
+				auftrag.setUser(aktie.getFk_benutzerId() == u.getBenutzerID());
+			
 				auftraege.add(auftrag);
 			}
 			

@@ -63,7 +63,7 @@
 
 					<h:column>
 						<f:facet name="header">Aktionen</f:facet>
-    					<h:commandLink action ="#{offeneAuftraegeFormBean.doAktion()}" value="#{offeneAuftraegeFormBean.aktionName}"></h:commandLink>
+    					<h:commandLink action ="${o.doKaufenOrStornieren()}" value='${o.user?"storinieren":"kaufen"}'></h:commandLink>
     				</h:column>
 				</h:dataTable>
 			</h:form>
