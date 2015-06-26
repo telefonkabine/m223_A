@@ -67,7 +67,7 @@
 
 					<h:column>
 						<f:facet name="header">Aktionen</f:facet>
-    					<h:outputText value="#{offeneAuftraegeFormBean.getAktion()}"></h:outputText>
+    					<h:commandLink action ="#{offeneAuftraegeFormBean.doAktion()}" value="#{offeneAuftraegeFormBean.aktionName}"></h:commandLink>
     				</h:column>
 				</h:dataTable>
 			</h:form>
