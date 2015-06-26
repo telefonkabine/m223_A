@@ -33,6 +33,7 @@ public class OffeneAuftraegeFormBean {
 		this.aktionName = aktionName;
 	}
 	
+//	TODO: Welche View wird angezeigt nach kaufen/stornieren?
 	public String doAktion(){
 		if(auftragM.isUser()){
 			doStornieren();
@@ -40,7 +41,7 @@ public class OffeneAuftraegeFormBean {
 		else{
 			doKaufen();
 		}
-		return "";
+		return "/private/Auftraege?faces-redirect=true";
 	}
 	
 	private void doKaufen(){
@@ -48,6 +49,8 @@ public class OffeneAuftraegeFormBean {
 	}
 	
 	private void doStornieren(){
+		AuftragDAO auftragDao = new AuftragDAO();
+		auftragDao.deleteAuftragById(auftragM.getAuftragId());
 		System.out.println("stornieren");
 	}
 //	public String getAktion(){

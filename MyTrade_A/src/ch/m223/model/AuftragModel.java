@@ -7,9 +7,16 @@ public class AuftragModel {
 	private String symbol;
 	private String name;
 	private boolean isUser;
+	private int auftragId;
 	
 
 	
+	public int getAuftragId() {
+		return auftragId;
+	}
+	public void setAuftragId(int auftragId) {
+		this.auftragId = auftragId;
+	}
 	public boolean isUser() {
 		return isUser;
 	}

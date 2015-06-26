@@ -52,7 +52,7 @@ public class AuftragDAO {
 	
 	//TODO: Dennis, denn es ist noch nicht fertig
 	public List<AuftragModel> getAuftraege(){
-		List<AuftragModel> auftraege = new ArrayList();
+		List<AuftragModel> auftraege = new ArrayList<AuftragModel>();
 		
 		AuftragModel auftrag;
 		try {
@@ -67,11 +67,14 @@ public class AuftragDAO {
 			
 			AktieModel aktie = new AktieModel();
 			AktieDAO aktieDao = new AktieDAO();
+//			User aus Session holen 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			UserModel u = (UserModel) externalContext.getSessionMap().get("user");
 			while(rs.next()){
 				auftrag = new AuftragModel();
+//				AuftragId
+				auftrag.setAuftragId(rs.getInt("auftragId"));
 //				Preis
 				auftrag.setPreis(rs.getInt("preis"));
 //				Verbindung zu Aktie
@@ -83,7 +86,6 @@ public class AuftragDAO {
 //				Kuerzel von Aktie in AuftragsObjekt schreiben
 				auftrag.setSymbol(aktie.getKuerzel());
 				
-//				TODO: benutzerId von aktie mit userId in Session abgleichen
 //				if true auftrag.isUser == true;
 				if(aktie.getFk_benutzerId() == u.getBenutzerID()){
 					auftrag.setUser(true);
@@ -95,6 +97,8 @@ public class AuftragDAO {
 				auftraege.add(auftrag);
 			}
 			
+			preparedStatement.close();
+			connectionPooling.putConnection(con);
 			return auftraege;
 		
 		} catch(SQLException sqlEx){
@@ -103,5 +107,23 @@ public class AuftragDAO {
 		return null;
 	}
 	
+	public void deleteAuftragById(int auftragId){
+		try{	
+			ConnectionPooling connectionPooling;
+			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+			
+			Connection con = connectionPooling.getConnection();
+			
+			PreparedStatement preparedStatement = con.prepareStatement("DELETE FROM auftrag WHERE auftragId = ?");
+			preparedStatement.setInt(1, auftragId);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement.close();
+			connectionPooling.putConnection(con);	
+
+		} catch(SQLException sqlEx){
+			sqlEx.printStackTrace();
+		}
+	}
 
 }
