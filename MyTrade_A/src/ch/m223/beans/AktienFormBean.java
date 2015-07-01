@@ -2,8 +2,11 @@ package ch.m223.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import ch.m223.dao.AktieDAO;
+import ch.m223.model.UserModel;
 
 @ManagedBean
 @SessionScoped
@@ -24,17 +27,26 @@ public class AktienFormBean {
 	// Speichert eingegebene Daten in die Datenbank. Liefert False, falls der
 	// INSERT ungueltig ist
 	public String save() {
-
+		MeldungFormBean m = new MeldungFormBean();
+		UserModel u = new UserModel().getUserObjectFromSession();
+//		TODO: u.getBenutzerID(), das kommt anstelle der 2
+		
 		if (aktieDao.insertAktie(name, kuerzel, nominalpreis, dividende,
-				benutzerID, anzahl)) {
-			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
-					.getMeldung1() + getName();
+				2, anzahl)) {
+			m.setAktuelleMeldung(m.getMeldung1());
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			externalContext.getSessionMap().put("meldungFormBean", m);
 			return "/private/Admin?faces-redirect=true";
 
 		} else {
-			MeldungFormBean.aktuelleMeldung = "";
+			m.setAktuelleMeldung("");
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			externalContext.getSessionMap().put("meldungFormBean", m);
 			return "/private/Aktienerfassen?faces-redirect=true";
 		}
+		
 	}
 
 	// Zurueck-Button von Aktienerfassen zur Hauptseite

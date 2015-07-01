@@ -1,5 +1,8 @@
 package ch.m223.model;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
 import ch.m223.beans.MeldungFormBean;
 
 public class AuftragModel {
@@ -14,18 +17,19 @@ public class AuftragModel {
 
 	public String doKaufenOrStornieren(){
 //		storno
+		MeldungFormBean m = new MeldungFormBean();
 		if (true) {
+			m.setAktuelleMeldung(m.getMeldung6());
 
-			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
-					.getMeldung6();
-			
 		} else {
-
-			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
-					.getMeldung4();
+			
+			m.setAktuelleMeldung(m.getMeldung4());
 //			kaufen
 
 		}
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		externalContext.getSessionMap().put("meldungFormBean", m);
 		System.out.println(isUser);
 		return "/private/Auftraege?faces-redirect=true";
 	}
