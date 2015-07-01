@@ -12,7 +12,6 @@ public class OffeneAuftraegeFormBean {
 	private AuftragDAO auftragDao = new AuftragDAO();
 	private List<AuftragModel> auftraege = auftragDao.getAuftraege();
 
-
 	public List<AuftragModel> getAuftraege() {
 		return auftraege;
 	}

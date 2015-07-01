@@ -6,11 +6,12 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class DividendenFormBean {
-	
-	public void ausschuetten() {
-		
+
+	public String ausschuetten() {
+
 		MeldungFormBean.aktuelleMeldung = new MeldungFormBean().getMeldung2();
-		return ;
+		return "/private/admin?faces-redirect=true";
+
 	}
 
 }

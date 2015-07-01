@@ -9,7 +9,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <head>
-<link rel="stylesheet" type="text/css" href="../css/style.css"
+<link rel="stylesheet" type="text/css" href="../../css/style.css"
 	title="Standard" />
 <title>Offene Aufträge</title>
 </head>
@@ -63,7 +63,9 @@
 
 					<h:column>
 						<f:facet name="header">Aktionen</f:facet>
+<
     					<h:commandLink action ="${o.doKaufenOrStornieren()}" value='${o.user?"storinieren":"kaufen"}'></h:commandLink>
+
     				</h:column>
 				</h:dataTable>
 			</h:form>
