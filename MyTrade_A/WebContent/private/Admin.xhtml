@@ -45,7 +45,10 @@
 			<br />
 			<h:outputLink value="Benutzererfassen.xhtml">Benutzer erfassen</h:outputLink>
 			<br />
-			<h:commandLink value="Dividenden ausschütten" action="#{dividendenFormBean.ausschuetten()}"></h:commandLink>
+			<h:form>
+			<h:commandLink action="#{dividendenFormBean.ausschuetten}"
+				value="Dividenden ausschütten" />
+			</h:form>
 		</div>
 	</div>
 </body>
