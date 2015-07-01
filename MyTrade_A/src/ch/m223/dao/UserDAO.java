@@ -95,7 +95,7 @@ public class UserDAO {
 				preparedStatement.setString(3, user.getLogin());
 				preparedStatement.setString(4, user.getPasswort());
 				preparedStatement.setInt(5, user.getFk_typID());
-				preparedStatement.setInt(6, user.getKontostand());
+				preparedStatement.setDouble(6, user.getKontostand());
 				int rows = preparedStatement.executeUpdate();
 				
 				preparedStatement.close();
