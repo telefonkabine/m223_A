@@ -131,8 +131,55 @@ public class UserDAO {
 			
 
 			System.out.println("Connection: " + con);
-			PreparedStatement preparedStatement = con.prepareStatement("SELECT benutzerID, name, vorname, login, passwort, fk_typID, kontostand FROM benutzer WHERE login = ?");
+			PreparedStatement preparedStatement = con.prepareStatement(
+					  "SELECT benutzerID, name, vorname, "
+					+ "login, passwort, fk_typID, kontostand "
+					+ "FROM benutzer WHERE login = ?");
 			preparedStatement.setString(1, login);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			UserModel user = new UserModel();
+			System.out.println("testgetuser");
+			if(rs.next()){
+				System.out.println(rs.getString("login"));
+				user.setBenutzerID(rs.getInt("benutzerID"));
+				user.setName(rs.getString("name"));
+				user.setVorname((rs.getString("vorname")));
+				user.setLogin(rs.getString("login"));
+				user.setFk_typID(rs.getInt("fk_typID"));
+				user.setKontostand(rs.getInt("kontostand"));
+				//return user;
+			}
+			connectionPooling.putConnection(con);
+			System.out.println(user.getLogin());
+			return user;
+			
+		} catch(SQLException sqle){
+			System.out.println("Es trat ein Fehler im SQL auf.");
+			sqle.printStackTrace();
+			connectionPooling.putConnection(con);
+		}
+		return null;
+	}
+	
+	/**
+	 * @author Dennis Gehrig
+	 * @param userId
+	 * @return UserModel object or null if no user was found in the db
+	 */
+	public synchronized UserModel getUserById(int userId){
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
+		try{
+			PreparedStatement preparedStatement = 
+					con.prepareStatement(
+							  "SELECT benutzerID, name, vorname, "
+							+ "login, passwort, fk_typID, kontostand "
+							+ "FROM benutzer WHERE benutzerId = ?");
+			preparedStatement.setInt(1, userId);
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			

@@ -90,7 +90,7 @@ public class AuftragDAO {
 //				if true auftrag.isUser == true;
 //			
 //				TODO: wenn login aktiv : auftrag.setUser(aktie.getFk_benutzerId() == u.getBenutzerID());
-				auftrag.setUser(aktie.getFk_benutzerId() == 2);
+				auftrag.setUser(aktie.getFk_benutzerId() == u.getBenutzerID());
 			
 				auftraege.add(auftrag);
 			}
@@ -133,13 +133,34 @@ public class AuftragDAO {
 		Connection con = connectionPooling.getConnection();
 		try{
 			UserModel u = new UserModel().getUserObjectFromSession();
+			System.out.println("doKaufen, User: " + u + "auftragModel.getPreis: " + auftragModel.getPreis());
 			int neuerKontostand = u.getKontostand() - auftragModel.getPreis();
-			PreparedStatement preparedStatement = con.prepareStatement("UPDATE benutzer SET kontostand=? WHERE benutzerId=?");
+			int käuferId = u.getBenutzerID();
+			PreparedStatement preparedStatement;
+			
+			preparedStatement = con.prepareStatement("UPDATE benutzer SET kontostand=? WHERE benutzerId=?");
+			preparedStatement.setInt(1, neuerKontostand);
+			preparedStatement.setInt(2, käuferId);
+			preparedStatement.executeUpdate();
+			u.setKontostand(neuerKontostand);
+			
+			UserDAO userDao         = new UserDAO();
+			AktieDAO aktieDao       = new AktieDAO();
+			AktieModel aktieModel   = aktieDao.getAktieById(auftragModel.getFk_AtkienID());
+			u                       = userDao.getUserById(aktieModel.getFk_benutzerId());
+			
+			neuerKontostand = u.getKontostand() + auftragModel.getPreis();
+			System.out.println(neuerKontostand);
+			
+			preparedStatement = con.prepareStatement("UPDATE benutzer SET kontostand=? WHERE benutzerId=?");
 			preparedStatement.setInt(1, neuerKontostand);
 			preparedStatement.setInt(2, u.getBenutzerID());
 			preparedStatement.executeUpdate();
 			
-			u.setKontostand(neuerKontostand);
+			preparedStatement = con.prepareStatement("UPDATE aktie SET fk_benutzerId=? WHERE aktienId=?");
+			preparedStatement.setInt(1, käuferId);
+			preparedStatement.setInt(2, aktieModel.getAktienId());
+			preparedStatement.executeUpdate();
 			
 			preparedStatement.close();
 			connectionPooling.putConnection(con);	

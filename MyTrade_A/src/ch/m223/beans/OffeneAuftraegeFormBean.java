@@ -36,6 +36,7 @@ public class OffeneAuftraegeFormBean {
 			m.setAktuelleMeldung(m.getMeldung4());
 			System.out.println("kaufen");
 			auftragDao.doKaufen(auftragModel);
+			auftragDao.deleteAuftragById(auftragModel.getAuftragId());
 			
 		}
 		FacesContext facesContext = FacesContext.getCurrentInstance();
