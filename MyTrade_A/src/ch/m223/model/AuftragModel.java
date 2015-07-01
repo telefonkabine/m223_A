@@ -1,6 +1,8 @@
 package ch.m223.model;
 
 import ch.m223.beans.MeldungFormBean;
+import ch.m223.beans.OffeneAuftraegeFormBean;
+import ch.m223.dao.AuftragDAO;
 
 public class AuftragModel {
 	private int preis;
@@ -11,24 +13,9 @@ public class AuftragModel {
 	private boolean isUser;
 	private int auftragId;
 	
+	
 
-	public String doKaufenOrStornieren(){
-//		storno
-		if (true) {
-
-			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
-					.getMeldung6();
-			
-		} else {
-
-			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
-					.getMeldung4();
-//			kaufen
-
-		}
-		System.out.println(isUser);
-		return "/private/Auftraege?faces-redirect=true";
-	}
+	
 	
 	
 	public int getAuftragId() {

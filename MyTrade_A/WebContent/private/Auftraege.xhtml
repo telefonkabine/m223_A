@@ -42,7 +42,7 @@
 		<div id="inhaltBox">
 			<h:form>
 				<h:outputLabel value="Aktueller Kontostand" />
-				<h:outputText value="#{kontostand}" />
+				<h:outputText value="${offeneAuftraegeFormBean.kontostand}" />
 				<h:dataTable value="#{offeneAuftraegeFormBean.auftraege}" var="o" styleClass="order-table"
 					headerClass="order-table-header"
 					rowClasses="order-table-odd-row,order-table-even-row">
@@ -63,8 +63,8 @@
 
 					<h:column>
 						<f:facet name="header">Aktionen</f:facet>
-<
-    					<h:commandLink action ="${o.doKaufenOrStornieren()}" value='${o.user?"storinieren":"kaufen"}'></h:commandLink>
+
+    					<h:commandLink action ="${offeneAuftraegeFormBean.doAktion(o)}" value='${o.user?"storinieren":"kaufen"}'></h:commandLink>
 
     				</h:column>
 				</h:dataTable>

@@ -70,9 +70,8 @@ public class AuftragDAO {
 			AktieModel aktie = new AktieModel();
 			AktieDAO aktieDao = new AktieDAO();
 //			User aus Session holen 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = facesContext.getExternalContext();
-			UserModel u = (UserModel) externalContext.getSessionMap().get("user");
+
+			UserModel u = new UserModel().getUserObjectFromSession();
 			while(rs.next()){
 				auftrag = new AuftragModel();
 //				AuftragId
@@ -101,8 +100,8 @@ public class AuftragDAO {
 			return auftraege;
 		
 		} catch(SQLException sqlEx){
-			sqlEx.printStackTrace();
 			connectionPooling.putConnection(con);
+			sqlEx.printStackTrace();
 		}
 		return null;
 	}
@@ -117,6 +116,30 @@ public class AuftragDAO {
 			PreparedStatement preparedStatement = con.prepareStatement("DELETE FROM auftrag WHERE auftragId = ?");
 			preparedStatement.setInt(1, auftragId);
 			preparedStatement.executeUpdate();
+			
+			preparedStatement.close();
+			connectionPooling.putConnection(con);	
+
+		} catch(SQLException sqlEx){
+			sqlEx.printStackTrace();
+			connectionPooling.putConnection(con);
+		}
+	}
+	
+	public void doKaufen(AuftragModel auftragModel){
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
+		try{
+			UserModel u = new UserModel().getUserObjectFromSession();
+			int neuerKontostand = u.getKontostand() - auftragModel.getPreis();
+			PreparedStatement preparedStatement = con.prepareStatement("UPDATE benutzer SET kontostand=? WHERE benutzerId=?");
+			preparedStatement.setInt(1, neuerKontostand);
+			preparedStatement.setInt(2, u.getBenutzerID());
+			preparedStatement.executeUpdate();
+			
+			u.setKontostand(neuerKontostand);
 			
 			preparedStatement.close();
 			connectionPooling.putConnection(con);	
