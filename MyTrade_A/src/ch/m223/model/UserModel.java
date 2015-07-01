@@ -14,11 +14,11 @@ public class UserModel {
 	private int kontostand;
 	
 	public UserModel getUserObjectFromSession(){
-		UserModel u = new UserModel();
+		UserModel u;
 		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		externalContext.getSessionMap().get("user");
+		u= (UserModel)externalContext.getSessionMap().get("user");
 		
 	return u;
 	}
