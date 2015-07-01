@@ -10,7 +10,7 @@ public class DividendenFormBean {
 	public String ausschuetten() {
 
 		MeldungFormBean.aktuelleMeldung = new MeldungFormBean().getMeldung2();
-		return "/private/admin?faces-redirect=true";
+		return "/private/Admin?faces-redirect=true";
 
 	}
 
