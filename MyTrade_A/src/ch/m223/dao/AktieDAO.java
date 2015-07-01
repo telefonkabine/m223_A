@@ -2,7 +2,9 @@ package ch.m223.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+
 import javax.faces.context.FacesContext;
+
 import ch.m223.connectionPooling.ConnectionPooling;
 import ch.m223.connectionPooling.ConnectionPoolingImplementation;
 import ch.m223.model.AktieModel;
@@ -27,11 +29,11 @@ public class AktieDAO {
 			return false;
 		} 
 		benutzerID= Integer.parseInt(benutzerIDString);
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
 		
+		Connection con = connectionPooling.getConnection();
 		try {
-			ConnectionPooling connectionPooling;
-			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
-			Connection con = connectionPooling.getConnection();
 
 			String insertTableSQL = "INSERT INTO aktie (Name, kuerzel, nominalpreis, dividende, fk_benutzerID) "
                     + "VALUES (?, ?, ?, ?, ?)";
@@ -55,6 +57,7 @@ public class AktieDAO {
 			} catch (SQLException e) {
 			System.out.println("Es trat ein Fehler mit SQL auf");
 			e.printStackTrace();
+			connectionPooling.putConnection(con);
 			}
 		
 			return false;
@@ -62,14 +65,14 @@ public class AktieDAO {
 	
 	public synchronized ArrayList<AktieModel> getAktieByUserId(int benutzerID){
 		//to do: Aktien anhand von BenutzerID auslesen und in eine Liste speichern.
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
 		try{
 			
 			benutzerID = 2; //TestID
 			
-			ConnectionPooling connectionPooling;
-			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
-			
-			Connection con = connectionPooling.getConnection();
 			
 			PreparedStatement preparedStatement = con.prepareStatement("SELECT AktienID, dividende, fk_benutzerID, kuerzel, name, nominalpreis FROM mytrade.aktie WHERE fk_benutzerID = ?");
 			preparedStatement.setInt(1, benutzerID);
@@ -97,17 +100,18 @@ public class AktieDAO {
 		} catch(SQLException sqle){
 			System.out.println("Es trat ein Fehler im SQL auf.");
 			sqle.printStackTrace();
+			connectionPooling.putConnection(con);
 		}
 		
 		return portFolioList;
 	}
 	
 	public AktieModel getAktieById(int aktieId){
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		Connection con = connectionPooling.getConnection();
 		try{
-			ConnectionPooling connectionPooling;
-			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
 			
-			Connection con = connectionPooling.getConnection();
 			System.out.println("Connection: " + con);
 			PreparedStatement preparedStatement = con.prepareStatement("SELECT aktienId, name, kuerzel, nominalpreis, dividende, fk_benutzerId "
 																		+ "FROM aktie WHERE aktienId = ?");
@@ -132,6 +136,7 @@ public class AktieDAO {
 		} catch(SQLException sqle){
 			System.out.println("Es trat ein Fehler im SQL auf.");
 			sqle.printStackTrace();
+			connectionPooling.putConnection(con);
 		}
 			return null;
 	}
