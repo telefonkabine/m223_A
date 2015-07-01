@@ -18,17 +18,6 @@ public class AktieDAO {
 	//Eine neue Aktien hinzufügen
 	public synchronized boolean insertAktie(String name, String kuerzel, double nominalpreis, double dividende, int benutzerID, int anzahl) {
 		
-		//ID des aktuell eingeloggten Benutzer definieren
-		FacesContext context = FacesContext.getCurrentInstance();
-		String benutzerIDString;
-		
-		benutzerIDString = (String) context.getExternalContext().getSessionMap().get("id");
-		if(benutzerIDString == null){
-			System.out.println("Fehler: AktieDAO, Methode: InsertAktie");
-			
-			return false;
-		} 
-		benutzerID= Integer.parseInt(benutzerIDString);
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
 		

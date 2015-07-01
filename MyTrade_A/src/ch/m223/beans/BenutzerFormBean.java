@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import ch.m223.dao.UserDAO;
 import ch.m223.model.UserModel;
@@ -44,6 +46,7 @@ public class BenutzerFormBean {
 	public String saveUser(){
 		UserModel user = new UserModel();
 		UserDAO userDao = new UserDAO();
+		MeldungFormBean m = new MeldungFormBean();
 		
 		user.setName(name);
 		user.setVorname(vorname);
@@ -53,6 +56,11 @@ public class BenutzerFormBean {
 		user.setKontostand(10000);
 		
 		userDao.insertUser(user);
+		
+		m.setAktuelleMeldung(m.getMeldung3());
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		externalContext.getSessionMap().put("meldungFormBean", m);
 		
 		return "/private/Admin?faces-redirect=true";
 

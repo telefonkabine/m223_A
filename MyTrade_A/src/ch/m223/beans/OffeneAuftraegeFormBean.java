@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import ch.m223.dao.AuftragDAO;
 import ch.m223.model.AuftragModel;
@@ -18,11 +20,12 @@ public class OffeneAuftraegeFormBean {
 
 	
 	public String doAktion(AuftragModel auftragModel){
-//		storno
+
+		MeldungFormBean m = new MeldungFormBean();
+		//		storno
 		if (auftragModel.isUser()) {
 
-			MeldungFormBean.aktuelleMeldung = new MeldungFormBean()
-					.getMeldung6();
+			m.setAktuelleMeldung(m.getMeldung6());
 			System.out.println("storno");
 			System.out.println(auftragModel.getAuftragId());
 			auftragDao.deleteAuftragById(auftragModel.getAuftragId());
@@ -30,10 +33,14 @@ public class OffeneAuftraegeFormBean {
 //		kaufen
 		else {
 
+			m.setAktuelleMeldung(m.getMeldung4());
 			System.out.println("kaufen");
 			auftragDao.doKaufen(auftragModel);
 			
 		}
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		externalContext.getSessionMap().put("meldungFormBean", m);
 		System.out.println(auftragModel.isUser());
 		return "/private/Auftraege?faces-redirect=true";
 	}
