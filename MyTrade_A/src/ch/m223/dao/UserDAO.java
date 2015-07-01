@@ -24,11 +24,11 @@ public class UserDAO {
 	}
 	
 	public synchronized boolean login(String user, String password) {
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
 		try {
-			ConnectionPooling connectionPooling;
-			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
-			
-			Connection con = connectionPooling.getConnection();
 
 			
 			PreparedStatement preparedStatement = con.prepareStatement("SELECT login, passwort, benutzerID FROM benutzer WHERE login = ? AND passwort = SHA1(?)");
@@ -63,6 +63,7 @@ public class UserDAO {
 		} catch (SQLException e) {
 			System.out.println("Es trat ein Fehler mit SQL auf");
 			e.printStackTrace();
+			connectionPooling.putConnection(con);
 		}
 		return false;
 	}
@@ -81,12 +82,12 @@ public class UserDAO {
 		
 		if(getUserByLogin(user.getLogin()).getLogin() == null){
 			System.out.println("return null");
+			ConnectionPooling connectionPooling;
+			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+			
+			Connection con = connectionPooling.getConnection();
 			try{
 				
-				ConnectionPooling connectionPooling;
-				connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
-				
-				Connection con = connectionPooling.getConnection();
 				PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO benutzer (Name, Vorname, Login, Passwort, Fk_TypID, Kontostand) "
 						                                                 + "VALUES (?, ?, ?, SHA1(?), ?, ?)");
 				System.out.println(user.getFk_typID());
@@ -106,6 +107,7 @@ public class UserDAO {
 			} catch(SQLException sqle){
 				System.out.println("Es trat ein Fehler mit SQL auf");
 				sqle.printStackTrace();
+				connectionPooling.putConnection(con);
 			}
 		}
 		else{
@@ -121,12 +123,13 @@ public class UserDAO {
 	 * @return UserModel object or null if no user was found in the db
 	 */
 	public synchronized UserModel getUserByLogin(String login){
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
 		try{
 			
-			ConnectionPooling connectionPooling;
-			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
-			
-			Connection con = connectionPooling.getConnection();
+
 			System.out.println("Connection: " + con);
 			PreparedStatement preparedStatement = con.prepareStatement("SELECT benutzerID, name, vorname, login, passwort, fk_typID, kontostand FROM benutzer WHERE login = ?");
 			preparedStatement.setString(1, login);
@@ -152,6 +155,7 @@ public class UserDAO {
 		} catch(SQLException sqle){
 			System.out.println("Es trat ein Fehler im SQL auf.");
 			sqle.printStackTrace();
+			connectionPooling.putConnection(con);
 		}
 		return null;
 	}

@@ -22,11 +22,12 @@ public class AuftragDAO {
 	//Ein neuer Auftrag hinzufügen
 	public synchronized boolean insertAuftrag(double preis, int aktieID, int anzahl) {
 		//TO DO: ID des aktuell eingeloggten Benutzer definieren
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
 		aktieID=1;
 		try {
-			ConnectionPooling connectionPooling;
-			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
-			Connection con = connectionPooling.getConnection();
 
 			String insertTableSQL = "INSERT INTO auftrag (preis, fk_benutzerID) "
                     + "VALUES (?, ?)";
@@ -45,6 +46,7 @@ public class AuftragDAO {
 			} catch (SQLException e) {
 			System.out.println("Es trat ein Fehler mit SQL auf");
 			e.printStackTrace();
+			connectionPooling.putConnection(con);
 			}
 		
 			return false;
@@ -52,14 +54,14 @@ public class AuftragDAO {
 	
 	//TODO: Dennis, denn es ist noch nicht fertig
 	public List<AuftragModel> getAuftraege(){
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
 		List<AuftragModel> auftraege = new ArrayList<AuftragModel>();
 		
 		AuftragModel auftrag;
 		try {
-			ConnectionPooling connectionPooling;
-			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
-			
-			Connection con = connectionPooling.getConnection();
 			
 			PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM auftrag");
 	
@@ -87,8 +89,9 @@ public class AuftragDAO {
 				auftrag.setSymbol(aktie.getKuerzel());
 				
 //				if true auftrag.isUser == true;
-			
-				auftrag.setUser(aktie.getFk_benutzerId() == u.getBenutzerID());
+//			
+//				TODO: wenn login aktiv : auftrag.setUser(aktie.getFk_benutzerId() == u.getBenutzerID());
+				auftrag.setUser(aktie.getFk_benutzerId() == 2);
 			
 				auftraege.add(auftrag);
 			}
@@ -99,16 +102,17 @@ public class AuftragDAO {
 		
 		} catch(SQLException sqlEx){
 			sqlEx.printStackTrace();
+			connectionPooling.putConnection(con);
 		}
 		return null;
 	}
 	
 	public void deleteAuftragById(int auftragId){
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
 		try{	
-			ConnectionPooling connectionPooling;
-			connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
-			
-			Connection con = connectionPooling.getConnection();
 			
 			PreparedStatement preparedStatement = con.prepareStatement("DELETE FROM auftrag WHERE auftragId = ?");
 			preparedStatement.setInt(1, auftragId);
@@ -119,6 +123,7 @@ public class AuftragDAO {
 
 		} catch(SQLException sqlEx){
 			sqlEx.printStackTrace();
+			connectionPooling.putConnection(con);
 		}
 	}
 
