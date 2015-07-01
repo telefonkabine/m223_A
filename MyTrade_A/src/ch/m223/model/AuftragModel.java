@@ -16,11 +16,6 @@ public class AuftragModel {
 	private boolean isUser;
 	private int auftragId;
 	
-	
-
-
-	
-	
 	public int getAuftragId() {
 		return auftragId;
 	}
