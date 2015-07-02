@@ -125,7 +125,7 @@ String haendlerUrl = "/MyTrade_A/faces/private/haendler/";
 		
 		if(1 == user.getFk_typID() && istAdminURL(request)){
 			debugOut("eigenerDoHTTPFilter(): user ist Admin und will auf AdminSeite");
-			response.sendRedirect(adminUrl + "Admin.xhtml");
+			chain.doFilter(request, response);
 			return;
 		}
 		if(1 == user.getFk_typID() && istHaendlerURL(request)){
@@ -136,7 +136,7 @@ String haendlerUrl = "/MyTrade_A/faces/private/haendler/";
 		}
 		if(2 == user.getFk_typID() && istHaendlerURL(request)){
 			debugOut("eigenerDoHTTPFilter(): user ist Haendler und will auf HaendlerSeite");
-			response.sendRedirect(haendlerUrl + "Portfolio.xhtml");
+			chain.doFilter(request, response);
 			return;
 		}
 		if(2 == user.getFk_typID() && istAdminURL(request)){
