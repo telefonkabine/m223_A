@@ -139,10 +139,11 @@ public class AktieDAO {
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
 		Connection con = connectionPooling.getConnection();
 		try{
-			
+			UserModel u = new UserModel().getUserObjectFromSession();
 			System.out.println("Connection: " + con);
-			PreparedStatement preparedStatement = con.prepareStatement("SELECT aktienId FROM aktie WHERE kuerzel = ?");
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT aktienId FROM aktie WHERE kuerzel = ? AND fk_benutzerId = ?");
 			preparedStatement.setString(1, kuerzel);
+			preparedStatement.setInt(2, u.getBenutzerID());
 			
 			ResultSet rs = preparedStatement.executeQuery();
 						while(rs.next()){

@@ -52,17 +52,14 @@
 				<h:outputLabel for="fieldLogin" value="Login" />
 				<h:inputText id="fieldLogin" value="#{benutzerFormBean.login}" />
 
-				<h:outputLabel for="fieldPasswort" value="Passwort" />
-				<h:inputSecret id="fieldPasswort" value="#{benutzerFormBean.passwort}" />
-
 				<h:outputLabel for="fieldRolle" value="Rolle" />
 				<h:selectOneMenu value="#{benutzerFormBean.rolle}">
 					<f:selectItems value="#{benutzerFormBean.rollenListe}" />
 				</h:selectOneMenu>
 			</h:panelGrid>
 
-			<h:commandButton value="Zurück" action="#{zurueck}" ajax="false" />
-			<h:commandButton value="Speichern" action="#{benutzerFormBean.saveUser}" ajax="false" />
+			<h:commandButton value="Zurück" action="#{benutzerFormBean.back}" ajax="false" />
+			<h:commandButton value="Weiter" action="#{benutzerFormBean.next}" ajax="false" />
 		</h:form>
 
 		</div>

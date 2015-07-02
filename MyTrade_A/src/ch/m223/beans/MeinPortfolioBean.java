@@ -20,12 +20,18 @@ public class MeinPortfolioBean {
 	Double konto;
 	
 	public Double getKontostand(){
-	konto = u.getKontostand();
+		u = new UserModel().getUserObjectFromSession();
+		konto = u.getKontostand();
+	
 	
 	return konto;
 	}
 	
 	public ArrayList<AktieModel> getList() {
+		a = new AktieDAO();
+		u = new UserModel().getUserObjectFromSession();
+		list = new ArrayList<AktieModel>();
+		list = a.getAktieByUserId(u.getBenutzerID());
 		return list;
 	}
 	public void setList(ArrayList<AktieModel> list) {
@@ -45,22 +51,7 @@ public class MeinPortfolioBean {
 	}
 	
 	public MeinPortfolioBean() {
-		a = new AktieDAO();
-		u = new UserModel().getUserObjectFromSession();
-		list = new ArrayList<AktieModel>();
-		list = a.getAktieByUserId(u.getBenutzerID());
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-//	public void test(){
-//		
-//		UserModel u = new UserModel();
-//		a.getAktieByUserId(u.getUserObjectFromSession().getBenutzerID());
-//	}
-	
-	}
-	//to do: verkaufen methode
-	public String Verkaufen(){
 		
-	return null;
 	}
 	
 

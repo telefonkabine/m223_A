@@ -43,6 +43,21 @@ public class BenutzerFormBean {
 		return ROLLENLISTE;
 	}
 	
+	public String next(){
+		
+	return "/private/admin/Benutzerbestaetigung?faces-redirect=true";
+	}
+	
+	public String back(){
+		
+	return "/private/admin/Admin?faces-redirect=true";
+	}
+	
+	public String back2(){
+		
+	return "/private/admin/Benutzererfassen?faces-redirect=true";
+	}
+	
 	public String saveUser(){
 		UserModel user = new UserModel();
 		UserDAO userDao = new UserDAO();

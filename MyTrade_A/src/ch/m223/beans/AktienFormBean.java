@@ -32,7 +32,7 @@ public class AktienFormBean {
 //		TODO: u.getBenutzerID(), das kommt anstelle der 2
 		
 		if (aktieDao.insertAktie(name, kuerzel, nominalpreis, dividende,
-				2, anzahl)) {
+				u.getBenutzerID(), anzahl)) {
 			m.setAktuelleMeldung(m.getMeldung1());
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
@@ -64,7 +64,7 @@ public class AktienFormBean {
 	// Weiter-Button von Aktienerfassen zu Aktienbestaetigung
 	public String next() {
 
-		return "/private/Aktienbestaetigung?faces-redirect=true";
+		return "/private/admin/Aktienbestaetigung?faces-redirect=true";
 	}
 
 	public String getName() {
