@@ -7,6 +7,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+import ch.m223.model.UserModel;
+
 /**
  * Es werden hier alle *.xhtml Seiten geprüft.
  * Einige sind offen für alle (siehe Methode istOeffentlicheSeite());
@@ -55,6 +57,22 @@ public class MyAuthFilter implements Filter {
 		debugOut("istLoginURL(): reqString: [" + reqString + "]");
 		return reqString.contains(loginUrl);
 	}
+	
+	String adminUrl = "/MyTrade_A/faces/private/admin/";
+	
+	boolean istAdminURL(HttpServletRequest request){
+		String reqString = request.getRequestURI();
+		debugOut("istAdminURL(): reqString: [" + reqString + "]");
+		return reqString.contains(adminUrl);
+	}
+	
+String haendlerUrl = "/MyTrade_A/faces/private/haendler/";
+	
+	boolean istHaendlerURL(HttpServletRequest request){
+		String reqString = request.getRequestURI();
+		debugOut("istHaendlerURL(): reqString: [" + reqString + "]");
+		return reqString.contains(haendlerUrl);
+	}
 
 
 	@Override
@@ -92,7 +110,7 @@ public class MyAuthFilter implements Filter {
 			return;
 		}
 
-		Object user = holeSessionVariable(request).getAttribute("user");
+		UserModel user = (UserModel) holeSessionVariable(request).getAttribute("user");
 		if(null == user && istOeffentlicheSeite(request)) {
 			debugOut("eigenerDoHTTPFilter(): Request ist freie Seite");
 			chain.doFilter(request, response); // jeder, da öffentlich	
@@ -103,6 +121,27 @@ public class MyAuthFilter implements Filter {
 			debugOut("eigenerDoHTTPFilter(): user ist null, aber nicht freie Seite!");	
 			response.sendRedirect(loginUrl);
 			return;
+		}
+		
+		if(1 == user.getFk_typID() && istAdminURL(request)){
+			debugOut("eigenerDoHTTPFilter(): user ist Admin und will auf AdminSeite");
+			response.sendRedirect(adminUrl + "Admin.xhtml");
+			return;
+		}
+		if(1 == user.getFk_typID() && istHaendlerURL(request)){
+			debugOut("eigenerDoHTTPFilter(): user ist Admin und will auf HaendlerSeite");
+			response.sendRedirect(adminUrl + "Admin.xhtml");
+			//Vllt. noch message
+			return;
+		}
+		if(2 == user.getFk_typID() && istHaendlerURL(request)){
+			debugOut("eigenerDoHTTPFilter(): user ist Haendler und will auf HaendlerSeite");
+			response.sendRedirect(haendlerUrl + "Portfolio.xhtml");
+			return;
+		}
+		if(2 == user.getFk_typID() && istAdminURL(request)){
+			debugOut("eigenerDoHTTPFilter(): user ist Haendler und will auf AdminSeite");
+			response.sendRedirect(haendlerUrl + "Portfolio.xhtml");
 		}
 
 		debugOut("  Session: " + holeSessionVariable(request));
