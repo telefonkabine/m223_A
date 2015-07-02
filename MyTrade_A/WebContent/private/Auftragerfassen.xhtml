@@ -46,25 +46,22 @@
 		<div id="inhaltBox">
 			<f:view>Auftrag erfassen</f:view>
 			<h:form>
+			<!-- todo: getanzahlaktiebysymbol() -> schreibe maxanzahl in validator -->
 				<h:panelGrid>
-					<h:outputLabel for="fieldAktien" value="Aktie" />
-					<h:selectOneMenu>
-						<f:selectItem itemValue="#{rolle}" itemLabel="#{rolle}" />
-					</h:selectOneMenu>
-
+					<h:outputLabel for="Aktienname" value="#{auftragErfassenBean.displayname}" />
+				
 					<h:outputLabel for="fieldPreis" value="Preis (CHF)" />
-					<h:inputText id="fieldPreis" value="#{preis}">
-						<f:validateDoubleRange minimum="0.0" maximum="1.0" />
+					<h:inputText id="fieldPreis" value="#{auftragErfassenBean.preis}">
 					</h:inputText>
-
+					
 					<h:outputLabel for="fieldAnzahl" value="Stückzahl (1-n)" />
-					<h:inputText id="fieldAnzahl" value="#{anzahl}">
-						<f:validateLongRange minimum="0" maximum="100" />
+					<h:inputText id="fieldAnzahl" value="#{auftragErfassenBean.anzahl}">
+						<f:validateLongRange minimum="1" maximum="${auftragErfassenBean.maxAnzahl}" />
 					</h:inputText>
 				</h:panelGrid>
 
-				<h:commandButton value="Zurück" action="#{back}" ajax="false" />
-				<h:commandButton value="OK" action="#{save}" ajax="false" />
+				<h:commandButton value="Zurück" action="#{auftragErfassenBean.back}" ajax="false" />
+				<h:commandButton value="OK" action="#{auftragErfassenBean.insertAuftrag}" ajax="false" />
 
 			</h:form>
 		</div>

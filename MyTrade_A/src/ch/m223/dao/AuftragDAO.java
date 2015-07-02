@@ -18,25 +18,24 @@ import ch.m223.model.UserModel;
 
 public class AuftragDAO {
 	
-	//TODO: Auftrag erfassen!
-	//Ein neuer Auftrag hinzufügen
-	public synchronized boolean insertAuftrag(double preis, int aktieID, int anzahl) {
-		//TO DO: ID des aktuell eingeloggten Benutzer definieren
+	public synchronized boolean insertAuftrag(double preis, int aktieID, long anzahl) {
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
 		
 		Connection con = connectionPooling.getConnection();
-		aktieID=1;
 		try {
 
-			String insertTableSQL = "INSERT INTO auftrag (preis, fk_benutzerID) "
+			String insertTableSQL = "INSERT INTO auftrag (Preis, Fk_AktienID) "
                     + "VALUES (?, ?)";
 			
 				PreparedStatement preparedStatement = con.prepareStatement(insertTableSQL);
 				preparedStatement.setDouble(1, preis);
 				preparedStatement.setInt(2, aktieID);
-				preparedStatement.executeUpdate();	
 				
+				while (anzahl>0){
+				anzahl = anzahl -1;
+				preparedStatement.executeUpdate();	
+				}
 				
 			preparedStatement.close();
 			connectionPooling.putConnection(con);	
@@ -134,12 +133,12 @@ public class AuftragDAO {
 		try{
 			UserModel u = new UserModel().getUserObjectFromSession();
 			System.out.println("doKaufen, User: " + u + "auftragModel.getPreis: " + auftragModel.getPreis());
-			int neuerKontostand = u.getKontostand() - auftragModel.getPreis();
+			double neuerKontostand = u.getKontostand() - auftragModel.getPreis();
 			int käuferId = u.getBenutzerID();
 			PreparedStatement preparedStatement;
 			
 			preparedStatement = con.prepareStatement("UPDATE benutzer SET kontostand=? WHERE benutzerId=?");
-			preparedStatement.setInt(1, neuerKontostand);
+			preparedStatement.setDouble(1, neuerKontostand);
 			preparedStatement.setInt(2, käuferId);
 			preparedStatement.executeUpdate();
 			u.setKontostand(neuerKontostand);
@@ -153,7 +152,7 @@ public class AuftragDAO {
 			System.out.println(neuerKontostand);
 			
 			preparedStatement = con.prepareStatement("UPDATE benutzer SET kontostand=? WHERE benutzerId=?");
-			preparedStatement.setInt(1, neuerKontostand);
+			preparedStatement.setDouble(1, neuerKontostand);
 			preparedStatement.setInt(2, u.getBenutzerID());
 			preparedStatement.executeUpdate();
 			

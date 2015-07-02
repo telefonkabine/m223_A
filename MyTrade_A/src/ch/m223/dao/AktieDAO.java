@@ -14,6 +14,7 @@ public class AktieDAO {
 	
 	UserModel u;
 	ArrayList<AktieModel> portFolioList;
+	int anzahlAktien;
 
 	//Eine neue Aktien hinzufügen
 	public synchronized boolean insertAktie(String name, String kuerzel, double nominalpreis, double dividende, int benutzerID, int anzahl) {
@@ -59,10 +60,9 @@ public class AktieDAO {
 		
 		Connection con = connectionPooling.getConnection();
 		try{
-			
-			benutzerID = 2; //TestID
-			
-			
+			UserModel u = new UserModel().getUserObjectFromSession();
+			benutzerID = u.getBenutzerID();
+
 			PreparedStatement preparedStatement = con.prepareStatement("SELECT AktienID, dividende, fk_benutzerID, kuerzel, name, nominalpreis FROM mytrade.aktie WHERE fk_benutzerID = ?");
 			preparedStatement.setInt(1, benutzerID);
 			
@@ -129,5 +129,32 @@ public class AktieDAO {
 		}
 			return null;
 	}
+	
+	public int getAnzahlAktieBySymbol(String kuerzel){
+		anzahlAktien = 0;
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		Connection con = connectionPooling.getConnection();
+		try{
+			
+			System.out.println("Connection: " + con);
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT aktienId FROM aktie WHERE kuerzel = ?");
+			preparedStatement.setString(1, kuerzel);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+						while(rs.next()){
+				anzahlAktien ++;
+			}
+		connectionPooling.putConnection(con);
+		
+		} catch(SQLException sqle){
+			System.out.println("Es trat ein Fehler im SQL auf.");
+			sqle.printStackTrace();
+			connectionPooling.putConnection(con);
+		}
+		
+		return anzahlAktien;
+	}		
+
 
 }

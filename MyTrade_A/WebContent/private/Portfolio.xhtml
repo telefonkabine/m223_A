@@ -42,8 +42,8 @@
 		<div id="inhaltBox">
 			<h:form>
 
-				<h:outputLabel value="Aktueller Kontostand" />
-				<h:outputText value="#{kontostand}" />
+				<h:outputLabel value="Aktueller Kontostand: " />
+				<h:outputText value="#{meinPortfolioBean.kontostand}" />
 				<h:dataTable value="#{meinPortfolioBean.list}" var="l" styleClass="order-table"
 					headerClass="order-table-header"
 					rowClasses="order-table-odd-row,order-table-even-row">
@@ -65,7 +65,7 @@
     			
     			<h:column>
 						<f:facet name="header">Letzte Dividende (CHF)</f:facet>
-    				<h:commandButton value="verkaufen" action="#{meinPortfolioBean.Verkaufen}" ajax="false" />
+    				<h:commandLink value="verkaufen" action="${auftragErfassenBean.verkaufen(l)}" />
     			</h:column>
 
 				</h:dataTable>

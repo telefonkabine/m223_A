@@ -11,7 +11,7 @@ public class UserModel {
 	private String login;
 	private String passwort;
 	private int fk_typID;
-	private int kontostand;
+	private double kontostand;
 	
 	public UserModel getUserObjectFromSession(){
 		UserModel u;
@@ -58,10 +58,10 @@ public class UserModel {
 	public void setFk_typID(int fk_typID) {
 		this.fk_typID = fk_typID;
 	}
-	public int getKontostand() {
+	public double getKontostand() {
 		return kontostand;
 	}
-	public void setKontostand(int kontostand) {
+	public void setKontostand(double kontostand) {
 		this.kontostand = kontostand;
 	}
 }
