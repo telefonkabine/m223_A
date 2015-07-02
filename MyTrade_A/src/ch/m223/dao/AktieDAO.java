@@ -62,6 +62,7 @@ public class AktieDAO {
 		try{
 			UserModel u = new UserModel().getUserObjectFromSession();
 			benutzerID = u.getBenutzerID();
+			AuftragDAO auftragDao = new AuftragDAO();
 
 			PreparedStatement preparedStatement = con.prepareStatement("SELECT AktienID, dividende, fk_benutzerID, kuerzel, name, nominalpreis FROM mytrade.aktie WHERE fk_benutzerID = ?");
 			preparedStatement.setInt(1, benutzerID);
@@ -78,7 +79,9 @@ public class AktieDAO {
 				aktie.setNominalpreis(rs.getInt("Nominalpreis"));
 				aktie.setDividende(rs.getInt("Dividende"));
 				aktie.setFk_benutzerId(rs.getInt("Fk_BenutzerID")); //u.getUserObjectFromSession().getBenutzerID()
-				portFolioList.add(aktie);
+				if(!auftragDao.isAktieInAuftrag(aktie)){
+					portFolioList.add(aktie);
+				}
 				System.out.println("name:" + aktie.getDividende());
 			}
 			
@@ -177,6 +180,7 @@ public class AktieDAO {
 			connectionPooling.putConnection(con);
 		}
 	}
+	
 
 
 }

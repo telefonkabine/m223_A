@@ -170,4 +170,29 @@ public class AuftragDAO {
 		}
 	}
 
+	public boolean isAktieInAuftrag(AktieModel aktie){
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
+		try{	
+			
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT fk_aktienId FROM auftrag WHERE fk_aktienId=?");
+			preparedStatement.setInt(1, aktie.getAktienId());
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			if(rs.next()){
+				return true;
+			}
+			
+			preparedStatement.close();
+			connectionPooling.putConnection(con);
+			return false;
+
+		} catch(SQLException sqlEx){
+			sqlEx.printStackTrace();
+			connectionPooling.putConnection(con);
+		}
+		return false;
+	}
 }
