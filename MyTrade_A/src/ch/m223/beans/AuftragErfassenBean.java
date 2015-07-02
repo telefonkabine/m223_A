@@ -29,7 +29,7 @@ public class AuftragErfassenBean {
 		//Test
 		displayCurrentAktie();
 		
-		return "/private/Auftragerfassen?faces-redirect=true";
+		return "/private/haendler/Auftragerfassen?faces-redirect=true";
 	}
 	
 	public void displayCurrentAktie(){
@@ -53,13 +53,13 @@ public class AuftragErfassenBean {
 		aktieID = a.getAktienId();
 		auftragDao.insertAuftrag(preis, aktieID, anzahl);
 		
-	return "/private/Portfolio?faces-redirect=true";
+	return "/private/haendler/Portfolio?faces-redirect=true";
 	}
 	
 	
 	public String back(){
 		
-	return "/private/Portfolio?faces-redirect=true";	
+	return "/private/haendler/Portfolio?faces-redirect=true";	
 	}
 
 	public long getMaxAnzahl() {

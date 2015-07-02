@@ -41,7 +41,7 @@ public class MeinPortfolioBean {
 		//Test
 		System.out.println(a.getAktienId());
 		
-		return "/private/Auftragerfassen?faces-redirect=true";
+		return "/private/haendler/Auftragerfassen?faces-redirect=true";
 	}
 	
 	public MeinPortfolioBean() {

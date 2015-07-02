@@ -43,7 +43,7 @@ public class OffeneAuftraegeFormBean {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		externalContext.getSessionMap().put("meldungFormBean", m);
 		System.out.println(auftragModel.isUser());
-		return "/private/Auftraege?faces-redirect=true";
+		return "/private/haendler/Auftraege?faces-redirect=true";
 	}
 	
 	public int getKontostand() {

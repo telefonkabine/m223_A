@@ -37,14 +37,14 @@ public class AktienFormBean {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			externalContext.getSessionMap().put("meldungFormBean", m);
-			return "/private/Admin?faces-redirect=true";
+			return "/private/admin/Admin?faces-redirect=true";
 
 		} else {
 			m.setAktuelleMeldung("");
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			externalContext.getSessionMap().put("meldungFormBean", m);
-			return "/private/Aktienerfassen?faces-redirect=true";
+			return "/private/admin/Aktienerfassen?faces-redirect=true";
 		}
 		
 	}
@@ -52,13 +52,13 @@ public class AktienFormBean {
 	// Zurueck-Button von Aktienerfassen zur Hauptseite
 	public String back() {
 
-		return "/private/Admin?faces-redirect=true";
+		return "/private/admin/Admin?faces-redirect=true";
 	}
 
 	// Zurueck-Button von Aktienbestaetigung zu Aktienerfassen
 	public String back2() {
 
-		return "/private/Aktienerfassen?faces-redirect=true";
+		return "/private/admin/Aktienerfassen?faces-redirect=true";
 	}
 
 	// Weiter-Button von Aktienerfassen zu Aktienbestaetigung

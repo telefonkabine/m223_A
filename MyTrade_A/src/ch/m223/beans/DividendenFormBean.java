@@ -16,7 +16,7 @@ public class DividendenFormBean {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		externalContext.getSessionMap().put("meldungFormBean", m);
-		return "/private/Admin?faces-redirect=true";
+		return "/private/admin/Admin?faces-redirect=true";
 
 	}
 
