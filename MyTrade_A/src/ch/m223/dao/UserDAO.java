@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 
 import ch.m223.connectionPooling.ConnectionPooling;
 import ch.m223.connectionPooling.ConnectionPoolingImplementation;
+import ch.m223.dividende.DividendenRechner;
 import ch.m223.model.UserModel;
 
 public class UserDAO {
@@ -205,6 +206,41 @@ public class UserDAO {
 			connectionPooling.putConnection(con);
 		}
 		return null;
+	}
+	
+	public void dividendeAnBenutzer(){
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
+		try{	
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT DISTINCT kuerzel, dividende FROM aktie");
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			AktieDAO aktieDao = new AktieDAO();
+			int neueDividende;
+			while(rs.next()){
+				neueDividende = DividendenRechner.neueDividende(rs.getInt("dividende"), 
+						DividendenRechner.MITTLERE_STREUUNG, 20, 666);
+				aktieDao.updateLetzteDividende(rs.getString("kuerzel"), neueDividende);
+				
+				preparedStatement = con.prepareStatement(
+						  "UPDATE benutzer "
+						+ "INNER JOIN aktie ON benutzer.benutzerId=aktie.fk_benutzerId "
+						+ "SET kontostand=kontostand+? "
+						+ "WHERE aktie.kuerzel=?");
+				preparedStatement.setDouble(1, neueDividende);
+				preparedStatement.setString(2, rs.getString("kuerzel"));
+				preparedStatement.executeUpdate();
+			}
+			
+			preparedStatement.close();
+			connectionPooling.putConnection(con);	
+
+		} catch(SQLException sqlEx){
+			sqlEx.printStackTrace();
+			connectionPooling.putConnection(con);
+		}
 	}
 	
 }

@@ -154,7 +154,29 @@ public class AktieDAO {
 		}
 		
 		return anzahlAktien;
-	}		
+	}
+	
+	public void updateLetzteDividende(String kuerzel, int neueDividende){
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
+		try{	
+			
+			PreparedStatement preparedStatement = con.prepareStatement("UPDATE aktie SET dividende=? WHERE kuerzel=?");
+			preparedStatement.setInt(1, neueDividende);
+			preparedStatement.setString(2, kuerzel);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement.close();
+			connectionPooling.putConnection(con);
+			
+			System.out.println("UPDATED Aktie: " + kuerzel + " mit neuer Dividende: " + neueDividende);
+		} catch(SQLException sqlEx){
+			sqlEx.printStackTrace();
+			connectionPooling.putConnection(con);
+		}
+	}
 
 
 }

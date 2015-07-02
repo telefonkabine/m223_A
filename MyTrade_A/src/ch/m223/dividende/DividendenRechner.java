@@ -10,7 +10,7 @@ public class DividendenRechner {
 	public static final int MITTLERE_STREUUNG = 3;
 	public static final int STARKE_STREUUNG   = 5;
 	
-	static int neueDividende(int alteDividende, int streuung, int min, int max){
+	public static int neueDividende(int alteDividende, int streuung, int min, int max){
 		double neueDividende, dividendenAenderung;
 		
 		dividendenAenderung = Math.abs(alteDividende * streuung *r.nextGaussian() / 10);
