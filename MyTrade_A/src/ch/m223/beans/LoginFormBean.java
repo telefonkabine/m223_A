@@ -1,3 +1,9 @@
+/**
+ * @author : Jason Angst
+ * @date   : 03.07.2015
+ * @version: 1.0
+ * 
+ * **/
 package ch.m223.beans;
 
 import javax.faces.bean.ManagedBean;
@@ -24,6 +30,10 @@ public class LoginFormBean {
 		jdbc = new UserDAO();
 	}
 
+	/**
+	 * Ruft die Login Methode im DAO auf. Und leitet den User entsprechend weiter.
+	 * @return String um auf die vorherige Seite zu kommen(mehrere Möglichkeiten).
+	 */
 	public String anmelden() {
 		UserModel u = null;
 		if (jdbc.login(username, password)) {

@@ -1,3 +1,9 @@
+/**
+ * @author : Christina Nordmann
+ * @date   : 03.07.2015
+ * @version: 1.0
+ * 
+ * **/
 package ch.m223.beans;
 
 import javax.faces.bean.ManagedBean;
@@ -9,12 +15,12 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class MeldungFormBean {
 
-	private String meldung1 = "Die Aktie wurde erfolgreich gespeichert: ";
-	private String meldung2 = "Die Dividende wurde erfolgreich ausgeschüttet.";
-	private String meldung3 = "Der Benutzer wurde erfolgreich angelegt: ";
-	private String meldung4 = "Der Auftrag wurde erfolgreich ausgeführt: ";
-	private String meldung5 = "Der Auftrag wurde erfolgreich erfasst:";
-	private String meldung6 = "Der Auftrag wurde erfolgreich storniert: ";
+	private String meldung1      = "Die Aktie wurde erfolgreich gespeichert: ";
+	private String meldung2      = "Die Dividende wurde erfolgreich ausgeschüttet.";
+	private String meldung3      = "Der Benutzer wurde erfolgreich angelegt: ";
+	private String meldung4      = "Der Auftrag wurde erfolgreich ausgeführt: ";
+	private String meldung5      = "Der Auftrag wurde erfolgreich erfasst:";
+	private String meldung6      = "Der Auftrag wurde erfolgreich storniert: ";
 	
 	private String errorMeldung1 = "Sie haben versucht auf eine Haendler-Seite zuzugreifen."
 								 + "Sie sind aber Admin und haben keinen zugriff auf diese Seite."

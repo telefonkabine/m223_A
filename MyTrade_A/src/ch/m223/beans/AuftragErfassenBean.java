@@ -1,3 +1,9 @@
+/**
+ * @author : Jason Angst
+ * @date   : 03.07.2015
+ * @version: 1.0
+ * 
+ * **/
 package ch.m223.beans;
 
 import javax.faces.bean.ManagedBean;
@@ -12,19 +18,24 @@ import ch.m223.model.AktieModel;
 @SessionScoped
 public class AuftragErfassenBean {
 		
-	AktieDAO aktieDao;
-	AuftragDAO auftragDao;
-	AktieModel a;
+	AktieDAO       aktieDao;
+	AuftragDAO     auftragDao;
+	AktieModel     a;
 	private String displayname;
-	private int aktieID;
+	private int    aktieID;
 	private double preis;
-	private int anzahl;
-	private long maxAnzahl;
+	private int    anzahl;
+	private long   maxAnzahl;
 	
 	public AuftragErfassenBean() {
 		anzahl = 1; //Standartwert
 	}
 	
+	/**
+	 * Angeklickte Aktie wird in Session gespeichert.
+	 * @param aktieModel
+	 * @return String um auf die nächste Seite zu kommen. (Auftragerfassen.xhml)
+	 */
 	public String verkaufen(AktieModel aktieModel){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -33,6 +44,9 @@ public class AuftragErfassenBean {
 		return "/private/haendler/Auftragerfassen?faces-redirect=true";
 	}
 	
+	/**
+	 * Die Aktie wird angezeigt auf dem Auftragerfassen.xhtml
+	 */
 	public void displayCurrentAktie(){
 		AktieModel a;
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -42,6 +56,10 @@ public class AuftragErfassenBean {
 		System.out.println(displayname);
 	}
 	
+	/**
+	 * insert Auftrag in DB
+	 * @return String um auf die nächste Seite zu kommen(Portfolio.xhtml).
+	 */
 	public String insertAuftrag(){
 		String auftragIds = "";
 		auftragDao = new AuftragDAO();
@@ -57,12 +75,18 @@ public class AuftragErfassenBean {
 	return "/private/haendler/Portfolio?faces-redirect=true";
 	}
 	
-	// Zurueck-Button von Auftrag erfassen zum Portfolio
+	/**
+	 * ZurückButton
+	 * @return String um auf die vorherige Seite zu kommen(Portfolio.xhtml).
+	 */
 	public String back(){
 		return "/private/haendler/Portfolio?faces-redirect=true";	
 	}
 	
-	//Getters and Setters
+	/**
+	 * MaxAnzahl für die Validierung.
+	 * @return maximale Anzahl an Aktien
+	 */
 	public long getMaxAnzahl() {
 		aktieDao = new AktieDAO();
 		FacesContext facesContext = FacesContext.getCurrentInstance();

@@ -1,3 +1,9 @@
+/**
+ * @author : Jason Angst
+ * @date   : 03.07.2015
+ * @version: 1.0
+ * 
+ * **/
 package ch.m223.beans;
 
 import java.util.ArrayList;
@@ -19,41 +25,32 @@ public class MeinPortfolioBean {
 	ArrayList<AktieModel> list;
 	Double konto;
 	
+	/**
+	 * Holt den Kontostand des Users aus der Session
+	 * @return den Kontostand des angemeldeten Users
+	 */
 	public Double getKontostand(){
 		u = new UserModel().getUserObjectFromSession();
 		konto = u.getKontostand();
 	
 	
-	return konto;
+		return konto;
 	}
 	
+	/**
+	 * Holt die Aktien des angemeldeten Users aus der DB
+	 * @return Liste aller Aktien des angemeldeten Users
+	 */
 	public ArrayList<AktieModel> getList() {
-		a = new AktieDAO();
-		u = new UserModel().getUserObjectFromSession();
+		a =    new AktieDAO();
+		u =    new UserModel().getUserObjectFromSession();
 		list = new ArrayList<AktieModel>();
+//		holt Aktien aus DB
 		list = a.getAktieByUserId(u.getBenutzerID());
 		return list;
 	}
 	public void setList(ArrayList<AktieModel> list) {
 		this.list = list;
 	}
-	
-	public String verkaufen(AktieModel a){
-		
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		a = (AktieModel) externalContext.getSessionMap().put("aktie", a);
-		
-		//Test
-		System.out.println(a.getAktienId());
-		
-		return "/private/haendler/Auftragerfassen?faces-redirect=true";
-	}
-	
-	public MeinPortfolioBean() {
-		
-	}
-	
-
 
 }

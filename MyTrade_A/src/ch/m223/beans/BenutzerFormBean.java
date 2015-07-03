@@ -20,7 +20,9 @@ public class BenutzerFormBean {
 	private String login;
 	private String passwort;
 	
-	//Liste der Auswahl des Drop-Downs fuer die User-Rolle
+	/**
+	 * Map für das Dropdown auf Benutzererfassen.xhtml
+	 */
 	private static final Map<String,Object> ROLLENLISTE;
 	static{
 		ROLLENLISTE = new LinkedHashMap<String, Object>();
@@ -32,6 +34,10 @@ public class BenutzerFormBean {
 		return ROLLENLISTE;
 	}
 	
+	/**
+	 * Speichert den Benutzer im UserModel und dann in der DB.
+	 * @return String um auf die nächste Seite zu kommen(Admin.xhtml)
+	 */
 	public String saveUser(){
 		UserModel user = new UserModel();
 		UserDAO userDao = new UserDAO();
@@ -44,6 +50,7 @@ public class BenutzerFormBean {
 		user.setPasswort(passwort);
 		user.setFk_typID(rolle);
 		user.setKontostand(10000);
+//		speichert User in DB
 		userDao.insertUser(user);
 		
 		//Meldung Ausgeben
@@ -53,17 +60,26 @@ public class BenutzerFormBean {
 		return "/private/admin/Admin?faces-redirect=true";
 	}
 	
-	// Weiter-Button von Benutzer erfassen zu Benutzerbestaetigung
+	/**
+	 * Weiter Button Methode
+	 * @return String um auf die nächste Seite zu kommen(Benutzerbestaetigung.xhtml).
+	 */
 	public String next(){
 		return "/private/admin/Benutzerbestaetigung?faces-redirect=true";
 	}
 	
-	// Zurueck-Button von Benutzer erfassen zur Adminseite
+	/**
+	 * Zurück Button Methode
+	 * @return String um auf die vorherige Seite zu kommen(Admin.xhtml).
+	 */
 	public String back(){
 		return "/private/admin/Admin?faces-redirect=true";
 	}
 	
-	// Zurueck-Button von Benutzerbestaetigung zur Benutzer erfassen
+	/**
+	 * Zurück Button2 Methode
+	 * @return String um auf die vorherige Seite zu kommen(Benutzererfassen.xhtml).
+	 */
 	public String back2(){
 		return "/private/admin/Benutzererfassen?faces-redirect=true";
 	}

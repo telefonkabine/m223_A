@@ -1,3 +1,9 @@
+/**
+ * @author : Dennis Gehrig
+ * @date   : 03.07.2015
+ * @version: 1.0
+ * 
+ * **/
 package ch.m223.beans;
 
 import java.util.List;
@@ -15,6 +21,11 @@ public class OffeneAuftraegeFormBean {
 	private AuftragDAO auftragDao = new AuftragDAO();
 
 	
+	/**
+	 * Entweder kaufen oder stornieren, je nach dem, ob dem angemeldeten User die geklickte Aktie gehört oder nicht. (stornieren oder kaufen)
+	 * @param auftragModel
+	 * @return String um die Seite zu reloaden(Auftraege.xhtml).
+	 */
 	public String doAktion(AuftragModel auftragModel){
 
 		MeldungFormBean m = new MeldungFormBean();
