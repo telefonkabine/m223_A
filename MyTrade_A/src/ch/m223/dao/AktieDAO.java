@@ -182,6 +182,49 @@ public class AktieDAO {
 		}
 	}
 	
+	public synchronized ArrayList<AktieModel> getAktieByUserIdWithKuerzel(int benutzerID, String kuerzel){
+		//to do: Aktien anhand von BenutzerID auslesen und in eine Liste speichern.
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
+		try{
+			UserModel u = new UserModel().getUserObjectFromSession();
+			benutzerID = u.getBenutzerID();
+			AuftragDAO auftragDao = new AuftragDAO();
 
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT AktienID, dividende, fk_benutzerID, kuerzel, name, nominalpreis FROM mytrade.aktie WHERE fk_benutzerID = ? AND kuerzel=?");
+			preparedStatement.setInt(1, benutzerID);
+			preparedStatement.setString(2, kuerzel);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			portFolioList = new ArrayList<AktieModel>();
+			
+			while(rs.next()){
+				AktieModel aktie = new AktieModel();
+				aktie.setAktienId(rs.getInt("AktienID"));
+				aktie.setName(rs.getString("Name"));
+				aktie.setKuerzel(rs.getString("Kuerzel"));
+				aktie.setNominalpreis(rs.getInt("Nominalpreis"));
+				aktie.setDividende(rs.getInt("Dividende"));
+				aktie.setFk_benutzerId(rs.getInt("Fk_BenutzerID")); //u.getUserObjectFromSession().getBenutzerID()
+				if(!auftragDao.isAktieInAuftrag(aktie)){
+					portFolioList.add(aktie);
+				}
+				System.out.println("name:" + aktie.getDividende());
+			}
+			
+			System.out.println(portFolioList.toArray().toString());
+			
+			preparedStatement.close();
+			connectionPooling.putConnection(con);	
+		} catch(SQLException sqle){
+			System.out.println("Es trat ein Fehler im SQL auf.");
+			sqle.printStackTrace();
+			connectionPooling.putConnection(con);
+		}
+		
+		return portFolioList;
+	}
 
 }

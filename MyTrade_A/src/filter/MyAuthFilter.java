@@ -2,11 +2,13 @@ package filter;
 
 import java.io.IOException;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+import ch.m223.beans.MeldungFormBean;
 import ch.m223.model.UserModel;
 
 /**
@@ -122,25 +124,35 @@ String haendlerUrl = "/MyTrade_A/faces/private/haendler/";
 			response.sendRedirect(loginUrl);
 			return;
 		}
-		
+//		1=Admin
 		if(1 == user.getFk_typID() && istAdminURL(request)){
 			debugOut("eigenerDoHTTPFilter(): user ist Admin und will auf AdminSeite");
 			chain.doFilter(request, response);
 			return;
 		}
+//		1=Admin
 		if(1 == user.getFk_typID() && istHaendlerURL(request)){
 			debugOut("eigenerDoHTTPFilter(): user ist Admin und will auf HaendlerSeite");
+			
+			MeldungFormBean m = new MeldungFormBean();
+			m.setAktuelleMeldung(m.getErrorMeldung1());
+			m.putMeldungToSession(m);
 			response.sendRedirect(adminUrl + "Admin.xhtml");
 			//Vllt. noch message
 			return;
 		}
+//		2=Haendler
 		if(2 == user.getFk_typID() && istHaendlerURL(request)){
 			debugOut("eigenerDoHTTPFilter(): user ist Haendler und will auf HaendlerSeite");
 			chain.doFilter(request, response);
 			return;
 		}
+//		2=Haendler
 		if(2 == user.getFk_typID() && istAdminURL(request)){
 			debugOut("eigenerDoHTTPFilter(): user ist Haendler und will auf AdminSeite");
+			MeldungFormBean m = new MeldungFormBean();
+			m.setAktuelleMeldung(m.getErrorMeldung2());
+			m.putMeldungToSession(m);
 			response.sendRedirect(haendlerUrl + "Portfolio.xhtml");
 		}
 

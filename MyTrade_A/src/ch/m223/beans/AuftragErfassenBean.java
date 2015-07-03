@@ -50,8 +50,8 @@ public class AuftragErfassenBean {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		a = (AktieModel) externalContext.getSessionMap().get("Aktie");
 		System.out.println("anzahl:" +  anzahl);
-		aktieID = a.getAktienId();
-		auftragDao.insertAuftrag(preis, aktieID, anzahl);
+//		aktieID = a.getAktienId();
+		auftragDao.insertAuftrag(preis, a.getKuerzel(), anzahl);
 		
 	return "/private/haendler/Portfolio?faces-redirect=true";
 	}

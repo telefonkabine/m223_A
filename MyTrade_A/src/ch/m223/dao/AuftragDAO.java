@@ -18,23 +18,31 @@ import ch.m223.model.UserModel;
 
 public class AuftragDAO {
 	
-	public synchronized boolean insertAuftrag(double preis, int aktieID, long anzahl) {
+	public synchronized boolean insertAuftrag(double preis, String kuerzel, long anzahl) {
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
 		
 		Connection con = connectionPooling.getConnection();
 		try {
-
+			UserModel u = new UserModel().getUserObjectFromSession();
+			int aktieId;
+			AktieDAO aktieDao = new AktieDAO();
+			
+			ArrayList<AktieModel> aktienVonUser = aktieDao.getAktieByUserIdWithKuerzel(u.getBenutzerID(), kuerzel);
 			String insertTableSQL = "INSERT INTO auftrag (Preis, Fk_AktienID) "
                     + "VALUES (?, ?)";
 			
 				PreparedStatement preparedStatement = con.prepareStatement(insertTableSQL);
 				preparedStatement.setDouble(1, preis);
-				preparedStatement.setInt(2, aktieID);
 				
-				while (anzahl>0){
-				anzahl = anzahl -1;
-				preparedStatement.executeUpdate();	
+				int i = 0;
+				int maxIndex = aktienVonUser.size() - 1;
+				while (anzahl>0 && i<=maxIndex){
+					anzahl = anzahl -1;
+					aktieId = aktienVonUser.get(i).getAktienId();
+					preparedStatement.setInt(2, aktieId);
+					preparedStatement.executeUpdate();
+					i++;
 				}
 				
 			preparedStatement.close();
