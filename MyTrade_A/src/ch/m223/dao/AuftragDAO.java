@@ -1,3 +1,10 @@
+/**
+ * @author : Dennis Gehrig
+ * @date   : 30.07.2015
+ * @version: 1.0
+ * 
+ * **/
+
 package ch.m223.dao;
 
 import java.sql.Connection;
@@ -14,6 +21,14 @@ import ch.m223.model.UserModel;
 
 public class AuftragDAO {
 	
+	/**
+	 * @author : Dennis Gehrig
+	 * Fügt einen neuen Auftrag in die Datenbank ein.
+	 * @param preis
+	 * @param kuerzel
+	 * @param anzahl
+	 * @return AuftragId's, falls der Insert geklappt hat. Sonst Null.
+	 */
 	public synchronized int[] insertAuftrag(double preis, String kuerzel, long anzahl) {
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
@@ -57,6 +72,12 @@ public class AuftragDAO {
 			return null;
 	}
 	
+	/**
+	 * Holt alle Aktien mit der mitgegebenen ID aus der Datenbank.
+	 * @author : Dennis Gehrig
+	 * @param aktienId
+	 * @return Auftrag mit den entsprechenden Aktien.
+	 */
 	public AuftragModel getAuftragByAktienId(int aktienId){
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
@@ -73,25 +94,14 @@ public class AuftragDAO {
 			AktieModel aktie = new AktieModel();
 			AktieDAO aktieDao = new AktieDAO();
 
-			//			User aus Session holen 
 			UserModel u = new UserModel().getUserObjectFromSession();
 			if(rs.next()){
-//				AuftragId
 				auftrag.setAuftragId(rs.getInt("auftragId"));
-//				Preis
 				auftrag.setPreis(rs.getInt("preis"));
-//				Verbindung zu Aktie
 				auftrag.setFk_AtkienID(rs.getInt("fk_aktienId"));
-//				AktienObjekt befüllen von DB
 				aktie = aktieDao.getAktieById(auftrag.getFk_AtkienID());
-//				Name der Aktie in AuftragsObjekt schreiben
 				auftrag.setName(aktie.getName());
-//				Kuerzel von Aktie in AuftragsObjekt schreiben
 				auftrag.setSymbol(aktie.getKuerzel());
-				
-//				if true auftrag.isUser == true;
-//			
-//				TODO: wenn login aktiv : auftrag.setUser(aktie.getFk_benutzerId() == u.getBenutzerID());
 				auftrag.setUser(aktie.getFk_benutzerId() == u.getBenutzerID());
 			}
 			
@@ -107,7 +117,11 @@ public class AuftragDAO {
 		return null;
 	}
 	
-	//TODO: Dennis, denn es ist noch nicht fertig
+	/**
+	 * Holt alle Aufträge aus der Datenbank.
+	 * @author : Dennis Gehrig
+	 * @return Alle aktuellen Aufträge.
+	 */
 	public List<AuftragModel> getAuftraege(){
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
@@ -124,27 +138,16 @@ public class AuftragDAO {
 			
 			AktieModel aktie = new AktieModel();
 			AktieDAO aktieDao = new AktieDAO();
-//			User aus Session holen 
 
 			UserModel u = new UserModel().getUserObjectFromSession();
 			while(rs.next()){
 				auftrag = new AuftragModel();
-//				AuftragId
 				auftrag.setAuftragId(rs.getInt("auftragId"));
-//				Preis
 				auftrag.setPreis(rs.getInt("preis"));
-//				Verbindung zu Aktie
 				auftrag.setFk_AtkienID(rs.getInt("fk_aktienId"));
-//				AktienObjekt befüllen von DB
 				aktie = aktieDao.getAktieById(auftrag.getFk_AtkienID());
-//				Name der Aktie in AuftragsObjekt schreiben
 				auftrag.setName(aktie.getName());
-//				Kuerzel von Aktie in AuftragsObjekt schreiben
 				auftrag.setSymbol(aktie.getKuerzel());
-				
-//				if true auftrag.isUser == true;
-//			
-//				TODO: wenn login aktiv : auftrag.setUser(aktie.getFk_benutzerId() == u.getBenutzerID());
 				auftrag.setUser(aktie.getFk_benutzerId() == u.getBenutzerID());
 			
 				auftraege.add(auftrag);
@@ -161,6 +164,11 @@ public class AuftragDAO {
 		return null;
 	}
 	
+	/**
+	 * Löscht einen Auftrag mit 
+	 * @author : Dennis Gehrig
+	 * @param auftragId
+	 */
 	public void deleteAuftragById(int auftragId){
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
@@ -181,6 +189,11 @@ public class AuftragDAO {
 		}
 	}
 	
+	/**
+	 * Kauft Aktien und aktualisiert den Besitzer der Aktie und die Kontostände der beiden Beteiligten.
+	 * @author : Dennis Gehrig
+	 * @param auftragModel
+	 */
 	public void doKaufen(AuftragModel auftragModel){
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
@@ -225,7 +238,13 @@ public class AuftragDAO {
 			connectionPooling.putConnection(con);
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @author : Dennis Gehrig
+	 * @param aktie
+	 * @return True, falls sich die Aktie in einem Auftrag befindet. False, falls nicht.
+	 */
 	public boolean isAktieInAuftrag(AktieModel aktie){
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);

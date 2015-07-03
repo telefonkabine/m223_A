@@ -1,3 +1,10 @@
+/**
+ * @author : Dennis Gehrig
+ * @date   : 30.07.2015
+ * @version: 1.0
+ * 
+ * **/
+
 package ch.m223.dao;
 
 import java.sql.*;
@@ -13,7 +20,17 @@ public class AktieDAO {
 	ArrayList<AktieModel> portFolioList;
 	int anzahlAktien;
 
-	//Eine neue Aktien hinzufügen
+	/**
+	 * Fügt eine neue Aktie in die Datenbank ein.
+	 * @author : Dennis Gehrig
+	 * @param name
+	 * @param kuerzel
+	 * @param nominalpreis
+	 * @param dividende
+	 * @param benutzerID
+	 * @param anzahl
+	 * @return True, falls es geklappt hat. False, falls nicht.
+	 */
 	public synchronized boolean insertAktie(String name, String kuerzel, double nominalpreis, double dividende, int benutzerID, int anzahl) {
 		
 		ConnectionPooling connectionPooling;
@@ -23,7 +40,7 @@ public class AktieDAO {
 		try {
 
 			String insertTableSQL = "INSERT INTO aktie (Name, kuerzel, nominalpreis, dividende, fk_benutzerID) "
-                    + "VALUES (?, ?, ?, ?, ?)";
+                    			  + "VALUES (?, ?, ?, ?, ?)";
 			
 				PreparedStatement preparedStatement = con.prepareStatement(insertTableSQL);
 				preparedStatement.setString(1, name);
@@ -50,6 +67,12 @@ public class AktieDAO {
 			return false;
 	}
 	
+	/**
+	 * Holt alle Aktien eines Users.
+	 * @author : Dennis Gehrig
+	 * @param benutzerID
+	 * @return Liste mit Aktien für die Portfolio-Ansicht.
+	 */
 	public synchronized ArrayList<AktieModel> getAktieByUserId(int benutzerID){
 		//to do: Aktien anhand von BenutzerID auslesen und in eine Liste speichern.
 		ConnectionPooling connectionPooling;
@@ -96,6 +119,12 @@ public class AktieDAO {
 		return portFolioList;
 	}
 	
+	/**
+	 * Holt eine Aktien mit der mitgegebenen AktienID.
+	 * @author : Dennis Gehrig
+	 * @param aktieId
+	 * @return Aktie, falls keine Exception geworfen wird.
+	 */
 	public AktieModel getAktieById(int aktieId){
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
@@ -131,6 +160,11 @@ public class AktieDAO {
 			return null;
 	}
 	
+	/**
+	 * Holt die Anzahl Aktien, mit dem gleichen Kuerzel.
+	 * @param kuerzel
+	 * @return Anzahl der gesuchten Aktien.
+	 */
 	public int getAnzahlAktieBySymbol(String kuerzel){
 		anzahlAktien = 0;
 		ConnectionPooling connectionPooling;
@@ -158,6 +192,11 @@ public class AktieDAO {
 		return anzahlAktien;
 	}
 	
+	/**
+	 * Aktualisiert die Dividende
+	 * @param kuerzel
+	 * @param neueDividende
+	 */
 	public void updateLetzteDividende(String kuerzel, int neueDividende){
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
@@ -180,6 +219,12 @@ public class AktieDAO {
 		}
 	}
 	
+	/**
+	 * Holt alle Aktien mit der mitgegebenen UserID und dem Kürzel.
+	 * @param benutzerID
+	 * @param kuerzel
+	 * @return Liste aller gesuchten Aktien.
+	 */
 	public synchronized ArrayList<AktieModel> getAktieByUserIdWithKuerzel(int benutzerID, String kuerzel){
 		//to do: Aktien anhand von BenutzerID auslesen und in eine Liste speichern.
 		ConnectionPooling connectionPooling;
