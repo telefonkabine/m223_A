@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div id="mutterBox">
-		<f:view>Aktie erfassen</f:view>
+		<f:view>Benutzer Bestätigung</f:view>
 	</div>
 	<div id="meldungBox">
 		<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
@@ -26,7 +26,7 @@
 		<h:form>
 			<h:panelGrid>
 				<h:outputLabel for="fieldName" value="Name" />
-				<h:inputText id="fieldName" value="#{benutzerFormBean.name}" />
+				<h:outputLabel id="fieldName" value="#{benutzerFormBean.name}" />
 
 				<h:outputLabel for="fieldVorname" value="Vorname" />
 				<h:outputLabel id="fieldVorname" value="#{benutzerFormBean.vorname}" />
@@ -44,6 +44,7 @@
 			<h:commandButton value="Zurück" action="#{benutzerFormBean.back2}" ajax="false" />
 			<h:commandButton value="Speichern" action="#{benutzerFormBean.saveUser}" ajax="false" />
 			
+			<br />
 			<h:outputLabel for="Hinweis" value="Bitte geben Sie ein Passwort ein und Bestätigen Sie Ihre Eingaben." />
 
 		</h:form>

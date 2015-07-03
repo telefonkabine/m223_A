@@ -11,7 +11,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="../../css/style.css"
 	title="Standard" />
-<title>Aktien erfassen</title>
+<title>Aktie erfassen</title>
 </head>
 <body>
 	<div id="mutterBox">
@@ -49,7 +49,7 @@
 					</h:inputText>
 
 					<h:outputLabel for="fieldKuerzel" value="Kürzel" />
-					<h:inputText id="fieldKuerzel" value="#{aktienFormBean.kuerzel}">
+					<h:inputText id="fieldKuerzel" value="#{aktienFormBean.kuerzel}" required >
 						<f:validateRequired />
 						<f:validateLength minimum="4" maximum="4" />
 						<f:validateRegex pattern="[a-zA-Z]*" />
@@ -76,7 +76,13 @@
 					ajax="false" />
 				<h:commandButton value="weiter" action="#{aktienFormBean.next}"
 					ajax="false" />
-
+				
+				<h:messages for="fieldName" style="color:red;margin:8px;" />
+				<h:messages for="fieldKuerzel" style="color:red;margin:8px;" />
+				<h:messages for="fieldPreis" style="color:red;margin:8px;" />
+				<h:messages for="fieldDividende" style="color:red;margin:8px;" />
+				<h:messages for="fieldAnzahl" style="color:red;margin:8px;" />
+				
 			</h:form>
 		</div>
 	</div>

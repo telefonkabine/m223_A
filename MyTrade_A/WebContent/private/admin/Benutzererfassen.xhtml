@@ -40,7 +40,7 @@
 			<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
 		</div>
 	<div id="inhaltBox">
-		<f:view>Benutzer erfassen</f:view>
+		<f:view>Benutzer Erfassen</f:view>
 		<h:form>
 			<h:panelGrid>
 				<h:outputLabel for="fieldName" value="Name" />
@@ -61,6 +61,10 @@
 			<h:commandButton value="Zurück" action="#{benutzerFormBean.back}" ajax="false" />
 			<h:commandButton value="Weiter" action="#{benutzerFormBean.next}" ajax="false" />
 		</h:form>
+		
+			<h:messages for="fieldName" style="color:red;margin:8px;" />
+			<h:messages for="fieldVorname" style="color:red;margin:8px;" />
+			<h:messages for="fieldLogin" style="color:red;margin:8px;" />
 
 		</div>
 	</div>

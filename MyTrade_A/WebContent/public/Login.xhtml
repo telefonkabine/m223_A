@@ -29,20 +29,19 @@
 				<h:outputLabel for="fieldBenutzername" value="Benutzername:" />
 				<h:inputText id="fieldBenutzername"
 					value="#{loginFormBean.username}">
-<!--					<f:validateRequired />
-					<f:validateLength minimum="3" maximum="9" />
-					<f:validateRegex pattern="[A-Z][a-zA-Z]*" />-->
+					<f:validateRequired />
 				</h:inputText>
 
 				<h:outputLabel for="fieldPasswort" value="Passwort:" />
 				<h:inputSecret id="fieldPasswort" value="#{loginFormBean.password}">
-<!-- 					<f:validateRequired />
-					<f:validateLength minimum="3" maximum="9" />
-					<f:validateRegex pattern="[A-Z][a-z0-9]*" /> -->
+					<f:validateRequired />
 				</h:inputSecret>
 			</h:panelGrid>
 
 			<h:commandButton value="OK" action="#{loginFormBean.anmelden}" />
+			
+				<h:messages for="fieldBenutzername" style="color:red;margin:8px;" />
+				<h:messages for="fieldPasswort" style="color:red;margin:8px;" />
 		</h:form>
 	</div>
 

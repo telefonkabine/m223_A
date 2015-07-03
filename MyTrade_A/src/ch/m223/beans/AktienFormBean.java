@@ -19,6 +19,7 @@ public class AktienFormBean {
 
 	public AktienFormBean() {
 		aktieDao = new AktieDAO();
+		anzahl = 1; //Standartwert
 	}
 
 	// Speichert eingegebene Daten in die Datenbank. Liefert False, falls der
