@@ -76,6 +76,7 @@ public class AktieDAO {
 				aktie.setNominalpreis(rs.getInt("Nominalpreis"));
 				aktie.setDividende(rs.getInt("Dividende"));
 				aktie.setFk_benutzerId(rs.getInt("Fk_BenutzerID")); //u.getUserObjectFromSession().getBenutzerID()
+				System.out.println(aktie);
 				if(!auftragDao.isAktieInAuftrag(aktie)){
 					portFolioList.add(aktie);
 				}
@@ -214,13 +215,11 @@ public class AktieDAO {
 			System.out.println(portFolioList.toArray().toString());
 			
 			preparedStatement.close();
-			connectionPooling.putConnection(con);	
 		} catch(SQLException sqle){
 			System.out.println("Es trat ein Fehler im SQL auf.");
 			sqle.printStackTrace();
-			connectionPooling.putConnection(con);
 		}
-		
+		connectionPooling.putConnection(con);	
 		return portFolioList;
 	}
 

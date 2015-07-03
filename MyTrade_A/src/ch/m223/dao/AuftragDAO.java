@@ -186,6 +186,7 @@ public class AuftragDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			if(rs.next()){
+				connectionPooling.putConnection(con);
 				return true;
 			}
 			

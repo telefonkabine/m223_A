@@ -22,6 +22,9 @@ public class AuftragErfassenBean {
 	private long maxAnzahl;
 	
 	public String verkaufen(AktieModel aktieModel){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		externalContext.getSessionMap().put("Aktie", aktieModel);
 		displayCurrentAktie();
 		return "/private/haendler/Auftragerfassen?faces-redirect=true";
 	}

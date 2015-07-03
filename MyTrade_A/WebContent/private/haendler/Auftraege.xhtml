@@ -40,8 +40,8 @@
 		</div>
 		<div id="inhaltBox">
 			<h:form>
-				<h:outputLabel value="Aktueller Kontostand" />
-				<h:outputText value="${offeneAuftraegeFormBean.kontostand}" />
+				<h:outputLabel value="Aktueller Kontostand: " />
+				<h:outputText value="#{meinPortfolioBean.kontostand}" />
 				<h:dataTable value="#{offeneAuftraegeFormBean.auftraege}" var="o" styleClass="order-table"
 					headerClass="order-table-header"
 					rowClasses="order-table-odd-row,order-table-even-row">

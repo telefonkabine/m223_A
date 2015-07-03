@@ -33,7 +33,11 @@ public class LoginFormBean {
 				FacesContext facesContext = FacesContext.getCurrentInstance();
 				ExternalContext externalContext = facesContext.getExternalContext();
 				externalContext.getSessionMap().put("user", u);
-			return "/private/haendler/Portfolio?faces-redirect=true";
+//				admin
+				if(1 == u.getFk_typID()){
+					return "/private/admin/Admin?faces-redirect=true";
+				}
+				return "/private/haendler/Portfolio?faces-redirect=true";
 		} else {
 			System.out.println("User oder PW falsch");
 			return "/public/login?faces-redirect=true";

@@ -136,6 +136,7 @@ String haendlerUrl = "/MyTrade_A/faces/private/haendler/";
 			
 			MeldungFormBean m = new MeldungFormBean();
 			m.setAktuelleMeldung(m.getErrorMeldung1());
+			System.out.println("User:admin, Ziel:haendlerSeite, MeldungFormBean: " + m);
 			m.putMeldungToSession(m);
 			response.sendRedirect(adminUrl + "Admin.xhtml");
 			//Vllt. noch message
