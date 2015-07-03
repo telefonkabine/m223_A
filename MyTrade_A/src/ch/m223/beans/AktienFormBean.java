@@ -57,65 +57,49 @@ public class AktienFormBean {
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getKuerzel() {
 		return kuerzel;
 	}
-
 	public void setKuerzel(String kuerzel) {
 		this.kuerzel = kuerzel;
 	}
-
 	public double getNominalpreis() {
 		return nominalpreis;
 	}
-
 	public void setNominalpreis(double nominalpreis) {
 		this.nominalpreis = nominalpreis;
 	}
-
 	public double getDividende() {
 		return dividende;
 	}
-
 	public void setDividende(double dividende) {
 		this.dividende = dividende;
 	}
-
 	public int getBenutzerID() {
 		return benutzerID;
 	}
-
 	public void setBenutzerID(int benutzerID) {
 		this.benutzerID = benutzerID;
 	}
-
 	public AktieDAO getAktieDao() {
 		return aktieDao;
 	}
-
 	public void setAktieDao(AktieDAO aktieDao) {
 		this.aktieDao = aktieDao;
 	}
-
 	public AktieDAO getaktieDao() {
 		return aktieDao;
 	}
-
 	public void setaktieDao(AktieDAO aktieDao) {
 		this.aktieDao = aktieDao;
 	}
-
 	public int getanzahl() {
 		return anzahl;
 	}
-
 	public void setanzahl(int anzahl) {
 		this.anzahl = anzahl;
 	}
-
 }

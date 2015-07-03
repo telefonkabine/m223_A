@@ -1,5 +1,7 @@
 package ch.m223.model;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 public class AktieModel {
 	
 	private int aktienId;
@@ -9,6 +11,15 @@ public class AktieModel {
 	private String kuerzel;
 	private int anzahl;
 	private int dividende;
+	
+	
+	public AktieModel getAktieFromSession(){
+		AktieModel a;
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		a = (AktieModel) externalContext.getSessionMap().get("Aktie");
+		return a;
+	}
 	
 	public int getAktienId() {
 		return aktienId;

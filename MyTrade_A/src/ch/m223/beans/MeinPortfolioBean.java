@@ -31,7 +31,7 @@ public class MeinPortfolioBean {
 		a = new AktieDAO();
 		u = new UserModel().getUserObjectFromSession();
 		list = new ArrayList<AktieModel>();
-		list = a.getAktienByUserId(u.getBenutzerID());
+		list = a.getAktieByUserId(u.getBenutzerID());
 		return list;
 	}
 	public void setList(ArrayList<AktieModel> list) {
