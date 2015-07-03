@@ -13,13 +13,12 @@ public class UserModel {
 	private int fk_typID;
 	private double kontostand;
 	
+	//Holt das Objekt des aktuellen Users von der Sesion
 	public UserModel getUserObjectFromSession(){
 		UserModel u;
-		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		u= (UserModel)externalContext.getSessionMap().get("user");
-		
 	return u;
 	}
 	public int getBenutzerID() {

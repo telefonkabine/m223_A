@@ -1,12 +1,5 @@
 package ch.m223.model;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
-import ch.m223.beans.MeldungFormBean;
-import ch.m223.beans.OffeneAuftraegeFormBean;
-import ch.m223.dao.AuftragDAO;
-
 public class AuftragModel {
 	private int preis;
 	private int fk_AtkienID;
@@ -58,6 +51,4 @@ public class AuftragModel {
 	public void setFk_AtkienID(int fk_AtkienID) {
 		this.fk_AtkienID = fk_AtkienID;
 	}
-	
-	
 }

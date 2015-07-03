@@ -2,9 +2,6 @@ package ch.m223.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
 import ch.m223.dao.AktieDAO;
 import ch.m223.model.UserModel;
 
@@ -30,42 +27,33 @@ public class AktienFormBean {
 		MeldungFormBean m = new MeldungFormBean();
 		UserModel u = new UserModel().getUserObjectFromSession();
 		
-		if (aktieDao.insertAktie(name, kuerzel, nominalpreis, dividende,
-				u.getBenutzerID(), anzahl)) {
+		if (aktieDao.insertAktie(name, kuerzel, nominalpreis, dividende, u.getBenutzerID(), anzahl)) {
 			m.setAktuelleMeldung(m.getMeldung1());
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = facesContext.getExternalContext();
-			externalContext.getSessionMap().put("meldungFormBean", m);
+			m.putMeldungToSession(m);
 			return "/private/admin/Admin?faces-redirect=true";
-
 		} else {
 			m.setAktuelleMeldung("");
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = facesContext.getExternalContext();
-			externalContext.getSessionMap().put("meldungFormBean", m);
+			m.putMeldungToSession(m);
 			return "/private/admin/Aktienerfassen?faces-redirect=true";
 		}
-		
 	}
 
 	// Zurueck-Button von Aktienerfassen zur Hauptseite
 	public String back() {
-
 		return "/private/admin/Admin?faces-redirect=true";
 	}
 
 	// Zurueck-Button von Aktienbestaetigung zu Aktienerfassen
 	public String back2() {
-
 		return "/private/admin/Aktienerfassen?faces-redirect=true";
 	}
 
 	// Weiter-Button von Aktienerfassen zu Aktienbestaetigung
 	public String next() {
-
 		return "/private/admin/Aktienbestaetigung?faces-redirect=true";
 	}
-
+	
+	//Getters and Setters
 	public String getName() {
 		return name;
 	}

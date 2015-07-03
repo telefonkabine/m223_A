@@ -68,7 +68,6 @@ public class MeldungFormBean {
 	public void putMeldungToSession(MeldungFormBean m){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-	
 		externalContext.getSessionMap().put("meldungFormBean", m);
 	}
 }

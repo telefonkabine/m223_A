@@ -6,12 +6,8 @@ package ch.m223.beans;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
 import ch.m223.dao.UserDAO;
 import ch.m223.model.UserModel;
 
@@ -24,6 +20,7 @@ public class BenutzerFormBean {
 	private String login;
 	private String passwort;
 	
+	//Liste der Auswahl des Drop-Downs fuer die User-Rolle
 	private static final Map<String,Object> ROLLENLISTE;
 	static{
 		ROLLENLISTE = new LinkedHashMap<String, Object>();
@@ -31,31 +28,8 @@ public class BenutzerFormBean {
 		ROLLENLISTE.put("Aktienhändler", 2);
 	}
 	
-	public int getRolle() {
-		return rolle;
-	}
-	public void setRolle(int rolle) {
-		System.out.println("Läuft durch setRolle()" + rolle);
-		this.rolle = rolle;
-	}
-	
 	public Map<String,Object> getRollenListe() {
 		return ROLLENLISTE;
-	}
-	
-	public String next(){
-		
-	return "/private/admin/Benutzerbestaetigung?faces-redirect=true";
-	}
-	
-	public String back(){
-		
-	return "/private/admin/Admin?faces-redirect=true";
-	}
-	
-	public String back2(){
-		
-	return "/private/admin/Benutzererfassen?faces-redirect=true";
 	}
 	
 	public String saveUser(){
@@ -63,22 +37,43 @@ public class BenutzerFormBean {
 		UserDAO userDao = new UserDAO();
 		MeldungFormBean m = new MeldungFormBean();
 		
+		//User in Datenbank schreiben
 		user.setName(name);
 		user.setVorname(vorname);
 		user.setLogin(login);
 		user.setPasswort(passwort);
 		user.setFk_typID(rolle);
 		user.setKontostand(10000);
-		
 		userDao.insertUser(user);
 		
+		//Meldung Ausgeben
 		m.setAktuelleMeldung(m.getMeldung3());
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		externalContext.getSessionMap().put("meldungFormBean", m);
+		m.putMeldungToSession(m);
 		
 		return "/private/admin/Admin?faces-redirect=true";
-
+	}
+	
+	// Weiter-Button von Benutzer erfassen zu Benutzerbestaetigung
+	public String next(){
+		return "/private/admin/Benutzerbestaetigung?faces-redirect=true";
+	}
+	
+	// Zurueck-Button von Benutzer erfassen zur Adminseite
+	public String back(){
+		return "/private/admin/Admin?faces-redirect=true";
+	}
+	
+	// Zurueck-Button von Benutzerbestaetigung zur Benutzer erfassen
+	public String back2(){
+		return "/private/admin/Benutzererfassen?faces-redirect=true";
+	}
+	
+	//Getters and Setters
+	public int getRolle() {
+		return rolle;
+	}
+	public void setRolle(int rolle) {
+		this.rolle = rolle;
 	}
 	public String getName() {
 		return name;
@@ -104,6 +99,4 @@ public class BenutzerFormBean {
 	public void setPasswort(String passwort) {
 		this.passwort = passwort;
 	}
-	
-	
 }
