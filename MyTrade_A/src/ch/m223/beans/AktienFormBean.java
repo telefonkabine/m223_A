@@ -29,7 +29,6 @@ public class AktienFormBean {
 	public String save() {
 		MeldungFormBean m = new MeldungFormBean();
 		UserModel u = new UserModel().getUserObjectFromSession();
-//		TODO: u.getBenutzerID(), das kommt anstelle der 2
 		
 		if (aktieDao.insertAktie(name, kuerzel, nominalpreis, dividende,
 				u.getBenutzerID(), anzahl)) {
