@@ -50,16 +50,15 @@ public class AuftragErfassenBean {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		a = (AktieModel) externalContext.getSessionMap().get("Aktie");
 		System.out.println("anzahl:" +  anzahl);
+
 //		aktieID = a.getAktienId();
 		auftragDao.insertAuftrag(preis, a.getKuerzel(), anzahl);
-		
 	return "/private/haendler/Portfolio?faces-redirect=true";
 	}
 	
 	
 	public String back(){
-		
-	return "/private/haendler/Portfolio?faces-redirect=true";	
+		return "/private/haendler/Portfolio?faces-redirect=true";	
 	}
 
 	public long getMaxAnzahl() {
@@ -73,7 +72,6 @@ public class AuftragErfassenBean {
 	public void setMaxAnzahl(long maxAnzahl) {
 		this.maxAnzahl = maxAnzahl;
 	}
-	
 	
 	public AktieDAO getAktieDao() {
 		return aktieDao;
@@ -121,5 +119,13 @@ public class AuftragErfassenBean {
 
 	public void setAnzahl(int anzahl) {
 		this.anzahl = anzahl;
+	}
+
+	public AuftragDAO getAuftragDao() {
+		return auftragDao;
+	}
+
+	public void setAuftragDao(AuftragDAO auftragDao) {
+		this.auftragDao = auftragDao;
 	}
 }
