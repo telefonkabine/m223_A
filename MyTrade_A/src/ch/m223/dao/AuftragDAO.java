@@ -41,7 +41,7 @@ public class AuftragDAO {
 			
 			ArrayList<AktieModel> aktienVonUser = aktieDao.getAktieByUserIdWithKuerzel(u.getBenutzerID(), kuerzel);
 			String insertTableSQL = "INSERT INTO auftrag (Preis, Fk_AktienID) "
-                    + "VALUES (?, ?)";
+                    			  + "VALUES (?, ?)";
 			
 				PreparedStatement preparedStatement = con.prepareStatement(insertTableSQL);
 				preparedStatement.setDouble(1, preis);

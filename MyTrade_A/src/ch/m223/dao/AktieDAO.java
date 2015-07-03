@@ -133,7 +133,7 @@ public class AktieDAO {
 			
 			System.out.println("Connection: " + con);
 			PreparedStatement preparedStatement = con.prepareStatement("SELECT aktienId, name, kuerzel, nominalpreis, dividende, fk_benutzerId "
-																		+ "FROM aktie WHERE aktienId = ?");
+																	 + "FROM aktie WHERE aktienId = ?");
 			preparedStatement.setInt(1, aktieId);
 			
 			ResultSet rs = preparedStatement.executeQuery();

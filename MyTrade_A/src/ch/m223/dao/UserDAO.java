@@ -37,7 +37,7 @@ public class UserDAO {
 		Connection con = connectionPooling.getConnection();
 		try {
 
-			PreparedStatement preparedStatement = con.prepareStatement("SELECT login, passwort, benutzerID FROM benutzer"
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT login, passwort, benutzerID FROM benutzer "
 																	  + "WHERE login = ? AND passwort = SHA1(?)");
 			preparedStatement.setString(1, user);
 			preparedStatement.setString(2, password);
@@ -98,7 +98,7 @@ public class UserDAO {
 			try {
 
 				PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO benutzer (Name, Vorname, Login, Passwort, Fk_TypID, Kontostand) "
-								                    + "VALUES (?, ?, ?, SHA1(?), ?, ?)");
+								                    					 + "VALUES (?, ?, ?, SHA1(?), ?, ?)");
 				System.out.println(user.getFk_typID());
 				preparedStatement.setString(1, user.getName());
 				preparedStatement.setString(2, user.getVorname());
