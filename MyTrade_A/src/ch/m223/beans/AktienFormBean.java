@@ -2,7 +2,9 @@ package ch.m223.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
 import ch.m223.dao.AktieDAO;
+import ch.m223.dao.AuftragDAO;
 import ch.m223.model.UserModel;
 
 @ManagedBean
@@ -29,7 +31,9 @@ public class AktienFormBean {
 		UserModel u = new UserModel().getUserObjectFromSession();
 		
 		if (aktieDao.insertAktie(name, kuerzel, nominalpreis, dividende, u.getBenutzerID(), anzahl)) {
-			m.setAktuelleMeldung(m.getMeldung1());
+			AuftragDAO auftragDao = new AuftragDAO();
+			auftragDao.insertAuftrag(nominalpreis, kuerzel, anzahl);
+			m.setAktuelleMeldung(m.getMeldung1() + name);
 			m.putMeldungToSession(m);
 			return "/private/admin/Admin?faces-redirect=true";
 		} else {

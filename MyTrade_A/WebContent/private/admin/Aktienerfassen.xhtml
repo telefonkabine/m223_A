@@ -43,14 +43,12 @@
 				<h:panelGrid>
 					<h:outputLabel for="fieldName" value="Name" />
 					<h:inputText id="fieldName" value="#{aktienFormBean.name}">
-						<f:validateRequired />
 						<f:validateLength minimum="3" maximum="20" />
 						<f:validateRegex pattern="[a-zA-Z]*" />
 					</h:inputText>
 
 					<h:outputLabel for="fieldKuerzel" value="Kürzel" />
-					<h:inputText id="fieldKuerzel" value="#{aktienFormBean.kuerzel}" required >
-						<f:validateRequired />
+					<h:inputText id="fieldKuerzel" value="#{aktienFormBean.kuerzel}">
 						<f:validateLength minimum="4" maximum="4" />
 						<f:validateRegex pattern="[a-zA-Z]*" />
 					</h:inputText>
