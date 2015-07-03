@@ -50,7 +50,7 @@ public class AktieDAO {
 			return false;
 	}
 	
-	public synchronized ArrayList<AktieModel> getAktieByUserId(int benutzerID){
+	public synchronized ArrayList<AktieModel> getAktienByUserId(int benutzerID){
 		//to do: Aktien anhand von BenutzerID auslesen und in eine Liste speichern.
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
