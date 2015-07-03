@@ -21,7 +21,7 @@ public class OffeneAuftraegeFormBean {
 		//stornieren
 		if (auftragModel.isUser()) {
 
-			m.setAktuelleMeldung(m.getMeldung6());
+			m.setAktuelleMeldung(m.getMeldung6() + auftragModel.getAuftragId());
 			System.out.println("storno");
 			System.out.println(auftragModel.getAuftragId());
 			auftragDao.deleteAuftragById(auftragModel.getAuftragId());
@@ -29,7 +29,7 @@ public class OffeneAuftraegeFormBean {
 		//kaufen
 		else {
 
-			m.setAktuelleMeldung(m.getMeldung4());
+			m.setAktuelleMeldung(m.getMeldung4() + auftragModel.getAuftragId());
 			System.out.println("kaufen");
 			auftragDao.doKaufen(auftragModel);
 			auftragDao.deleteAuftragById(auftragModel.getAuftragId());

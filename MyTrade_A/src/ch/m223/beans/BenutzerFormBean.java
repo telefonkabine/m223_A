@@ -47,7 +47,7 @@ public class BenutzerFormBean {
 		userDao.insertUser(user);
 		
 		//Meldung Ausgeben
-		m.setAktuelleMeldung(m.getMeldung3());
+		m.setAktuelleMeldung(m.getMeldung3() + vorname);
 		m.putMeldungToSession(m);
 		
 		return "/private/admin/Admin?faces-redirect=true";
