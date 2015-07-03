@@ -21,6 +21,9 @@ public class AuftragErfassenBean {
 	private int anzahl;
 	private long maxAnzahl;
 	
+	public AuftragErfassenBean() {
+		anzahl = 1; //Standartwert
+	}
 	public String verkaufen(AktieModel aktieModel){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
