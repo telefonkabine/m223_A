@@ -14,7 +14,7 @@ import ch.m223.model.UserModel;
 
 public class AuftragDAO {
 	
-	public synchronized boolean insertAuftrag(double preis, String kuerzel, long anzahl) {
+	public synchronized int[] insertAuftrag(double preis, String kuerzel, long anzahl) {
 		ConnectionPooling connectionPooling;
 		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
 		
@@ -33,18 +33,20 @@ public class AuftragDAO {
 				
 				int i = 0;
 				int maxIndex = aktienVonUser.size() - 1;
+				int[] auftragIds = new int[(int) anzahl];
 				while (anzahl>0 && i<=maxIndex){
 					anzahl = anzahl -1;
 					aktieId = aktienVonUser.get(i).getAktienId();
 					preparedStatement.setInt(2, aktieId);
 					preparedStatement.executeUpdate();
+					auftragIds[i] = aktieId;
 					i++;
 				}
 				
 			preparedStatement.close();
 			connectionPooling.putConnection(con);	
 			
-			return true;
+			return auftragIds;
 		
 			} catch (SQLException e) {
 			System.out.println("Es trat ein Fehler mit SQL auf");
@@ -52,7 +54,57 @@ public class AuftragDAO {
 			connectionPooling.putConnection(con);
 			}
 		
-			return false;
+			return null;
+	}
+	
+	public AuftragModel getAuftragByAktienId(int aktienId){
+		ConnectionPooling connectionPooling;
+		connectionPooling = ConnectionPoolingImplementation.getInstance(1, 10);
+		
+		Connection con = connectionPooling.getConnection();
+		
+		AuftragModel auftrag = new AuftragModel();
+		try {
+			
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM auftrag WHERE fk_aktienId = ?");
+			preparedStatement.setInt(1, aktienId);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			AktieModel aktie = new AktieModel();
+			AktieDAO aktieDao = new AktieDAO();
+
+			//			User aus Session holen 
+			UserModel u = new UserModel().getUserObjectFromSession();
+			if(rs.next()){
+//				AuftragId
+				auftrag.setAuftragId(rs.getInt("auftragId"));
+//				Preis
+				auftrag.setPreis(rs.getInt("preis"));
+//				Verbindung zu Aktie
+				auftrag.setFk_AtkienID(rs.getInt("fk_aktienId"));
+//				AktienObjekt befüllen von DB
+				aktie = aktieDao.getAktieById(auftrag.getFk_AtkienID());
+//				Name der Aktie in AuftragsObjekt schreiben
+				auftrag.setName(aktie.getName());
+//				Kuerzel von Aktie in AuftragsObjekt schreiben
+				auftrag.setSymbol(aktie.getKuerzel());
+				
+//				if true auftrag.isUser == true;
+//			
+//				TODO: wenn login aktiv : auftrag.setUser(aktie.getFk_benutzerId() == u.getBenutzerID());
+				auftrag.setUser(aktie.getFk_benutzerId() == u.getBenutzerID());
+			}
+			
+			preparedStatement.close();
+			connectionPooling.putConnection(con);
+			return auftrag;
+		
+		} catch(SQLException sqlEx){
+			connectionPooling.putConnection(con);
+			sqlEx.printStackTrace();
+		}
+		connectionPooling.putConnection(con);
+		return null;
 	}
 	
 	//TODO: Dennis, denn es ist noch nicht fertig

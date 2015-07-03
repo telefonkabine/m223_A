@@ -42,12 +42,17 @@ public class AuftragErfassenBean {
 	}
 	
 	public String insertAuftrag(){
+		String auftragIds = "";
 		auftragDao = new AuftragDAO();
 		a = a.getAktieFromSession();
-		auftragDao.insertAuftrag(preis, a.getKuerzel(), anzahl);
+		int[] idArray =auftragDao.insertAuftrag(preis, a.getKuerzel(), anzahl);
+		for(int i=idArray.length - 1;i>=0; i--){
+			auftragIds = auftragIds + " " + idArray[i];
+		}
 		
 		MeldungFormBean m = new MeldungFormBean();
-		m.setAktuelleMeldung(m.getMeldung5());
+		m.setAktuelleMeldung(m.getMeldung5() + auftragIds);
+		m.putMeldungToSession(m);
 	return "/private/haendler/Portfolio?faces-redirect=true";
 	}
 	
