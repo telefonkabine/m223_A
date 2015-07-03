@@ -39,6 +39,9 @@ public class AuftragErfassenBean {
 		auftragDao = new AuftragDAO();
 		a = a.getAktieFromSession();
 		auftragDao.insertAuftrag(preis, a.getKuerzel(), anzahl);
+		
+		MeldungFormBean m = new MeldungFormBean();
+		m.setAktuelleMeldung(m.getMeldung5());
 	return "/private/haendler/Portfolio?faces-redirect=true";
 	}
 	

@@ -35,6 +35,9 @@
 				<td><h:outputLink value="/MyTrade_A/faces/private/admin/Aktienerfassen.xhtml">Aktien erfassen</h:outputLink></td>
 			</h:panelGrid>
 		</div>
+		<div id="meldungBox">
+			<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
+		</div>
 		<div id="inhaltBox">
 			<h:form>
 				<h:outputLabel value="Aktueller Kontostand" />
