@@ -14,11 +14,14 @@ public class DividendenFormBean {
 	public String ausschuetten() {
 		UserDAO userDao = new UserDAO();
 		userDao.dividendeAnBenutzer();
+		
 		MeldungFormBean m = new MeldungFormBean();
 		m.setAktuelleMeldung(m.getMeldung2());
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
+	
 		externalContext.getSessionMap().put("meldungFormBean", m);
+		
 		return "/private/admin/Admin?faces-redirect=true";
 	}
 

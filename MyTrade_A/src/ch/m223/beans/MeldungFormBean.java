@@ -2,6 +2,8 @@ package ch.m223.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
@@ -13,6 +15,14 @@ public class MeldungFormBean {
 	private String meldung4 = "Der Auftrag wurde erfolgreich ausgeführt: ";
 	private String meldung5 = "Der Auftrag wurde erfolgreich erfasst: ";
 	private String meldung6 = "Der Auftrag wurde erfolgreich storniert: ";
+	
+	private String errorMeldung1 = "Sie haben versucht auf eine Haendler-Seite zuzugreifen."
+								 + "Sie sind aber Admin und haben keinen zugriff auf diese Seite."
+								 + "Wir haben Sie auf die Admin-Seite weitergeleitet.";
+	
+	private String errorMeldung2 = "Sie haben versucht auf eine Admin-Seite zuzugreifen."
+								 + "Sie sind aber Haendler und haben keinen Zugriff auf diese Seite."
+								 + "Wir haben Sie auf Ihr Portfolio weitergeleitet.";
 	private String aktuelleMeldung = "";
 
 	public String getMeldung1() {
@@ -46,7 +56,19 @@ public class MeldungFormBean {
 	public String getAktuelleMeldung() {
 		return aktuelleMeldung;
 	}
-	
-	
 
+	public String getErrorMeldung1() {
+		return errorMeldung1;
+	}
+
+	public String getErrorMeldung2() {
+		return errorMeldung2;
+	}
+	
+	public void putMeldungToSession(MeldungFormBean m){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+	
+		externalContext.getSessionMap().put("meldungFormBean", m);
+	}
 }
